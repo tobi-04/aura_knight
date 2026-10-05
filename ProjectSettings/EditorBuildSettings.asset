@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/_Project/Scenes/Boot.unity
+    guid: 92a3127ef6d3d44298066ad8be8bc0cf
+  - enabled: 1
+    path: Assets/_Project/Scenes/MainMenu.unity
+    guid: 2cea20ed6e6094f5daffdf6ca038a6ee
+  - enabled: 1
+    path: Assets/_Project/Scenes/Core.unity
+    guid: 8ca53d5646625452faa40e014f35844e
+  - enabled: 1
+    path: Assets/_Project/Scenes/Region_Hub.unity
+    guid: 5fe2d2fa05fb6414cb0772b881682c41
+  - enabled: 1
+    path: Assets/_Project/Scenes/Region_Forest.unity
+    guid: 667d4f10d462d46bba8ba88c158f158c
+  - enabled: 1
+    path: Assets/_Project/Scenes/Region_Cave.unity
+    guid: a65e8d2ee7a764d1fbc694a012cec3e1
+  - enabled: 1
+    path: Assets/_Project/Scenes/Region_City.unity
+    guid: 4effb1f82db2d4e6282b9cf43b8685d0
+  - enabled: 1
+    path: Assets/_Project/Scenes/Region_Castle.unity
+    guid: b9ba9daa9a98d4a718fe0029ff19c539
+  m_configObjects:
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

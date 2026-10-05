@@ -1,0 +1,47 @@
+# Unity generated
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+/[Mm]emoryCaptures/
+/[Rr]ecordings/
+*.slnx
+*.sln
+*.csproj
+*.unityproj
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+sysinfo.txt
+crashlytics-build.properties
+/[Aa]ssets/[Ss]treamingAssets/aa.meta
+/[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# Builds
+*.apk
+*.aab
+*.unitypackage
+*.app
+
+# Signing (never commit)
+*.keystore
+*.jks
+user.keystore
+
+# IDE / OS
+.vs/
+.vscode/
+.idea/
+.DS_Store
+/.unity-batch.lock/
+.utmp/
