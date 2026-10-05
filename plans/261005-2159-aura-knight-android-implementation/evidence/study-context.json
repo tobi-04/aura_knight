@@ -1,0 +1,37 @@
+{
+  "task": "Implement Aura Knight plan phases 1, 3, 4, 5, 6 (project setup, player movement + touch input, combat/health, aura system, world framework + save) on Unity 6000.6.0f1 for Android",
+  "mode": "interactive",
+  "acceptanceCriteria": [
+    "project compiles with no C# errors and builds an IL2CPP ARM64 Android APK",
+    "movement numbers match GDD §4 (jump 2/4.5 tiles, dash 5 tiles, slide through 1-tile gap, wall jump)",
+    "combat: hitbox/hurtbox/team rules, i-frames, death and respawn at the altar",
+    "aura: switch/unlock/skills/passives and gates open only for the matching aura",
+    "world: room transitions, region loading, cross-region respawn, save and continue from lastAltarId"
+  ],
+  "touchpoints": [
+    "Assets/_Project/Scripts/Core",
+    "Assets/_Project/Scripts/World",
+    "Assets/_Project/Scripts/Player",
+    "Assets/_Project/Scripts/Combat",
+    "Assets/_Project/Scripts/Aura",
+    "Assets/_Project/Scripts/UI/VirtualControls",
+    "Assets/_Project/Scripts/Editor",
+    "Assets/_Project/Tests",
+    "ProjectSettings",
+    "Packages/manifest.json",
+    "tools/unity-batch.sh"
+  ],
+  "blastRadius": [
+    "save file format and backward compatibility (GameState version 1)",
+    "respawn and continue flow across additive region scenes",
+    "physics layer collision matrix used by every hitbox and probe",
+    "Android build settings"
+  ],
+  "contracts": [
+    "EventBus event structs in Core/GameEvents.cs",
+    "GameState JSON schema (GDD §12.4 + openedGates)",
+    "PlayerController hooks (CanDoubleJump, CanGlide, SpeedMultiplier, JumpMultiplier, SwimMode, ExternalInvulnerable, ControlsEnabled)",
+    "AuraManager.Unlock / TryCastSkill, PlayerStats.TrySpendEnergy",
+    "tools/unity-batch.sh compile|setup|test|exec"
+  ]
+}

@@ -1,0 +1,62 @@
+[
+  {
+    "command": "tools/unity-batch.sh compile",
+    "exitCode": 0,
+    "summary": "Compile clean, no error CS in Assets/_Project"
+  },
+  {
+    "command": "tools/unity-batch.sh test EditMode",
+    "exitCode": 0,
+    "summary": "EditMode tests pass: 333/333 (0 failed, 0 skipped)"
+  },
+  {
+    "command": "tools/unity-batch.sh exec AuraKnight.Editor.MovementTestSceneGenerator.Generate (run 1)",
+    "exitCode": 0,
+    "summary": "MovementTestSceneGenerator.Generate succeeded"
+  },
+  {
+    "command": "tools/unity-batch.sh exec AuraKnight.Editor.AuraTestSceneGenerator.Generate (run 1)",
+    "exitCode": 0,
+    "summary": "AuraTestSceneGenerator.Generate succeeded"
+  },
+  {
+    "command": "tools/unity-batch.sh exec AuraKnight.Editor.WorldAssetGenerator.GenerateAll (run 1)",
+    "exitCode": 0,
+    "summary": "WorldAssetGenerator.GenerateAll succeeded"
+  },
+  {
+    "command": "tools/unity-batch.sh exec AuraKnight.Editor.RoomIdValidator.RunBatch (run 1)",
+    "exitCode": 0,
+    "summary": "RoomIdValidator.RunBatch succeeded"
+  },
+  {
+    "command": "tools/unity-batch.sh exec AuraKnight.Editor.MovementTestSceneGenerator.Generate (run 2)",
+    "exitCode": 0,
+    "summary": "Generator run 2: idempotency check (files regenerated with different GUIDs, normal for Unity)"
+  },
+  {
+    "command": "tools/unity-batch.sh exec AuraKnight.Editor.AuraTestSceneGenerator.Generate (run 2)",
+    "exitCode": 0,
+    "summary": "Generator run 2: idempotency check"
+  },
+  {
+    "command": "tools/unity-batch.sh exec AuraKnight.Editor.WorldAssetGenerator.GenerateAll (run 2)",
+    "exitCode": 0,
+    "summary": "Generator run 2: idempotency check"
+  },
+  {
+    "command": "tools/unity-batch.sh exec AuraKnight.Editor.RoomIdValidator.RunBatch (run 2)",
+    "exitCode": 0,
+    "summary": "Generator run 2: idempotency check"
+  },
+  {
+    "command": "tools/unity-batch.sh test EditMode (post-generator verification)",
+    "exitCode": 0,
+    "summary": "Tests remain stable after regeneration: 333/333 pass"
+  },
+  {
+    "command": "tools/unity-batch.sh exec AuraKnight.Editor.BuildScript.BuildDevelopmentApk",
+    "exitCode": 0,
+    "summary": "Android APK build successful: 41 MB file, IL2CPP ARM64, no Gradle/IL2CPP errors (3m17s)"
+  }
+]

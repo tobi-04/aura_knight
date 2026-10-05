@@ -1,0 +1,32 @@
+{
+  "commands": [
+    {
+      "command": "tools/unity-batch.sh compile",
+      "exitCode": 0,
+      "status": "pass",
+      "summary": "0 compile errors · exit=0 (log: /Users/tgiap.dev/devs/aura_knight/Logs/batch-compile.log)",
+      "ts": "2026-10-05T17:04:52.235Z"
+    },
+    {
+      "command": "tools/unity-batch.sh test EditMode",
+      "exitCode": 0,
+      "status": "pass",
+      "summary": "total=\"421\" passed=\"421\" failed=\"0\" · 0 compile errors · exit=0 (log: /Users/tgiap.dev/devs/aura_knight/Logs/batch-test-EditMode.log)",
+      "ts": "2026-10-05T17:05:00.967Z"
+    },
+    {
+      "command": "tools/unity-batch.sh test PlayMode",
+      "exitCode": 0,
+      "status": "pass",
+      "summary": "total=\"20\" passed=\"20\" failed=\"0\" · 0 compile errors · exit=0 (log: /Users/tgiap.dev/devs/aura_knight/Logs/batch-test-PlayMode.log)",
+      "ts": "2026-10-05T17:05:22.029Z"
+    },
+    {
+      "command": "tools/unity-batch.sh exec AuraKnight.Editor.BuildScript.BuildDevelopmentApk",
+      "exitCode": 0,
+      "status": "pass",
+      "summary": "0 compile errors · exit=0 (log: /Users/tgiap.dev/devs/aura_knight/Logs/batch-exec-BuildDevelopmentApk.log)",
+      "ts": "2026-10-05T17:05:53.729Z"
+    }
+  ]
+}

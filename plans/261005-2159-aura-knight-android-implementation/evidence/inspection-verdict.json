@@ -1,0 +1,65 @@
+{
+  "score": 9,
+  "criticalCount": 0,
+  "decision": "SEALED",
+  "acceptanceCovered": [
+    "project compiles with no C# errors and builds an IL2CPP ARM64 Android APK (temper: compile 0 errors, dev APK exit 0; BuildScript release path still refuses without keystore)",
+    "movement numbers match GDD §4 (jump 2/4.5 tiles, dash 5 tiles, slide through 1-tile gap, wall jump) (unchanged since passes 1-2; EditMode 421/421; ControlsEnabled gating fix reads correctly)",
+    "combat: hitbox/hurtbox/team rules, i-frames, death and respawn at the altar (DeadState holds still after request, ResetToFreshStart on entry, CheckpointService respawning flag cleared in finally and OnDisable; RepeatedRespawn PlayMode tests)",
+    "aura: switch/unlock/skills/passives and gates open only for the matching aura (not touched by round 2; EditMode Aura tests green)",
+    "world: room transitions, region loading, cross-region respawn, save and continue from lastAltarId (WorldEntry sets Loading then Playing, wrong-version save not replaced by .bak, first write atomic via Move, .bak refreshed only from a valid main, same-altar skip keyed on stateSaved, current-room respawn restarts room)"
+  ],
+  "regressionChecked": [
+    "CheckpointService respawning flag lifecycle (set before StartCoroutine, finally, OnDisable)",
+    "GameManager stateSaved: false after StartNewGame, true after Continue/Save",
+    "SaveSystem.TryLoad version-mismatch path returns false without falling back to .bak",
+    "FileSaveStorage first write, File.Replace path, copy fallback, damaged main not overwriting good .bak",
+    "RoomManager.EnterRoom restartIfCurrent publishes RoomEntered again; Room.Restart exists",
+    "WorldEntry Run/Enter: mode Loading to Playing, Menu on failure, fallback altar saved",
+    "DeadState hold-still after respawn requested",
+    "EventBus snapshot delivery doc matches code",
+    "BuildScript.BuildReleaseApk guard intact after ApkSizeMb helper edit (returns before Build, Exit(1) in batch)",
+    "temper-results: compile 0 errors, EditMode 421/421, PlayMode 20/20, dev APK exit 0"
+  ],
+  "contractStatus": "OK",
+  "refuted": [],
+  "unproven": [],
+  "reachableRegressions": [],
+  "findings": [
+    {
+      "severity": "Suggestion",
+      "category": "Maintainability",
+      "location": "Assets/_Project/Scripts/Core/SaveSystem.cs:18",
+      "summary": "HasSave runs a full TryLoad (reads and parses file, may log warnings) on every call; fine for menu use, avoid calling per frame",
+      "disposition": "Defer"
+    },
+    {
+      "severity": "Suggestion",
+      "category": "Reliability",
+      "location": "Assets/_Project/Scripts/Core/FileSaveStorage.cs:39-50",
+      "summary": "Atomicity of File.Replace / Move on real Android filesystems and process kill mid-write is not provable from code or EditMode tests; needs on-device check",
+      "disposition": "Defer"
+    },
+    {
+      "severity": "Suggestion",
+      "category": "Completeness",
+      "location": "Assets/_Project/Scripts/World/Room.cs:52",
+      "summary": "Room.Restart toggles enemies off/on; real enemy reset on OnEnable belongs to the enemies phase and is not yet exercised",
+      "disposition": "Defer"
+    },
+    {
+      "severity": "Suggestion",
+      "category": "Testing",
+      "location": "Assets/_Project/Scripts/World/CheckpointService.cs:93-105",
+      "summary": "Fallback-to-hub persistence (lastAltarId written to disk) has no assertion on the file contents; also on-device touch/region-load behavior is unverified by code",
+      "disposition": "Defer"
+    },
+    {
+      "severity": "Suggestion",
+      "category": "Build",
+      "location": "Assets/_Project/Scripts/Editor/BuildScript.cs:24-31",
+      "summary": "Release guard cannot be exercised by temper (only dev APK run); logic read and correct, release build with real keystore untested",
+      "disposition": "Defer"
+    }
+  ]
+}
