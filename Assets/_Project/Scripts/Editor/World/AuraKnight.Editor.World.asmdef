@@ -1,0 +1,19 @@
+{
+    "name": "AuraKnight.Editor.World",
+    "rootNamespace": "AuraKnight.Editor",
+    "references": [
+        "AuraKnight",
+        "Unity.Cinemachine"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
