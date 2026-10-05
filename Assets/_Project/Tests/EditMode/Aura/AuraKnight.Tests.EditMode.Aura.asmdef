@@ -1,0 +1,27 @@
+{
+    "name": "AuraKnight.Tests.EditMode.Aura",
+    "rootNamespace": "AuraKnight.Tests.Aura",
+    "references": [
+        "AuraKnight",
+        "AuraKnight.Tests.EditMode.Player",
+        "Unity.InputSystem",
+        "Unity.RenderPipelines.Universal.2D.Runtime",
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

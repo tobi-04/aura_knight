@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c014accf13734ca19d1fc9015be66cb, type: 3}
+  m_Name: PlayerMovementConfig
+  m_EditorClassIdentifier: AuraKnight::AuraKnight.Player.PlayerMovementConfig
+  runSpeed: 8
+  accelerationTime: 0.06
+  decelerationTime: 0.04
+  maxJumpHeight: 4.5
+  timeToApex: 0.35
+  jumpCutMultiplier: 0.25
+  jumpMinHoldTime: 0.08
+  fallGravityMultiplier: 1.6
+  maxFallSpeed: 20
+  coyoteTime: 0.1
+  inputBufferTime: 0.12
+  cornerCorrection: 0.2
+  dashSpeed: 25
+  dashDuration: 0.2
+  dashInvulnerableTime: 0.1
+  dashCooldown: 0.8
+  slideSpeed: 11
+  slideDuration: 0.45
+  wallSlideMaxSpeed: 3
+  wallJumpVelocity: {x: 11, y: 22}
+  wallJumpInputLock: 0.15
+  doubleJumpVelocity: 20
+  glideMaxFallSpeed: 3.5

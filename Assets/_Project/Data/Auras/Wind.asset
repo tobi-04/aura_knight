@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22563c92e2f6a4c948c3fd9c40983599, type: 3}
+  m_Name: Wind
+  m_EditorClassIdentifier: AuraKnight::AuraKnight.Aura.AuraDefinition
+  id: 1
+  displayName: "Gi\xF3"
+  color: {r: 0.15294118, g: 0.827451, b: 0.54901963, a: 1}
+  lightRadius: 4
+  passives:
+    doubleJump: 1
+    glide: 1
+    speedMultiplier: 1
+    swim: 0
+    heatImmune: 0
+    acidImmune: 0
+  skillPrefab: {fileID: 755227190704994895, guid: 8eab5337b6c4444a49a43b67d8ea0547, type: 3}
+  energyCost: 25
+  skillCooldown: 0.5
+  switchSfx: {fileID: 0}

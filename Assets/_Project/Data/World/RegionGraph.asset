@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4d7c50180f7845d6a853491c1888d4d, type: 3}
+  m_Name: RegionGraph
+  m_EditorClassIdentifier: AuraKnight::AuraKnight.World.RegionGraph
+  regions:
+  - regionId: hub
+    sceneName: Region_Hub
+    neighbors:
+    - forest
+    - cave
+    - city
+    - castle
+    altarIds:
+    - hub_altar_01
+  - regionId: forest
+    sceneName: Region_Forest
+    neighbors:
+    - hub
+    altarIds:
+    - forest_altar_01
+  - regionId: cave
+    sceneName: Region_Cave
+    neighbors:
+    - hub
+    altarIds:
+    - cave_altar_01
+  - regionId: city
+    sceneName: Region_City
+    neighbors:
+    - hub
+    altarIds:
+    - city_altar_01
+  - regionId: castle
+    sceneName: Region_Castle
+    neighbors:
+    - hub
+    altarIds:
+    - castle_altar_01
