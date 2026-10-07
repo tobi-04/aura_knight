@@ -10,7 +10,7 @@ namespace AuraKnight.Bosses
         /// <summary>Registers an object the boss created (hazard, minion) so a reset or death removes it.</summary>
         public void Track(GameObject spawned)
         {
-            if (_spawned.Count >= 48) _spawned.RemoveAll(go => go == null);
+            if (_spawned.Count >= 48) _spawned.RemoveAll(go => go == null || !go.activeSelf); // released hazards sit inactive in the pool
             _spawned.Add(spawned);
         }
 
@@ -32,6 +32,11 @@ namespace AuraKnight.Bosses
             foreach (var go in _spawned)
             {
                 if (go == null) continue;
+                if (go.TryGetComponent<BossHazard>(out var hazard))
+                {
+                    if (hazard.Owner == this) hazard.Release(); // else it was recycled by another boss in the meantime // pooled (or destroyed when it is a marker); inert right now either way
+                    continue;
+                }
                 go.SetActive(false); // inert right now; Destroy completes at the end of the frame
                 if (Application.isPlaying) Destroy(go);
                 else DestroyImmediate(go);

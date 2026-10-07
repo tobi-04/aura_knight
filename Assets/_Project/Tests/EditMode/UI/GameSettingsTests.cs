@@ -120,6 +120,18 @@ namespace AuraKnight.Tests.UI
         }
 
         [Test]
+        public void TheFrameRateDefaultsToSixtyAndFollowsTheStoredPowerSavingChoice()
+        {
+            GameSettings.ResetToDefaults();
+            Application.targetFrameRate = -1;
+            GameSettings.ApplyFrameRate();
+            Assert.AreEqual(GameSettings.NormalFps, Application.targetFrameRate, "no stored choice: 60");
+            PlayerPrefs.SetInt(SettingsKeys.PowerSaving, 1); // what the previous session left behind
+            GameSettings.ApplyFrameRate();
+            Assert.AreEqual(GameSettings.PowerSavingFps, Application.targetFrameRate, "boot picks the stored choice up");
+        }
+
+        [Test]
         public void UnsupportedLanguageFallsBackToVietnamese()
         {
             GameSettings.Language = "xx";

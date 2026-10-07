@@ -37,51 +37,92 @@ namespace AuraKnight.Bosses
         const float MarkerAlpha = 0.35f, HiddenAlpha = 0.07f;
 
         Hitbox _hitbox;
+        BoxCollider2D _box;
         SpriteRenderer _renderer;
         HazardSpec _spec;
         Vector2 _velocity;
         float _age;
         bool _armed;
+        bool _released;
 
         public event Action<HitReport> Hit;
         /// <summary>While this returns true the hitbox is off (steam versus a heat-immune Leo).</summary>
         public Func<bool> Suppressed { get; set; }
         /// <summary>When set and false the hazard is drawn almost invisible (Malakor's fire strike is only seen by Fire's light).</summary>
         public Func<bool> Revealed { get; set; }
+        /// <summary>The boss that spawned it; a pooled hazard changes owner when it is reused.</summary>
+        public BossBase Owner { get; private set; }
         public bool IsArmed => _armed;
         public HazardSpec Spec => _spec;
 
+        /// <summary>
+        /// Builds a hazard, or reuses a released damaging one (<see cref="BossHazardPool"/>). Harmless markers are never pooled:
+        /// attacks keep a handle to them across frames and a recycled object behind that handle would be someone else's hazard.
+        /// </summary>
         public static BossHazard Spawn(BossBase boss, in HazardSpec spec)
         {
-            var go = new GameObject("BossHazard");
+            var hazard = spec.Harmless ? null : BossHazardPool.Rent();
+            if (hazard == null)
+            {
+                var created = new GameObject("BossHazard");
+                hazard = created.AddComponent<BossHazard>();
+                hazard.BuildParts(spec.Harmless);
+            }
+            var go = hazard.gameObject;
             go.transform.SetParent(boss.SpawnRoot, false);
             go.transform.position = new Vector3(spec.Position.x, spec.Position.y, 0f);
-            var hazard = go.AddComponent<BossHazard>();
-            hazard.Build(boss, spec);
+            hazard.Configure(boss, spec);
+            go.SetActive(true);
             boss.Track(go);
             return hazard;
         }
 
-        void Build(BossBase boss, in HazardSpec spec)
+        /// <summary>Ends the hazard: a damaging one goes back to the pool, a marker is destroyed. Safe to call twice.</summary>
+        public void Release()
         {
-            _spec = spec;
-            _velocity = spec.Velocity;
+            if (_released) return;
+            _released = true;
+            if (_hitbox == null)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            BossHazardPool.Return(this);
+        }
+
+        void BuildParts(bool harmless)
+        {
             var visual = new GameObject("Marker");
             visual.transform.SetParent(transform, false);
             _renderer = visual.AddComponent<SpriteRenderer>();
+            _renderer.sortingOrder = 6;
+            if (harmless) return;
+            _box = gameObject.AddComponent<BoxCollider2D>();
+            _box.isTrigger = true;
+            _hitbox = gameObject.AddComponent<Hitbox>();
+            _hitbox.Team = Team.Enemy;
+            _hitbox.Hit += report => Hit?.Invoke(report);
+        }
+
+        void Configure(BossBase boss, in HazardSpec spec)
+        {
+            Owner = boss;
+            _spec = spec;
+            _velocity = spec.Velocity;
+            _age = 0f;
+            _armed = false;
+            _released = false;
+            Hit = null;
+            Suppressed = null;
+            Revealed = null;
             _renderer.sprite = boss.MarkerSprite;
             _renderer.sharedMaterial = boss.MarkerMaterial;
-            _renderer.sortingOrder = 6;
-            if (!spec.Harmless)
+            if (_hitbox != null)
             {
-                var box = gameObject.AddComponent<BoxCollider2D>();
-                box.isTrigger = true;
-                box.size = spec.Size;
-                _hitbox = gameObject.AddComponent<Hitbox>();
-                _hitbox.Team = Team.Enemy;
+                _box.size = spec.Size;
                 _hitbox.Source = boss.transform;
                 _hitbox.RearmInterval = spec.RearmSeconds;
-                _hitbox.Hit += report => Hit?.Invoke(report);
+                _hitbox.Deactivate(); // armed again when the telegraph ends
             }
             ApplyVisual();
         }
@@ -97,7 +138,7 @@ namespace AuraKnight.Bosses
                 UpdateSuppression();
                 if (Revealed != null) ApplyVisual();
             }
-            if (_age >= _spec.Telegraph + _spec.Lifetime) Destroy(gameObject);
+            if (_age >= _spec.Telegraph + _spec.Lifetime) Release();
         }
 
         void Arm()
@@ -114,7 +155,7 @@ namespace AuraKnight.Bosses
             BossMath.Step(ref position, ref _velocity, _spec.Gravity, dt);
             transform.position = new Vector3(position.x, position.y, 0f);
             if (!_spec.DestroyOnGround) return;
-            if (Physics2D.OverlapBox(position, _spec.Size * 0.8f, 0f, PhysicsLayers.GroundMask) != null) Destroy(gameObject);
+            if (Physics2D.OverlapBox(position, _spec.Size * 0.8f, 0f, PhysicsLayers.GroundMask) != null) Release();
         }
 
         void UpdateSuppression()

@@ -8,7 +8,7 @@ namespace AuraKnight.Tests.World.Hazards
         [TestCase("forest", 0.6f)]
         [TestCase("cave", 0.25f)]
         [TestCase("city", 0.45f)]
-        [TestCase("castle", 0.05f)]
+        [TestCase("castle", 0.15f)]
         public void RegionsUseTheGddGlobalLight(string region, float intensity) =>
             Assert.AreEqual(intensity, RegionLightingTable.IntensityOf(region), 1e-6f);
 

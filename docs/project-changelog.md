@@ -2,6 +2,21 @@
 
 Mới nhất ở trên. Kế hoạch: [`development-roadmap.md`](development-roadmap.md).
 
+## 2026-10-08 (phase 13)
+
+QA, tối ưu, sẵn sàng phát hành. Chưa commit. Số đã kiểm: EditMode 963/963, PlayMode 165 xanh + 2 bỏ qua (ảnh chụp, cần GPU), `compile` 0 lỗi / 0 cảnh báo, `RegenerateAll` sạch, dev APK 48.5 MB. Chưa chạy trên thiết bị thật.
+
+### Thêm
+- `docs/qa/`: test case (ánh xạ GDD §15.1 sang test), bug log, mẫu playtest M1-M3, checklist thiết bị (mẫu trống).
+- `BossHazardPool` (pool hazard boss), `LightBudget` + `LightBudgetController` (giới hạn Light2D, 4 khi tiết kiệm), `AudioListener` thật trên camera Core, `GameSettings.ApplyFrameRate` (Boot dùng lựa chọn tiết kiệm đã lưu).
+- Test: 50 lần chuyển phòng, app vào nền, pool, light budget, cấu hình phát hành, `RuntimeRoomScreenshotTests` (ảnh runtime mỗi vùng).
+- README: mục "Cài APK" và QA.
+
+### Thay đổi
+- Phiên bản `1.0.0` (mã 1), Development Build tắt, vsync 0 ở mọi quality level.
+- `RegionLightingTable.Castle` 0.05 thành 0.15 (ảnh runtime cho thấy 0.05 không thấy bệ đứng). GDD §10 chưa cập nhật.
+- `BuildScript.ReleaseSigningProblem` tách thành hàm thuần có test.
+
 ## 2026-10-08
 
 Phase 9: nội dung 4 vùng. Chưa commit.

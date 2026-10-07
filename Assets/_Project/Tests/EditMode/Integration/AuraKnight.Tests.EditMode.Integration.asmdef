@@ -3,6 +3,7 @@
     "rootNamespace": "AuraKnight.Tests.Integration",
     "references": [
         "AuraKnight",
+        "AuraKnight.Editor",
         "AuraKnight.Editor.Tools",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner"

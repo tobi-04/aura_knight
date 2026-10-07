@@ -16,6 +16,9 @@ namespace AuraKnight.Editor
     {
         const string ScenesDir = "Assets/_Project/Scenes";
         const string AndroidId = "com.aurastudio.auraknight";
+        /// <summary>Release identity (plan phase 13): version 1.0.0, Android version code 1.</summary>
+        public const string Version = "1.0.0";
+        public const int BundleVersionCode = 1;
 
         // Order defines build indices; Boot must stay first.
         static readonly string[] BuildScenes =
@@ -39,8 +42,9 @@ namespace AuraKnight.Editor
         {
             PlayerSettings.companyName = "Aura Studio";
             PlayerSettings.productName = "Aura Knight";
-            PlayerSettings.bundleVersion = "0.1.0";
-            PlayerSettings.Android.bundleVersionCode = 1;
+            PlayerSettings.bundleVersion = Version;
+            PlayerSettings.Android.bundleVersionCode = BundleVersionCode;
+            EditorUserBuildSettings.development = false; // Development Build is off; BuildScript turns it on for the dev APK only
 
             var android = NamedBuildTarget.Android;
             PlayerSettings.SetApplicationIdentifier(android, AndroidId);
@@ -48,11 +52,24 @@ namespace AuraKnight.Editor
             PlayerSettings.Android.targetArchitectures = AndroidArchitecture.ARM64;
             PlayerSettings.Android.minSdkVersion = AndroidSdkVersions.AndroidApiLevel26;
 
+            ConfigureQuality();
             PlayerSettings.defaultInterfaceOrientation = UIOrientation.AutoRotation;
             PlayerSettings.allowedAutorotateToLandscapeLeft = true;
             PlayerSettings.allowedAutorotateToLandscapeRight = true;
             PlayerSettings.allowedAutorotateToPortrait = false;
             PlayerSettings.allowedAutorotateToPortraitUpsideDown = false;
+        }
+
+        /// <summary>Frame pacing comes from Application.targetFrameRate, which Android ignores while vsync is on: every level has vsync off.</summary>
+        static void ConfigureQuality()
+        {
+            int current = QualitySettings.GetQualityLevel();
+            for (int level = 0; level < QualitySettings.names.Length; level++)
+            {
+                QualitySettings.SetQualityLevel(level, false);
+                QualitySettings.vSyncCount = 0;
+            }
+            QualitySettings.SetQualityLevel(current, false);
         }
 
         static void ConfigureEditor()

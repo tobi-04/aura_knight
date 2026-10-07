@@ -32,9 +32,9 @@ namespace AuraKnight.Tests.PlayMode.Levels
         }
 
         [UnityTest, Timeout(120000)]
-        public IEnumerator EachRegionLightHasItsGddIntensity()
+        public IEnumerator EachRegionLightHasItsConfiguredIntensity()
         {
-            foreach (var (altar, region, intensity) in new[] { ("cave_altar_01", "cave", 0.25f), ("city_altar_01", "city", 0.45f), ("castle_altar_01", "castle", 0.05f) })
+            foreach (var (altar, region, intensity) in new[] { ("cave_altar_01", "cave", 0.25f), ("city_altar_01", "city", 0.45f), ("castle_altar_01", "castle", 0.15f) })
             {
                 yield return StartAt(altar, "Wind", "Fire", "Water");
                 yield return null;

@@ -15,8 +15,12 @@ namespace AuraKnight.Editor
     {
         const string OutputDir = "Builds/Android";
 
+        /// <summary>The dev APK is the only build with Development Build on (profiler, script debugging); the release build is a plain build.</summary>
+        public const BuildOptions DevelopmentOptions = BuildOptions.Development;
+        public const BuildOptions ReleaseOptions = BuildOptions.None;
+
         [MenuItem("Aura/Build/Development APK")]
-        public static void BuildDevelopmentApk() => Build($"{OutputDir}/AuraKnight-dev.apk", BuildOptions.Development);
+        public static void BuildDevelopmentApk() => Build($"{OutputDir}/AuraKnight-dev.apk", DevelopmentOptions);
 
         [MenuItem("Aura/Build/Release APK")]
         public static void BuildReleaseApk()
@@ -28,20 +32,27 @@ namespace AuraKnight.Editor
                 if (Application.isBatchMode) EditorApplication.Exit(1);
                 return;
             }
-            Build($"{OutputDir}/AuraKnight.apk", BuildOptions.None);
+            Build($"{OutputDir}/AuraKnight.apk", ReleaseOptions);
         }
 
         /// <summary>True when Player Settings carry a custom keystore (file present, passwords and alias set).</summary>
         public static bool IsReleaseSigningConfigured(out string problem)
         {
-            problem = null;
-            if (!PlayerSettings.Android.useCustomKeystore) problem = "no custom keystore selected in Player Settings > Publishing Settings.";
-            else if (string.IsNullOrEmpty(PlayerSettings.Android.keystoreName) || !File.Exists(PlayerSettings.Android.keystoreName))
-                problem = $"keystore file '{PlayerSettings.Android.keystoreName}' does not exist.";
-            else if (string.IsNullOrEmpty(PlayerSettings.Android.keystorePass)) problem = "keystore password is empty.";
-            else if (string.IsNullOrEmpty(PlayerSettings.Android.keyaliasName) || string.IsNullOrEmpty(PlayerSettings.Android.keyaliasPass))
-                problem = "key alias or alias password is empty.";
+            string keystore = PlayerSettings.Android.keystoreName;
+            problem = ReleaseSigningProblem(PlayerSettings.Android.useCustomKeystore, keystore, File.Exists(keystore ?? string.Empty),
+                PlayerSettings.Android.keystorePass, PlayerSettings.Android.keyaliasName, PlayerSettings.Android.keyaliasPass);
             return problem == null;
+        }
+
+        /// <summary>Pure check behind <see cref="IsReleaseSigningConfigured"/>: null when signing is complete, else what is missing.</summary>
+        public static string ReleaseSigningProblem(bool useCustomKeystore, string keystoreName, bool keystoreExists, string keystorePass,
+            string alias, string aliasPass)
+        {
+            if (!useCustomKeystore) return "no custom keystore selected in Player Settings > Publishing Settings.";
+            if (string.IsNullOrEmpty(keystoreName) || !keystoreExists) return $"keystore file '{keystoreName}' does not exist.";
+            if (string.IsNullOrEmpty(keystorePass)) return "keystore password is empty.";
+            if (string.IsNullOrEmpty(alias) || string.IsNullOrEmpty(aliasPass)) return "key alias or alias password is empty.";
+            return null;
         }
 
         static void Build(string path, BuildOptions options)

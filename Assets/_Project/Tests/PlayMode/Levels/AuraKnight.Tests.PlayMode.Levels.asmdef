@@ -4,6 +4,7 @@
     "references": [
         "AuraKnight",
         "AuraKnight.Tests.PlayMode",
+        "Unity.Cinemachine",
         "Unity.RenderPipelines.Universal.2D.Runtime",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner"

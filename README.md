@@ -34,13 +34,41 @@ Menu **Aura → Setup Project** áp lại cấu hình chuẩn (Player Settings A
 
 ```bash
 tools/unity-batch.sh compile          # import + compile, in lỗi C#
-tools/unity-batch.sh test EditMode    # chạy unit test (hiện 421 test)
-tools/unity-batch.sh test PlayMode    # chạy PlayMode test (vào scene Core thật; hiện 20 test, chạy headless)
+tools/unity-batch.sh test EditMode    # chạy unit test (hiện 963 test)
+tools/unity-batch.sh test PlayMode    # chạy PlayMode test (vào scene Core thật, chạy headless; hiện 167 test: 165 chạy, 2 test ảnh chụp [Explicit] cần GPU nên được bỏ qua)
 tools/unity-batch.sh setup            # Aura/Setup Project (layer vật lý, collision matrix, scene, build settings)
 tools/unity-batch.sh exec Ns.Class.Method   # generator prefab/scene, build APK (xem docs/code-standards.md §7)
 ```
 
+Ảnh chụp runtime (cần GPU, không dùng `-nographics`): `UNITY_GRAPHICS=1 UNITY_TEST_FILTER=AuraKnight.Tests.PlayMode.UI.RuntimeRoomScreenshotTests tools/unity-batch.sh test PlayMode` ghi `Logs/screenshots/runtime_room_<id>.png` (mỗi vùng một phòng và hai phòng boss); `RuntimeScreenshotTests` ghi ảnh HUD.
+
 Chạy không tham số sẽ in cách dùng. Các lệnh dùng chung một khoá (`.unity-batch.lock`, lưu PID chủ khoá); khoá của tiến trình đã chết được tự thu hồi.
+
+## Cài APK
+
+Phiên bản **1.0.0** (version code 1), Android 8.0 (API 26) trở lên, ARM64. APK nằm ở `Builds/Android/` (không commit APK vào repo, `.gitignore` đã chặn `*.apk`).
+
+Build bản dev (Development Build bật, ký bằng khóa debug, khoảng 50 MB):
+
+```bash
+tools/unity-batch.sh exec AuraKnight.Editor.BuildScript.BuildDevelopmentApk   # -> Builds/Android/AuraKnight-dev.apk
+```
+
+Bản release (`BuildReleaseApk`) cần keystore riêng và **từ chối build** (thoát mã 1) nếu Player Settings chưa chọn keystore. Keystore và mật khẩu lưu trong password manager của nhóm, không commit, không ghi vào README. Chọn keystore ở Edit > Project Settings > Player > Android > Publishing Settings (Custom Keystore), rồi chạy `tools/unity-batch.sh exec AuraKnight.Editor.BuildScript.BuildReleaseApk` hoặc menu **Aura > Build > Release APK**.
+
+Cài lên máy Android:
+
+1. Bật **Tùy chọn nhà phát triển** (Cài đặt > Giới thiệu về điện thoại > chạm 7 lần vào "Số bản dựng") rồi bật **Gỡ lỗi USB**.
+2. Cắm cáp USB, chấp nhận "Cho phép gỡ lỗi USB" trên máy. Kiểm tra máy được thấy: `adb devices`.
+3. Cài (hoặc cài đè, giữ dữ liệu): `adb install -r Builds/Android/AuraKnight-dev.apk`. Nếu báo ký khác khóa cũ thì gỡ bản cũ trước: `adb uninstall com.aurastudio.auraknight`.
+4. Cài không cần adb (sideload): chép APK vào máy (USB, Drive...), mở file bằng ứng dụng Tệp, cho phép "Cài ứng dụng không rõ nguồn" cho ứng dụng đang dùng, bấm Cài đặt.
+5. Mở **Aura Knight** trong danh sách ứng dụng. Xem log: `adb logcat -s Unity`.
+
+Checklist kiểm trên máy thật (fps, RAM, vào nền, tỉ lệ màn hình): [`docs/qa/device-checklist.md`](docs/qa/device-checklist.md).
+
+## QA
+
+Test case, bug log, mẫu playtest từng mốc: [`docs/qa/`](docs/qa/) (`test-cases.md`, `bug-log.md`, `playtest-m1.md`, `-m2.md`, `-m3.md`, `device-checklist.md`). Các mục thủ công và đo trên máy thật **chưa chạy**; xem file tương ứng.
 
 ## Merge scene/prefab (UnityYAMLMerge)
 

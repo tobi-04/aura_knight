@@ -2835,7 +2835,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1694760937668668277}
-  - {fileID: 2342996734521398672}
+  - {fileID: 860325816582456249}
   m_Father: {fileID: 7472729846535764152}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1236785387543857180
@@ -4920,6 +4920,68 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2403803335053542747, guid: bd030300a8e4f42358289fd9061ebe1b, type: 3}
   m_PrefabInstance: {fileID: 2140054427467138889}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5346195922345637193
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1958562935655906681}
+    m_Modifications:
+    - target: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 30.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5712513921972102118, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
+      propertyPath: m_Name
+      value: AuraGate_HeatVent
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
+--- !u!4 &860325816582456249 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
+  m_PrefabInstance: {fileID: 5346195922345637193}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6216371630428495237
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4981,68 +5043,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
   m_PrefabInstance: {fileID: 6216371630428495237}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &7008166194205107040
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1958562935655906681}
-    m_Modifications:
-    - target: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 30.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5712513921972102118, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
-      propertyPath: m_Name
-      value: AuraGate_HeatVent
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
---- !u!4 &2342996734521398672 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
-  m_PrefabInstance: {fileID: 7008166194205107040}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8209093873042762780
 PrefabInstance:

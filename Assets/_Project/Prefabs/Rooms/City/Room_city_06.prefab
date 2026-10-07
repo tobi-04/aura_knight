@@ -136,9 +136,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3329258362741018008}
-  - {fileID: 6300818595396392247}
+  - {fileID: 3760536511514459850}
   - {fileID: 7226093222873436088}
-  - {fileID: 2193286535168332009}
+  - {fileID: 2544914758542140524}
   m_Father: {fileID: 1899327222508190577}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &196527204522485837
@@ -5426,68 +5426,6 @@ Transform:
   - {fileID: 8397014244191466033}
   m_Father: {fileID: 1899327222508190577}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1635083986742305735
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 5756950570313172234}
-    m_Modifications:
-    - target: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 16.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5712513921972102118, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
-      propertyPath: m_Name
-      value: AuraGate_HeatVent
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
---- !u!4 &6300818595396392247 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
-  m_PrefabInstance: {fileID: 1635083986742305735}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2835736976787209074
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5616,7 +5554,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 228758544654645374, guid: 183930665829a448d961903f6bffafc2, type: 3}
   m_PrefabInstance: {fileID: 5611050532013257384}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &6729130158717330467
+--- !u!1001 &6936643199240786086
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -5677,10 +5615,10 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24a422e2adf7c4bd6a582a00c8b8e486, type: 3}
---- !u!4 &2193286535168332009 stripped
+--- !u!4 &2544914758542140524 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4833121345165194442, guid: 24a422e2adf7c4bd6a582a00c8b8e486, type: 3}
-  m_PrefabInstance: {fileID: 6729130158717330467}
+  m_PrefabInstance: {fileID: 6936643199240786086}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8066540460322995048
 PrefabInstance:
@@ -5743,4 +5681,66 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
   m_PrefabInstance: {fileID: 8066540460322995048}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8498821432384931898
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5756950570313172234}
+    m_Modifications:
+    - target: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 16.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5712513921972102118, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
+      propertyPath: m_Name
+      value: AuraGate_HeatVent
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
+--- !u!4 &3760536511514459850 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4738346562817849072, guid: 0c34ca234a05445aa946708bc3d3acad, type: 3}
+  m_PrefabInstance: {fileID: 8498821432384931898}
   m_PrefabAsset: {fileID: 0}

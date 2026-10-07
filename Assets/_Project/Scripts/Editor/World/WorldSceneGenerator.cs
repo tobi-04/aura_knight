@@ -122,6 +122,7 @@ namespace AuraKnight.Editor
             var camera = Ensure<Camera>(main);
             camera.orthographic = true;
             camera.orthographicSize = 5.5f;
+            Ensure<AudioListener>(main); // the one listener of the game (UI's AudioListenerGuard stays as a safety net)
             var brain = Ensure<CinemachineBrain>(main);
             brain.DefaultBlend = new CinemachineBlendDefinition(CinemachineBlendDefinition.Styles.EaseInOut, 0.3f);
 
@@ -154,6 +155,7 @@ namespace AuraKnight.Editor
                 so.FindProperty("graph").objectReferenceValue = graph;
                 so.ApplyModifiedPropertiesWithoutUndo();
 
+                Ensure<LightBudgetController>(root); // caps the lit local Light2Ds (GDD 12.5)
                 var entry = Ensure<WorldEntry>(root);
                 var entrySo = new SerializedObject(entry);
                 entrySo.FindProperty("graph").objectReferenceValue = graph;

@@ -102,7 +102,8 @@ namespace AuraKnight.UI
             return Mathf.Clamp(value, min, max);
         }
 
-        static void ApplyFrameRate() => Application.targetFrameRate = PowerSaving ? PowerSavingFps : NormalFps;
+        /// <summary>Frame cap from the stored power-saving choice: 60 normally, 30 in power saving (GDD 12.5). Boot calls it before the menu exists.</summary>
+        public static void ApplyFrameRate() => Application.targetFrameRate = PowerSaving ? PowerSavingFps : NormalFps;
 
         static float Read(string key, float fallback, float min, float max) =>
             Sanitize(PlayerPrefs.GetFloat(key, fallback), min, max, fallback);

@@ -60,7 +60,7 @@ namespace AuraKnight.Tests.PlayMode.UI
             camera.targetTexture = null;
         }
 
-        static void FitCanvases(Camera camera, Vector2Int size)
+        internal static void FitCanvases(Camera camera, Vector2Int size)
         {
             foreach (var canvas in Object.FindObjectsByType<Canvas>(FindObjectsInactive.Include))
             {
@@ -77,7 +77,7 @@ namespace AuraKnight.Tests.PlayMode.UI
             }
         }
 
-        static void Render(Camera camera, Vector2Int size, string path)
+        internal static void Render(Camera camera, Vector2Int size, string path)
         {
             var rt = new RenderTexture(size.x, size.y, 24, RenderTextureFormat.ARGB32);
             camera.targetTexture = rt;
