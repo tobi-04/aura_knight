@@ -14,6 +14,7 @@ namespace AuraKnight.UI
         [SerializeField] Image background;
         [SerializeField] TMP_Text label;
         [SerializeField] GameObject padlock;
+        [SerializeField] Image ring;
 
         public string AuraId => auraId;
         public bool Locked { get; private set; } = true;
@@ -21,8 +22,9 @@ namespace AuraKnight.UI
         public Color DisplayedColor => background != null ? background.color : Color.clear;
         public bool PadlockVisible => padlock != null && padlock.activeSelf;
 
-        public void Bind(string id, Image back, TMP_Text text, GameObject lockIcon)
+        public void Bind(string id, Image back, TMP_Text text, GameObject lockIcon, Image ringImage = null)
         {
+            ring = ringImage;
             auraId = id;
             background = back;
             label = text;
@@ -37,6 +39,13 @@ namespace AuraKnight.UI
             var color = unlocked ? theme.AuraColor(auraId) : theme.GetColor(UIColorToken.TextMuted);
             color.a = Selected ? opacity : opacity * (unlocked ? 0.55f : 0.7f);
             if (background != null) background.color = color;
+            if (ring != null)
+            {
+                // Current Aura: bright white ring; otherwise a dark outline so the coloured discs stay distinct.
+                var ringColor = Selected ? Color.white : theme.GetColor(UIColorToken.Night);
+                ringColor.a = Selected ? 1f : 0.7f;
+                ring.color = ringColor;
+            }
             if (label != null) label.gameObject.SetActive(unlocked);
             if (padlock != null) padlock.SetActive(!unlocked);
         }

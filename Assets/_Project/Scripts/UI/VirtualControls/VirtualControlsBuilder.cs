@@ -19,13 +19,18 @@ namespace AuraKnight.UI
     {
         const float MinTouchDp = 64f;
         const float JumpDp = 96f;
-        static readonly Color ButtonColor = new Color(1f, 1f, 1f, 0.35f);
+        static Sprite ringSprite; // set per Build call; null = no accent ring (legacy callers without the UI art)
 
         /// <summary>Legacy signature (Player asset generator): the font is ignored, labels use the UI theme's TMP fonts.</summary>
         public static GameObject Build(Sprite circle, Font font) => Build(circle);
 
-        public static GameObject Build(Sprite circle)
+        public static GameObject Build(Sprite circle) => Build(circle, (Sprite)null);
+
+        /// <param name="circle">Filled disc (button fill).</param>
+        /// <param name="ring">Thin ring drawn in the accent colour over the disc; optional.</param>
+        public static GameObject Build(Sprite circle, Sprite ring)
         {
+            ringSprite = ring;
             var root = new GameObject("VirtualControls", typeof(RectTransform));
             root.SetActive(false);
             var canvas = root.AddComponent<Canvas>();
@@ -44,20 +49,20 @@ namespace AuraKnight.UI
             BuildJoystick(safe, circle);
             BuildSwipeZone(safe);
 
-            AddButton(safe, "Jump", "ctl.jump", VirtualControlPaths.Jump, BottomRight(JumpDp, -28f, 28f), circle);
-            AddButton(safe, "Attack", "ctl.attack", VirtualControlPaths.Attack, BottomRight(72f, -140f, 80f), circle);
-            AddButton(safe, "Dash", "ctl.dash", VirtualControlPaths.Dash, BottomRight(72f, -224f, 28f), circle);
-            AddButton(safe, "Skill", "ctl.skill", VirtualControlPaths.Skill, BottomRight(MinTouchDp, -236f, 112f), circle);
-            var ring = new[]
+            AddButton(safe, "Jump", "ctl.jump", VirtualControlPaths.Jump, BottomRight(JumpDp, -28f, 28f), circle, UIColorToken.Gold);
+            AddButton(safe, "Attack", "ctl.attack", VirtualControlPaths.Attack, BottomRight(72f, -140f, 80f), circle, UIColorToken.Gold);
+            AddButton(safe, "Dash", "ctl.dash", VirtualControlPaths.Dash, BottomRight(72f, -224f, 28f), circle, UIColorToken.Gold);
+            AddButton(safe, "Skill", "ctl.skill", VirtualControlPaths.Skill, BottomRight(MinTouchDp, -236f, 112f), circle, UIColorToken.Gold);
+            var auraButtons = new[]
             {
                 AddAuraButton(safe, "AuraWind", "Wind", VirtualControlPaths.AuraWind, BottomRight(MinTouchDp, -28f, 140f), circle),
                 AddAuraButton(safe, "AuraFire", "Fire", VirtualControlPaths.AuraFire, BottomRight(MinTouchDp, -28f, 212f), circle),
                 AddAuraButton(safe, "AuraWater", "Water", VirtualControlPaths.AuraWater, BottomRight(MinTouchDp, -100f, 176f), circle)
             };
-            root.AddComponent<AuraRingView>().Bind(ring);
+            root.AddComponent<AuraRingView>().Bind(auraButtons);
             root.AddComponent<VirtualControlsStyler>();
-            AddButton(safe, "Pause", "ctl.pause", VirtualControlPaths.Pause, TopRight(MinTouchDp, -16f, -16f), circle);
-            AddButton(safe, "Map", "ctl.map", VirtualControlPaths.Map, TopRight(MinTouchDp, -88f, -16f), circle);
+            AddButton(safe, "Pause", "ctl.pause", VirtualControlPaths.Pause, TopRight(MinTouchDp, -16f, -16f), circle, UIColorToken.TextMuted);
+            AddButton(safe, "Map", "ctl.map", VirtualControlPaths.Map, TopRight(MinTouchDp, -88f, -16f), circle, UIColorToken.TextMuted);
             return root;
         }
 
@@ -77,8 +82,10 @@ namespace AuraKnight.UI
             var ring = Child(zone, "Ring");
             ring.sizeDelta = new Vector2(160f, 160f);
             var ringImage = ring.gameObject.AddComponent<Image>();
-            ringImage.sprite = circle;
-            ringImage.color = new Color(1f, 1f, 1f, 0.25f);
+            ringImage.sprite = ringSprite != null ? ringSprite : circle;
+            var gold = UITheme.Active.GetColor(UIColorToken.Gold);
+            gold.a = 0.6f;
+            ringImage.color = gold;
             ringImage.raycastTarget = false;
             var handle = Child(ring, "Handle");
             handle.sizeDelta = new Vector2(72f, 72f);
@@ -87,6 +94,7 @@ namespace AuraKnight.UI
             handleImage.color = new Color(1f, 1f, 1f, 0.6f);
             handleImage.raycastTarget = false;
             zone.gameObject.AddComponent<DynamicJoystick>().Configure(zone, ring, handle);
+            ring.gameObject.SetActive(false); // appears under the finger, never at rest
         }
 
         static void BuildSwipeZone(RectTransform parent)
@@ -97,19 +105,31 @@ namespace AuraKnight.UI
         }
 
         static RectTransform AddButton(RectTransform parent, string name, string labelKey, string path,
-            (Vector2 anchor, float size, Vector2 position) layout, Sprite circle)
+            (Vector2 anchor, float size, Vector2 position) layout, Sprite circle, UIColorToken accent,
+            UIColorToken labelColor = UIColorToken.TextPrimary)
         {
+            var theme = UITheme.Active;
             var rect = Child(parent, name);
             rect.anchorMin = rect.anchorMax = rect.pivot = layout.anchor;
             rect.sizeDelta = new Vector2(layout.size, layout.size);
             rect.anchoredPosition = layout.position;
             var image = rect.gameObject.AddComponent<Image>();
             image.sprite = circle;
-            image.color = ButtonColor;
+            var fill = theme.GetColor(UIColorToken.Panel);
+            fill.a = GameSettings.DefaultButtonOpacity; // VirtualControlsStyler applies the stored setting
+            image.color = fill;
             rect.gameObject.AddComponent<OnScreenButton>().controlPath = path;
             rect.gameObject.AddComponent<PressScale>();
+            if (ringSprite != null)
+            {
+                var ring = Stretch(Child(rect, "Ring"), Vector2.zero, Vector2.one);
+                var ringImage = ring.gameObject.AddComponent<Image>();
+                ringImage.sprite = ringSprite;
+                ringImage.raycastTarget = false;
+                ringImage.color = theme.GetColor(accent);
+            }
 
-            var label = UiFactory.Text(rect, "Label", labelKey, UIFontRole.Mono, UIColorToken.TextPrimary, 16f, TextAlignmentOptions.Center);
+            var label = UiFactory.Text(rect, "Label", labelKey, UIFontRole.Mono, labelColor, layout.size * 0.2f, TextAlignmentOptions.Center);
             Stretch(label.rectTransform, Vector2.zero, Vector2.one);
             return rect;
         }
@@ -117,9 +137,10 @@ namespace AuraKnight.UI
         static AuraButtonView AddAuraButton(RectTransform parent, string name, string auraId, string path,
             (Vector2 anchor, float size, Vector2 position) layout, Sprite circle)
         {
-            var rect = AddButton(parent, name, "ctl.aura_" + auraId.ToLowerInvariant(), path, layout, circle);
+            var rect = AddButton(parent, name, "ctl.aura_" + auraId.ToLowerInvariant(), path, layout, circle,
+                UITheme.AuraToken(auraId), UIColorToken.TextInk);
             var view = rect.gameObject.AddComponent<AuraButtonView>();
-            view.Bind(auraId, rect.GetComponent<Image>(), rect.Find("Label").GetComponent<TMP_Text>(), BuildPadlock(rect));
+            view.Bind(auraId, rect.GetComponent<Image>(), rect.Find("Label").GetComponent<TMP_Text>(), BuildPadlock(rect), rect.Find("Ring")?.GetComponent<Image>());
             return view;
         }
 

@@ -28,6 +28,7 @@ namespace AuraKnight.Editor
             var groups = new[] { hud.transform.Find("HudStatic").GetComponent<CanvasGroup>(), hud.transform.Find("HudDynamic").GetComponent<CanvasGroup>() };
             root.AddComponent<HudController>().Bind(groups, controls.GetComponent<CanvasGroup>());
             root.AddComponent<CoreLauncher>();
+            root.AddComponent<AudioListenerGuard>();
             EditorSceneManager.MarkSceneDirty(scene);
             EditorSceneManager.SaveScene(scene);
             Debug.Log("[UiSceneGenerator] Core UI_Root populated.");

@@ -1,0 +1,24 @@
+{
+    "name": "AuraKnight.Editor.Tools",
+    "rootNamespace": "AuraKnight.Editor.Tools",
+    "references": [
+        "AuraKnight",
+        "AuraKnight.Editor",
+        "AuraKnight.Editor.Art",
+        "AuraKnight.Editor.UI",
+        "AuraKnight.Editor.World",
+        "Unity.Cinemachine",
+        "UnityEngine.UI"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -47,9 +47,9 @@ namespace AuraKnight.Editor
             return controller;
         }
 
-        /// <summary>The Art-delivered override controller for a variant, or null (the base controller is used then).</summary>
-        public static RuntimeAnimatorController OverrideFor(string variantName) =>
-            AssetDatabase.LoadAssetAtPath<AnimatorOverrideController>($"Assets/_Project/Art/Enemies/{variantName}/{variantName}.overrideController");
+        /// <summary>The Art-delivered override controller for an art id (see <see cref="EnemyArt"/>), or null (the base controller is used then).</summary>
+        public static RuntimeAnimatorController OverrideFor(string artId) =>
+            AssetDatabase.LoadAssetAtPath<AnimatorOverrideController>(EnemyArt.OverrideControllerPath(artId));
 
         static AnimatorState AddState(AnimatorStateMachine machine, string name, float length, bool loop)
         {

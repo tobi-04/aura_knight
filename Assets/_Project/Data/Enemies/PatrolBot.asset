@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: PatrolBot
   m_EditorClassIdentifier: AuraKnight::AuraKnight.Enemies.EnemyStats
   enemyId: PatrolBot
+  artId: PatrolRobot
   archetype: 0
   maxHp: 4
   contactDamage: 1

@@ -119,6 +119,10 @@ namespace AuraKnight.UI
             return UIColorToken.Gold;
         }
 
+        /// <summary>Energy bar colour: the Aura colour, or pale gold before the first Aura (GDD 6: Leo glows light gold).</summary>
+        public Color EnergyColor(string auraId) =>
+            AuraToken(auraId) == UIColorToken.TextMuted ? Color.Lerp(gold, Color.white, 0.35f) : AuraColor(auraId);
+
         public Color AuraColor(string auraId) => GetColor(AuraToken(auraId));
         public Color RegionColor(string regionId) => GetColor(RegionToken(regionId));
 

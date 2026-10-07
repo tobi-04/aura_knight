@@ -36,6 +36,8 @@ namespace AuraKnight.Editor
             var leo = PlayerGeneratorUtil.EnsureSolidSprite(LeoSpritePath, 32, 64); // 1 x 2 units
             PlayerGeneratorUtil.EnsureSolidSprite(SquareSpritePath, 32, 32);
             BuildPlayerPrefab(config, leo);
+            // The prefab above is rebuilt from scratch, so anything another module bolts on must be re-applied here.
+            PlayerSfxProbeInstaller.Apply();
             BuildVirtualControlsPrefab();
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();

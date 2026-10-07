@@ -51,6 +51,24 @@ namespace AuraKnight.Player
             EventBus.Publish(new EnergyChanged(Energy.Current, Energy.Max));
         }
 
+        /// <summary>
+        /// After a shop purchase or free chest upgrade: takes the new maxima and sword level from the save but keeps the current
+        /// hearts/energy, adding what the upgrade gained (a new heart arrives full). Does nothing while dead.
+        /// </summary>
+        public void ApplyUpgrades()
+        {
+            ResolveHealth();
+            var manager = GameManager.Instance;
+            var seed = PlayerStatsSeed.From(manager != null ? manager.State : null);
+            SwordLevel = seed.SwordLevel;
+            if (health.IsDead) return;
+            int heartsGained = Mathf.Max(0, seed.MaxHearts - health.Max);
+            health.Initialize(seed.MaxHearts, health.Current + heartsGained);
+            float energyGained = Mathf.Max(0f, seed.MaxEnergy - Energy.Max);
+            Energy.SetMax(seed.MaxEnergy, false);
+            Energy.Add(energyGained);
+        }
+
         /// <summary>Spends energy for an Aura skill; false (nothing spent) when there is not enough.</summary>
         public bool TrySpendEnergy(float amount) => Energy.TrySpend(amount);
 

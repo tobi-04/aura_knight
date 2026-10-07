@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2e0c6642b6614fd1909196f978b0790, type: 3}
+  m_Name: GiantStoneSpider
+  m_EditorClassIdentifier: AuraKnight::AuraKnight.Bosses.BossStats
+  bossId: GiantStoneSpider
+  displayName: "NH\u1EC6N \u0110\xC1"
+  regionId: cave
+  rewardAura: Fire
+  finalBoss: 0
+  maxHp: 40
+  contactDamage: 1
+  footOffset: 1.5
+  bodySize: {x: 3.6, y: 2.4}
+  introSeconds: 1.8
+  transitionSeconds: 0.9
+  minTelegraph: 0.5

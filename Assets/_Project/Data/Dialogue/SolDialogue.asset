@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b825caffc7fbc4fb6a8e29645fce6f1c, type: 3}
+  m_Name: SolDialogue
+  m_EditorClassIdentifier: AuraKnight::AuraKnight.World.DialogueByProgress
+  entries:
+  - lineKey: dialogue.sol.start
+    requiredAuras: []
+    requiredBoss: 
+  - lineKey: dialogue.sol.wind
+    requiredAuras:
+    - Wind
+    requiredBoss: 
+  - lineKey: dialogue.sol.fire
+    requiredAuras:
+    - Wind
+    - Fire
+    requiredBoss: 
+  - lineKey: dialogue.sol.water
+    requiredAuras:
+    - Wind
+    - Fire
+    - Water
+    requiredBoss: 
+  - lineKey: dialogue.sol.end
+    requiredAuras:
+    - Wind
+    - Fire
+    - Water
+    requiredBoss: malakor

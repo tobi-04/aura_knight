@@ -36,6 +36,7 @@ namespace AuraKnight.Editor
             player.transform.position = new Vector3(0f, 0.97f, 0f);
             TestCheckpoint.Build(new Vector2(0f, 0.97f));
             CreateCamera(player.transform);
+            AddGlobalLight();
             var hud = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>(PlayerAssetGenerator.VirtualControlsPrefabPath));
             hud.name = "VirtualControls";
             VirtualControlsBuilder.CreateEventSystem();
@@ -84,6 +85,14 @@ namespace AuraKnight.Editor
             go.transform.position = new Vector3((left + right) * 0.5f, (bottom + top) * 0.5f, 0f);
             PlayerGeneratorUtil.SetLayer(go, PhysicsLayers.Ground);
             go.AddComponent<BoxCollider2D>();
+        }
+
+        /// <summary>The enemies use the lit sprite material, which renders black without a light.</summary>
+        static void AddGlobalLight()
+        {
+            var light = new GameObject("Global Light 2D").AddComponent<UnityEngine.Rendering.Universal.Light2D>();
+            light.lightType = UnityEngine.Rendering.Universal.Light2D.LightType.Global;
+            light.intensity = 0.8f;
         }
 
         static void CreateCamera(Transform target)

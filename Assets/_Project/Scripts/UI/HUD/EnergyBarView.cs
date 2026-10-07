@@ -54,7 +54,7 @@ namespace AuraKnight.UI
         {
             if (fill == null) return;
             fill.fillAmount = Fraction;
-            fill.color = UITheme.Active.AuraColor(auraId);
+            fill.color = UITheme.Active.EnergyColor(auraId);
         }
     }
 }

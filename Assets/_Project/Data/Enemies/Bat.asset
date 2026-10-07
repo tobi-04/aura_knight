@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Bat
   m_EditorClassIdentifier: AuraKnight::AuraKnight.Enemies.EnemyStats
   enemyId: Bat
+  artId: Bat
   archetype: 2
   maxHp: 2
   contactDamage: 1

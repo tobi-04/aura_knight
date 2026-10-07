@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: StoneSpider
   m_EditorClassIdentifier: AuraKnight::AuraKnight.Enemies.EnemyStats
   enemyId: StoneSpider
+  artId: StoneSpider
   archetype: 3
   maxHp: 3
   contactDamage: 1

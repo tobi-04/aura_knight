@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: NightKnight
   m_EditorClassIdentifier: AuraKnight::AuraKnight.Enemies.EnemyStats
   enemyId: NightKnight
+  artId: NightKnight
   archetype: 0
   maxHp: 6
   contactDamage: 1

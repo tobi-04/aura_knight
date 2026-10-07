@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: ScrapZapper
   m_EditorClassIdentifier: AuraKnight::AuraKnight.Enemies.EnemyStats
   enemyId: ScrapZapper
+  artId: ScrapZapper
   archetype: 4
   maxHp: 4
   contactDamage: 1

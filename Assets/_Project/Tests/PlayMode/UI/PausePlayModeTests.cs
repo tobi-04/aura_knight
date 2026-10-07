@@ -55,6 +55,13 @@ namespace AuraKnight.Tests.PlayMode.UI
         }
 
         [UnityTest]
+        public IEnumerator CoreHasExactlyOneAudioListener()
+        {
+            yield return null;
+            Assert.AreEqual(1, Object.FindObjectsByType<AudioListener>(FindObjectsInactive.Include).Length);
+        }
+
+        [UnityTest]
         public IEnumerator CannotPauseOutsideGameplay()
         {
             Assert.AreNotEqual(GameMode.Playing, Manager.Mode);

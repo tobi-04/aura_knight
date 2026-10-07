@@ -4,16 +4,22 @@
 #   tools/unity-batch.sh compile                 -> import + compile, report C# errors
 #   tools/unity-batch.sh setup                   -> run ProjectSetup.Run
 #   tools/unity-batch.sh test [EditMode|PlayMode] -> run tests, write Logs/test-results.xml (UNITY_TEST_FILTER=<name> narrows it)
+#   UNITY_GRAPHICS=1 UNITY_TEST_FILTER=AuraKnight.Tests.PlayMode.UI.RuntimeScreenshotTests tools/unity-batch.sh test PlayMode
+#                                                  -> runtime HUD screenshots (Logs/screenshots/runtime_hud_*.png); needs a GPU, so no -nographics.
 #   tools/unity-batch.sh exec Namespace.Class.Method -> run a static editor method (asset/scene generators)
+#   tools/unity-batch.sh shot [-shotScenes a.unity;b.unity] [-shotSizes 1920x1080,...] [-shotPlayer] [-shotHud]
+#                                                  -> render scenes to Logs/screenshots/*.png (default set when no -shotScenes).
+#                                                     Runs WITHOUT -nographics: it needs a GPU device. SHOT_TIMEOUT=<seconds> (default 900) kills a hung run.
 # The lock is a directory holding the owner's PID: a lock whose owner died is reclaimed automatically.
 # Refuses to run while a Unity Editor has the project open (Temp/UnityLockfile held by another process).
 set -uo pipefail
 
-USAGE="usage: $0 compile | setup | test [EditMode|PlayMode] | exec <Namespace.Class.Method>"
+USAGE="usage: $0 compile | setup | test [EditMode|PlayMode] | exec <Namespace.Class.Method> | shot [-shot* options]"
 if [ $# -lt 1 ]; then echo "$USAGE" >&2; exit 64; fi
 case "$1" in
   compile|setup) ;;
   test) ;;
+  shot) ;;
   exec) if [ $# -lt 2 ] || [ -z "$2" ]; then echo "exec needs a method name" >&2; echo "$USAGE" >&2; exit 64; fi ;;
   *) echo "unknown command '$1'" >&2; echo "$USAGE" >&2; exit 64 ;;
 esac
@@ -21,7 +27,7 @@ esac
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 UNITY="${UNITY_EDITOR:-/Applications/Unity/Hub/Editor/6000.6.0f1/Unity.app/Contents/MacOS/Unity}"
 LOCK="$ROOT/.unity-batch.lock"
-LOG="$ROOT/Logs/batch-$1${2:+-${2##*.}}.log"
+if [ "$1" = shot ]; then LOG="$ROOT/Logs/batch-shot.log"; else LOG="$ROOT/Logs/batch-$1${2:+-${2##*.}}.log"; fi
 mkdir -p "$ROOT/Logs"
 
 pid_alive() { [ -n "${1:-}" ] && kill -0 "$1" 2>/dev/null; }
@@ -65,10 +71,21 @@ fi
 case "$1" in
   compile) "$UNITY" -batchmode -nographics -quit -projectPath "$ROOT" -logFile "$LOG" ;;
   setup)   "$UNITY" -batchmode -nographics -quit -projectPath "$ROOT" -executeMethod AuraKnight.Editor.ProjectSetup.Run -logFile "$LOG" ;;
-  test)    "$UNITY" -batchmode -nographics -projectPath "$ROOT" -runTests -testPlatform "${2:-EditMode}" ${UNITY_TEST_FILTER:+-testFilter "$UNITY_TEST_FILTER"} -testResults "$ROOT/Logs/test-results.xml" -logFile "$LOG" ;;
+  test)    "$UNITY" -batchmode $([ -z "${UNITY_GRAPHICS:-}" ] && echo -nographics) -projectPath "$ROOT" -runTests -testPlatform "${2:-EditMode}" ${UNITY_TEST_FILTER:+-testFilter "$UNITY_TEST_FILTER"} -testResults "$ROOT/Logs/test-results.xml" -logFile "$LOG" ;;
   exec)    "$UNITY" -batchmode -nographics -quit -projectPath "$ROOT" -executeMethod "$2" -logFile "$LOG" ;;
+  shot)
+    # No -nographics (rendering needs a device) and no -quit (SceneScreenshot exits itself after its last frame).
+    rm -f "$ROOT"/Logs/screenshots/*.png
+    "$UNITY" -batchmode -projectPath "$ROOT" -executeMethod AuraKnight.Editor.Tools.SceneScreenshot.Run -logFile "$LOG" "${@:2}" &
+    unity_pid=$!
+    ( sleep "${SHOT_TIMEOUT:-900}"; echo "shot timed out after ${SHOT_TIMEOUT:-900}s, killing Unity" >&2; kill "$unity_pid" 2>/dev/null ) &
+    watchdog=$!
+    wait "$unity_pid"; code=$?
+    pkill -P "$watchdog" 2>/dev/null; kill "$watchdog" 2>/dev/null; wait "$watchdog" 2>/dev/null
+    grep -E "^\[SceneScreenshot\]" "$LOG" || true
+    ;;
 esac
-code=$?
+if [ "$1" != shot ]; then code=$?; fi
 errors=$(grep -E "error CS[0-9]+" "$LOG" | sort -u)
 grep -E "^(Exception|.*Exception:)" "$LOG" | grep -v "Licensing" | head -5
 if [ -n "$errors" ]; then echo "$errors"; echo "COMPILE ERRORS (see $LOG)"; exit 1; fi

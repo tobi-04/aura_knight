@@ -7,6 +7,8 @@ namespace AuraKnight.Editor
     sealed class EnemyVariantSpec
     {
         public string Name;
+        /// <summary>Art folder / sheet name under Art/Enemies (see <see cref="EnemyArt"/>).</summary>
+        public string ArtId;
         public EnemyArchetype Archetype;
         public int Hp;
         public int CoinsMin, CoinsMax;
@@ -32,25 +34,25 @@ namespace AuraKnight.Editor
     {
         public static readonly EnemyVariantSpec[] All =
         {
-            new EnemyVariantSpec { Name = "BugThorn", Archetype = EnemyArchetype.Walker, Hp = 2, CoinsMin = 3, CoinsMax = 5,
+            new EnemyVariantSpec { Name = "BugThorn", ArtId = "ThornBug", Archetype = EnemyArchetype.Walker, Hp = 2, CoinsMin = 3, CoinsMax = 5,
                 Color = new Color(0.35f, 0.75f, 0.30f), Size = new Vector2(0.9f, 0.7f), MoveSpeed = 1.5f, ChargeSpeed = 3.5f },
-            new EnemyVariantSpec { Name = "PatrolBot", Archetype = EnemyArchetype.Walker, Hp = 4, CoinsMin = 3, CoinsMax = 5,
+            new EnemyVariantSpec { Name = "PatrolBot", ArtId = "PatrolRobot", Archetype = EnemyArchetype.Walker, Hp = 4, CoinsMin = 3, CoinsMax = 5,
                 Color = new Color(0.45f, 0.60f, 0.78f), Size = new Vector2(1f, 1f), MoveSpeed = 1.8f, ChargeSpeed = 3.8f },
-            new EnemyVariantSpec { Name = "NightKnight", Archetype = EnemyArchetype.Walker, Hp = 6, CoinsMin = 3, CoinsMax = 5,
+            new EnemyVariantSpec { Name = "NightKnight", ArtId = "NightKnight", Archetype = EnemyArchetype.Walker, Hp = 6, CoinsMin = 3, CoinsMax = 5,
                 Color = new Color(0.22f, 0.22f, 0.40f), Size = new Vector2(1f, 1.5f), MoveSpeed = 1.3f, ChargeSpeed = 3.0f,
                 TurnDelay = 0.7f, KnockbackScale = 0.5f, FrontShield = true },
-            new EnemyVariantSpec { Name = "PoisonShroom", Archetype = EnemyArchetype.Hopper, Hp = 2, CoinsMin = 3, CoinsMax = 3,
+            new EnemyVariantSpec { Name = "PoisonShroom", ArtId = "MushroomHopper", Archetype = EnemyArchetype.Hopper, Hp = 2, CoinsMin = 3, CoinsMax = 3,
                 Color = new Color(0.62f, 0.36f, 0.82f), Size = new Vector2(0.8f, 0.8f), MoveSpeed = 0f, ChargeSpeed = 0f, VerticalTolerance = 3f },
-            new EnemyVariantSpec { Name = "Bat", Archetype = EnemyArchetype.Flyer, Hp = 2, CoinsMin = 4, CoinsMax = 6,
+            new EnemyVariantSpec { Name = "Bat", ArtId = "Bat", Archetype = EnemyArchetype.Flyer, Hp = 2, CoinsMin = 4, CoinsMax = 6,
                 Color = new Color(0.60f, 0.22f, 0.32f), Size = new Vector2(0.8f, 0.5f), MoveSpeed = 2f, ChargeSpeed = 2f,
                 VerticalTolerance = 0f, LifeSteal = true },
-            new EnemyVariantSpec { Name = "Ghost", Archetype = EnemyArchetype.Flyer, Hp = 4, CoinsMin = 4, CoinsMax = 6,
+            new EnemyVariantSpec { Name = "Ghost", ArtId = "Ghost", Archetype = EnemyArchetype.Flyer, Hp = 4, CoinsMin = 4, CoinsMax = 6,
                 Color = new Color(0.80f, 0.86f, 1f, 0.75f), Size = new Vector2(0.9f, 1.2f), MoveSpeed = 1.6f, ChargeSpeed = 1.6f,
                 VerticalTolerance = 0f, DiveSpeed = 6f, WindupSeconds = 0.6f, PhaseThroughWalls = true },
-            new EnemyVariantSpec { Name = "StoneSpider", Archetype = EnemyArchetype.Crawler, Hp = 3, CoinsMin = 4, CoinsMax = 4,
+            new EnemyVariantSpec { Name = "StoneSpider", ArtId = "StoneSpider", Archetype = EnemyArchetype.Crawler, Hp = 3, CoinsMin = 4, CoinsMax = 4,
                 Color = new Color(0.55f, 0.48f, 0.42f), Size = new Vector2(1f, 0.6f), MoveSpeed = 1.5f, ChargeSpeed = 2.5f,
                 DetectRange = 5f, VerticalTolerance = 0f, KnockbackScale = 0f },
-            new EnemyVariantSpec { Name = "ScrapZapper", Archetype = EnemyArchetype.Static, Hp = 4, CoinsMin = 4, CoinsMax = 4,
+            new EnemyVariantSpec { Name = "ScrapZapper", ArtId = "ScrapZapper", Archetype = EnemyArchetype.Static, Hp = 4, CoinsMin = 4, CoinsMax = 4,
                 Color = new Color(0.92f, 0.70f, 0.20f), Size = new Vector2(0.9f, 0.9f), MoveSpeed = 0f, ChargeSpeed = 0f,
                 VerticalTolerance = 0f, KnockbackScale = 0f },
         };

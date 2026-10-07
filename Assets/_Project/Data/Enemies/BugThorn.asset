@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BugThorn
   m_EditorClassIdentifier: AuraKnight::AuraKnight.Enemies.EnemyStats
   enemyId: BugThorn
+  artId: ThornBug
   archetype: 0
   maxHp: 2
   contactDamage: 1

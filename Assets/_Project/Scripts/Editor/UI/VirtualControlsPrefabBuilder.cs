@@ -9,8 +9,9 @@ namespace AuraKnight.Editor
     {
         public static void Build()
         {
-            var circle = AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/Knob.psd");
-            var root = VirtualControlsBuilder.Build(circle);
+            var circle = AssetDatabase.LoadAssetAtPath<Sprite>(UiAssetPaths.DiscSprite);
+            var ring = AssetDatabase.LoadAssetAtPath<Sprite>(UiAssetPaths.RingSprite);
+            var root = VirtualControlsBuilder.Build(circle, ring);
             try
             {
                 root.SetActive(true);

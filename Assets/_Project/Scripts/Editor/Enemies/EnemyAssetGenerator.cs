@@ -22,7 +22,7 @@ namespace AuraKnight.Editor
         [MenuItem("Aura/Enemies/Generate Enemy Assets")]
         public static void Generate()
         {
-            PlayerAssetGenerator.Generate(); // placeholder white square sprite
+            PlayerGeneratorUtil.EnsureSolidSprite(PlayerAssetGenerator.SquareSpritePath, 32, 32); // fallback look when art is missing
             PlayerGeneratorUtil.EnsureFolder(DataFolder);
             PlayerGeneratorUtil.EnsureFolder(PrefabFolder);
             PlayerGeneratorUtil.EnsureFolder(PickupFolder);
@@ -50,6 +50,7 @@ namespace AuraKnight.Editor
                 AssetDatabase.CreateAsset(stats, spec.StatsPath);
             }
             stats.enemyId = spec.Name;
+            stats.artId = spec.ArtId;
             stats.archetype = spec.Archetype;
             stats.maxHp = spec.Hp;
             stats.contactDamage = 1;

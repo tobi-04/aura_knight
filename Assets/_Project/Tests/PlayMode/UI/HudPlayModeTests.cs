@@ -39,7 +39,7 @@ namespace AuraKnight.Tests.PlayMode.UI
             EventBus.Publish(new AuraChanged("Water"));
             Assert.AreEqual(theme.AuraColor("Water"), bar.FillColor);
             EventBus.Publish(new AuraChanged("None"));
-            Assert.AreEqual(theme.GetColor(UIColorToken.TextMuted), bar.FillColor);
+            Assert.AreEqual(theme.EnergyColor("None"), bar.FillColor, "no Aura yet: pale gold");
             EventBus.Publish(new EnergyChanged(5f, 0f));
             Assert.AreEqual(0f, bar.Fraction, "zero max never divides");
             yield break;

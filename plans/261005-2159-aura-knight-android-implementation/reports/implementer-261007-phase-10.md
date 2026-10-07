@@ -59,3 +59,27 @@ Assets: `Art/Fonts` (5 TTF, 5 Dynamic TMP SDF assets, `LICENSES.md` with OFL), `
 11. `Haptics`/`Audio` consumers were not touched; the Audio agent only needs the two PlayerPrefs keys above.
 12. Docs (`docs/system-architecture.md`, `code-standards.md`) were not updated (outside my ownership): the UI module section, `GameLauncher` menu flow and the new asmdef `AuraKnight.Editor.UI` need a line each.
 13. The PlayMode test `NewGameFromTheMenuLoadsCoreAndEntersTheWorld` and the pause tests use the default save path; the menu tests back up and restore `save_0.json` and the settings prefs.
+
+# Visual fixes (follow-up, 2026-10-07)
+
+Runtime screenshots (real `WorldEntry.StartNewGame` path, Core + Region_Hub), all viewed:
+- `Logs/screenshots/runtime_hud_1920x1080.png`, `Logs/screenshots/runtime_hud_2520x1080.png` (21:9: HUD panel top-left and controls bottom-right do not collide)
+- `Logs/screenshots/runtime_hud_auras_1920x1080.png` (all Auras unlocked, Fire current, 3/5 hearts, 120 coins, half energy)
+- `Logs/screenshots/runtime_popup_1920x1080.png` (Aura unlock popup)
+
+## Fixes
+1. Hearts: `HeartsView` now adopts slots baked into the prefab and the HUD builder bakes 5 full hearts (`Preview(5)`), so the prefab and the edit-mode shot are never empty; at runtime it still follows `HeartsChanged`.
+2. Boss bar: the group is serialized with alpha 0 (hidden by default) and `BossHealthBarView` hides it on enable; shown only after `BossEncounterStarted`.
+3. Energy bar: `UITheme.EnergyColor` = pale gold (gold lerped 35% to white) with no Aura, otherwise the Aura colour; the prefab fill is baked pale gold.
+4. Virtual controls themed: navy `bg/panel` disc (alpha from `settings.buttonOpacity`) + accent ring (gold for JUMP/ATK/DASH/SKILL, muted for MAP/II), mono labels scaled to the button (JUMP largest). New generated sprites `ui-disc.png` / `ui-ring.png`; `VirtualControlsBuilder.Build(Sprite circle, Sprite ring)` (the old one-argument and `(Sprite, Font)` overloads still work, without ring). Aura buttons are filled circles in Wind/Fire/Water colour labelled GIÓ / HỎA / THỦY; locked = grey disc + padlock; the current Aura gets a white ring, others a dark outline.
+5. Dynamic joystick: ring is serialized inactive and only appears under the finger.
+6. 21:9 checked in `runtime_hud_2520x1080.png`.
+Also: `AudioListenerGuard` on `UI_Root`. No scene has an AudioListener, so the game was silent and Unity logged "no audio listeners" every frame (with a GPU this produced multi-GB logs and made PlayMode runs crawl). It adds one to the main camera only when none exists (test `CoreHasExactlyOneAudioListener`). If the Audio agent adds a listener to the camera, the guard simply does nothing.
+
+## Runtime capture test
+`Tests/PlayMode/UI/RuntimeScreenshotTests.cs`, `[Explicit]` + `[Category("Screenshot")]`: skipped by normal runs (a namespace filter such as `AuraKnight.Tests.PlayMode.UI` selects it explicitly and runs it too, harmless). Batch mode never fires `WaitForEndOfFrame`, so the test renders the main camera by hand into a RenderTexture (overlay canvases switched to that camera, scale computed per size) and writes the PNGs.
+Run: `UNITY_GRAPHICS=1 UNITY_TEST_FILTER=AuraKnight.Tests.PlayMode.UI.RuntimeScreenshotTests tools/unity-batch.sh test PlayMode`
+`tools/unity-batch.sh test` now drops `-nographics` when `UNITY_GRAPHICS` is set (only change to the script).
+
+## Verification (follow-up)
+compile 0 errors / 0 warnings; EditMode 800/800; PlayMode non-Boss classes 98/98 (UI 32 incl. the Explicit capture test, Progression, Enemies, World, Audio); `UiGenerator.GenerateAll` rerun clean; dev APK Succeeded. The full PlayMode run does not finish right now: it hangs inside `Tests/PlayMode/Bosses` (the Bosses agent's work in progress, log goes silent after loading Region_Hub), unrelated to UI.

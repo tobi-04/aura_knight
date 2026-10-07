@@ -33,6 +33,8 @@ namespace AuraKnight.Editor
             WriteSprite(UiAssetPaths.SunSprite, Sun(), FilterMode.Point);
             WriteSprite(UiAssetPaths.WhiteSprite, Solid(4, 4), FilterMode.Point);
             WriteSprite(UiAssetPaths.GradientSprite, Gradient(), FilterMode.Bilinear);
+            WriteSprite(UiAssetPaths.DiscSprite, Circle(0f), FilterMode.Bilinear);
+            WriteSprite(UiAssetPaths.RingSprite, Circle(0.08f), FilterMode.Bilinear);
             ConfigureKeyArt();
             AssetDatabase.SaveAssets();
         }
@@ -59,6 +61,23 @@ namespace AuraKnight.Editor
                     int dist = Mathf.Max(Mathf.Abs(dx), Mathf.Abs(dy));
                     bool ray = (dx == 0 || dy == 0 || Mathf.Abs(dx) == Mathf.Abs(dy)) && dist >= 5 && dist <= 6;
                     if (disc || ray) tex.SetPixel(x, y, Color.white);
+                }
+            return tex;
+        }
+
+        /// <summary>Anti-aliased disc (thickness 0) or ring (thickness as a fraction of the diameter), 128 px.</summary>
+        static Texture2D Circle(float thickness)
+        {
+            const int size = 128;
+            var tex = Blank(size, size);
+            float r = size / 2f - 1f, inner = thickness > 0f ? r - thickness * size : -1f;
+            for (int y = 0; y < size; y++)
+                for (int x = 0; x < size; x++)
+                {
+                    float d = Vector2.Distance(new Vector2(x + 0.5f, y + 0.5f), new Vector2(size / 2f, size / 2f));
+                    float a = Mathf.Clamp01(r - d + 0.5f);
+                    if (inner > 0f) a *= Mathf.Clamp01(d - inner + 0.5f);
+                    tex.SetPixel(x, y, new Color(1f, 1f, 1f, a));
                 }
             return tex;
         }

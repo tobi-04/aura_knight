@@ -35,6 +35,13 @@ namespace AuraKnight.UI
             spacing = gap;
         }
 
+        void Awake()
+        {
+            if (container == null) return;
+            foreach (Transform child in container)
+                if (child.TryGetComponent<Image>(out var slot)) slots.Add(slot); // slots baked into the prefab
+        }
+
         void OnEnable()
         {
             EventBus.Subscribe<HeartsChanged>(OnHearts);
@@ -55,6 +62,13 @@ namespace AuraKnight.UI
         {
             var state = GameManager.Instance != null ? GameManager.Instance.State : null;
             if (state != null) Set(state.maxHearts, state.maxHearts);
+        }
+
+        /// <summary>Editor/build time: bakes the slots so the prefab shows full hearts before the game runs.</summary>
+        public void Preview(int count)
+        {
+            slots.Clear();
+            Set(count, count);
         }
 
         void Set(int current, int max)

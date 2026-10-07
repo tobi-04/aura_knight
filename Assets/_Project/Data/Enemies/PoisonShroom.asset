@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: PoisonShroom
   m_EditorClassIdentifier: AuraKnight::AuraKnight.Enemies.EnemyStats
   enemyId: PoisonShroom
+  artId: MushroomHopper
   archetype: 1
   maxHp: 2
   contactDamage: 1

@@ -6,8 +6,8 @@ Chỉ ghi những gì code hiện đang làm. Thiết kế game: [`game-design-d
 
 | Quy ước | Chi tiết |
 |---------|----------|
-| Assembly | Runtime: một asmdef `AuraKnight` (`Scripts/`). Editor: `AuraKnight.Editor` (+ `AuraKnight.Editor.World`). Test: xem §5 |
-| Namespace | Theo thư mục: `AuraKnight.Core`, `.Player` (`.Player.States`), `.Aura` (`.Aura.Skills`), `.Combat`, `.World` (`.World.Pickups`), `.UI`. Mọi thư mục con của `Editor/` dùng chung `AuraKnight.Editor` |
+| Assembly | Runtime: một asmdef `AuraKnight` (`Scripts/`). Editor: `AuraKnight.Editor` (+ `.World`, `.UI`, `.Art`, `.Tools`). Test: xem §5 |
+| Namespace | Theo thư mục: `AuraKnight.Core`, `.Player` (`.Player.States`), `.Aura` (`.Aura.Skills`), `.Combat`, `.World` (`.World.Pickups`), `.UI`. Thư mục con của `Editor/` dùng chung `AuraKnight.Editor`, riêng `Editor/Tools` là `AuraKnight.Editor.Tools`; thêm `.Enemies`, `.Audio`, `.UI` (runtime) |
 | Tên file | Một file một type, tên file = tên type (PascalCase). Class lớn tách bằng `partial` (`PlayerController.Api.cs`, `PlayerCombat.Reactions.cs`) |
 | Cỡ file | Dưới 200 dòng mỗi file C# runtime (hiện không file nào vượt). Vài file test mô phỏng đã vượt, không lan sang code runtime |
 | Class | `sealed` mặc định; chỉ bỏ `sealed` ở lớp nền trừu tượng (`PlayerStateBase`, `AuraSkillBase`, `OneTimeAuraGate`) |
@@ -37,7 +37,7 @@ Dùng `Singleton.IsDuplicate(Instance, this)` ở đầu `Awake`; true thì `ret
 
 | Loại | Vị trí | Ghi chú |
 |------|--------|---------|
-| EditMode | `Tests/EditMode/{Core,Player,Combat,Aura,World}` | asmdef riêng: `AuraKnight.Tests.EditMode`, `.Player`, `.Combat`, `.Aura`. Test logic thuần và bản mô phỏng. Aura mở `internal` cho test qua `InternalsVisibleTo` |
+| EditMode | `Tests/EditMode/{Core,Player,Combat,Aura,World,Enemies,UI,Audio,Art,Integration}` | asmdef riêng: `AuraKnight.Tests.EditMode`, `.Player`, `.Combat`, `.Aura`. Test logic thuần và bản mô phỏng. Aura mở `internal` cho test qua `InternalsVisibleTo` |
 | PlayMode | `Tests/PlayMode` (asmdef `AuraKnight.Tests.PlayMode`, nền `WorldPlayTestBase`) | Vào scene `Core` thật: new game, continue, respawn xuyên vùng, chuyển phòng, save. Chạy headless được |
 
 - Lỗi tìm được thì viết test tái hiện trước khi sửa. Không bỏ qua test đỏ.
@@ -62,6 +62,8 @@ Một object không được vừa có Hitbox vừa có Hurtbox khác team (vali
 
 Prefab, ScriptableObject, scene `Test_*`, scene `Core` và phòng khởi đầu của vùng được sinh bởi code trong `Scripts/Editor/**`. Sửa generator rồi chạy lại, không sửa tay file sinh ra (sẽ bị ghi đè). Menu `Aura/...` hoặc batch:
 
+Một lệnh cho tất cả, đúng thứ tự phụ thuộc (art → player → aura → enemies → audio → world-core → ui → validators; chi tiết ở `system-architecture.md` §9): `tools/unity-batch.sh exec AuraKnight.Editor.Tools.RegenerateAll.Run` (menu `Aura/Regenerate All`). Generator riêng lẻ:
+
 ```bash
 tools/unity-batch.sh exec AuraKnight.Editor.PlayerAssetGenerator.Generate
 tools/unity-batch.sh exec AuraKnight.Editor.AuraAssetGenerator.Generate
@@ -79,3 +81,12 @@ Scene vùng (`Region_*`) đã có phòng khởi đầu và `SunAltar` sinh tự 
 - Đổi cấu trúc `GameState`: thêm field có giá trị mặc định an toàn thì giữ nguyên version; đổi nghĩa hoặc xóa field thì tăng version và viết bước chuyển đổi trước khi bỏ code đọc cũ.
 - `JsonUtility` không serialize dictionary: dùng danh sách struct (`PurchaseEntry`).
 - Ghi file qua `ISaveStorage` (`FileSaveStorage`: tmp → replace, giữ `.bak`). Test dùng storage bộ nhớ qua `GameManager.UseSaveSystem`.
+
+## 9. Generator: quy tắc thêm vào chuỗi
+
+- Prefab Player được **dựng lại từ đầu** mỗi lần `PlayerAssetGenerator.Generate` chạy; thứ gì module khác gắn thêm (hiện là `PlayerSfxProbe`) phải được gọi lại ngay trong generator đó (`PlayerSfxProbeInstaller.Apply()`), không dựa vào việc ai đó nhớ chạy sau. Test: `Tests/EditMode/Integration/GeneratedPlayerPrefabTests`.
+- Generator mới: phải idempotent, ném exception khi thiếu đầu vào, rồi nối vào `RegenerateAll.BuildSteps` sau step nó phụ thuộc (kèm test thứ tự trong `RegenerateAllOrderTests`). Đừng gọi `EditorApplication.Exit` trong hàm dùng chung (chỉ trong `RunBatch`).
+- Id dữ liệu khác id art: lưu ánh xạ trong generator (`EnemyVariantSpec.ArtId`) và ghi vào asset (`EnemyStats.artId`), không đổi tên thư mục art. Test: `GeneratedEnemyArtTests` (sprite không phải placeholder, có override controller, material `Mat_SpriteLit`).
+- Asset art và material lit chỉ nạp theo đường dẫn chuỗi nếu asmdef không tham chiếu `AuraKnight.Editor.Art`; nếu thiếu art thì generator cảnh báo và dùng placeholder, nên chạy `RegenerateAll` (art đi trước) thay vì từng generator.
+- Sprite dùng `Mat_SpriteLit` cần ít nhất một Light2D trong scene (scene test đã có Global Light 2D), nếu không sẽ đen.
+- Kiểm tra giao diện bằng ảnh: `tools/unity-batch.sh shot` rồi xem `Logs/screenshots/` (cần GPU, không dùng `-nographics`).

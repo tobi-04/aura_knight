@@ -47,7 +47,9 @@ namespace AuraKnight.Editor
         static void BuildHearts(RectTransform front)
         {
             var container = UiFactory.Place(UiFactory.Rect(front, "Hearts"), TL, new Vector2(48f, -34f), new Vector2(330f, 64f));
-            container.gameObject.AddComponent<HeartsView>().Bind(container, LoadSprite(UiAssetPaths.HeartSprite), 56f, 8f);
+            var view = container.gameObject.AddComponent<HeartsView>();
+            view.Bind(container, LoadSprite(UiAssetPaths.HeartSprite), 56f, 8f);
+            view.Preview(5); // five full hearts baked in, so the prefab is never empty
         }
 
         static void BuildEnergy(RectTransform front)
@@ -59,6 +61,7 @@ namespace AuraKnight.Editor
             fill.fillOrigin = 0;
             fill.fillAmount = 1f;
             Object.DestroyImmediate(fill.GetComponent<ThemedImage>()); // colour is the current Aura's, set at runtime
+            fill.color = UITheme.Active.EnergyColor("None");
             fill.gameObject.AddComponent<EnergyBarView>().Bind(fill);
         }
 
@@ -76,6 +79,7 @@ namespace AuraKnight.Editor
         {
             var holder = UiFactory.Place(UiFactory.Rect(front, "BossBar"), TC, new Vector2(0f, -40f), new Vector2(900f, 90f));
             var group = holder.gameObject.AddComponent<CanvasGroup>();
+            group.alpha = 0f; // hidden until BossEncounterStarted, also in the serialized state
             var label = Text(holder, "Name", null, UIFontRole.Mono, UIColorToken.TextPrimary, 32f, TL, Vector2.zero, new Vector2(900f, 42f));
             var frame = UiFactory.Panel(holder, "Frame", UIColorToken.Panel);
             UiFactory.Place(frame.rectTransform, BL, Vector2.zero, new Vector2(900f, 34f));

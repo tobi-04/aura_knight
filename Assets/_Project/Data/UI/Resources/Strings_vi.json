@@ -26,15 +26,15 @@
   },
   {
    "key": "ctl.aura_wind",
-   "value": "G"
+   "value": "GIÓ"
   },
   {
    "key": "ctl.aura_fire",
-   "value": "H"
+   "value": "HỎA"
   },
   {
    "key": "ctl.aura_water",
-   "value": "T"
+   "value": "THỦY"
   },
   {
    "key": "hud.boss_label",
@@ -359,6 +359,150 @@
   {
    "key": "footer.p07",
    "value": "AURA KNIGHT / 07"
+  },
+  {
+   "key": "shop.label",
+   "value": "TƯ TẾ SOL"
+  },
+  {
+   "key": "shop.title",
+   "value": "Cửa hàng ánh sáng"
+  },
+  {
+   "key": "shop.buy",
+   "value": "MUA"
+  },
+  {
+   "key": "shop.maxed",
+   "value": "ĐÃ ĐỦ"
+  },
+  {
+   "key": "shop.back",
+   "value": "QUAY LẠI"
+  },
+  {
+   "key": "shop.coins",
+   "value": "XU {0}"
+  },
+  {
+   "key": "shop.item.heart.name",
+   "value": "Thêm 1 tim"
+  },
+  {
+   "key": "shop.item.heart.desc",
+   "value": "Tăng tối đa 1 tim"
+  },
+  {
+   "key": "shop.item.energy.name",
+   "value": "Thêm 25 năng lượng"
+  },
+  {
+   "key": "shop.item.energy.desc",
+   "value": "Tăng tối đa 25 Aura"
+  },
+  {
+   "key": "shop.item.sword.name",
+   "value": "Rèn kiếm"
+  },
+  {
+   "key": "shop.item.sword.desc",
+   "value": "Tăng 1 sát thương"
+  },
+  {
+   "key": "shop.item.map.desc",
+   "value": "Hiện phòng chưa đi"
+  },
+  {
+   "key": "shop.item.map_forest.name",
+   "value": "Bản đồ Rừng Xanh"
+  },
+  {
+   "key": "shop.item.map_cave.name",
+   "value": "Bản đồ Hang Đá"
+  },
+  {
+   "key": "shop.item.map_city.name",
+   "value": "Bản đồ Đô Thị"
+  },
+  {
+   "key": "shop.item.map_castle.name",
+   "value": "Bản đồ Lâu Đài"
+  },
+  {
+   "key": "map.label",
+   "value": "BẢN ĐỒ"
+  },
+  {
+   "key": "map.title",
+   "value": "Vương quốc Aura"
+  },
+  {
+   "key": "map.zoom_in",
+   "value": "+"
+  },
+  {
+   "key": "map.zoom_out",
+   "value": "-"
+  },
+  {
+   "key": "map.center",
+   "value": "LEO"
+  },
+  {
+   "key": "map.legend",
+   "value": "T Bàn thờ    B Boss    R Rương    Đ Đường tắt"
+  },
+  {
+   "key": "map.icon.altar",
+   "value": "T"
+  },
+  {
+   "key": "map.icon.boss",
+   "value": "B"
+  },
+  {
+   "key": "map.icon.chest",
+   "value": "R"
+  },
+  {
+   "key": "map.icon.shortcut",
+   "value": "Đ"
+  },
+  {
+   "key": "footer.p11",
+   "value": "AURA KNIGHT / 11"
+  },
+  {
+   "key": "footer.p12",
+   "value": "AURA KNIGHT / 12"
+  },
+  {
+   "key": "npc.sol.prompt",
+   "value": "VUỐT LÊN ĐỂ NÓI CHUYỆN"
+  },
+  {
+   "key": "dialogue.sol.default",
+   "value": "Ánh sáng dẫn lối cho ngươi, Leo."
+  },
+  {
+   "key": "dialogue.sol.start",
+   "value": "Rừng Xanh Aura đã mở lối, Leo. Hãy tìm Gốc Cây Mục ở đó và đem ánh sáng Gió về đây."
+  },
+  {
+   "key": "dialogue.sol.wind",
+   "value": "Gió đã theo ngươi. Vách đá cao của Hang Đá Vô Tận không còn cản bước. Hãy tìm Nhện Đá Khổng Lồ."
+  },
+  {
+   "key": "dialogue.sol.fire",
+   "value": "Ngọn lửa đã cháy trong ngươi. Rào gỗ cổ ở đền sẽ tan, mở lối đến Đô Thị Hơi Nước, nơi Cỗ Máy Nổi Loạn đang chờ."
+  },
+  {
+   "key": "dialogue.sol.water",
+   "value": "Ba Aura đã hội tụ. Cổng ba ấn của Lâu Đài Bóng Tối sẽ mở. Hãy đối mặt với Malakor."
+  },
+  {
+   "key": "dialogue.sol.end",
+   "value": "Bóng tối đã tan. Ngươi đã hoàn thành sứ mệnh, Kỵ Sỹ Ánh Sáng."
   }
  ]
 }

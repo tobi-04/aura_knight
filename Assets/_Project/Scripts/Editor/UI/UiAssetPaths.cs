@@ -26,6 +26,8 @@ namespace AuraKnight.Editor
         public const string HeartSprite = UiArtDir + "/ui-heart.png";
         public const string SunSprite = UiArtDir + "/ui-sun.png";
         public const string WhiteSprite = UiArtDir + "/ui-white.png";
+        public const string DiscSprite = UiArtDir + "/ui-disc.png";
+        public const string RingSprite = UiArtDir + "/ui-ring.png";
         public const string GradientSprite = UiArtDir + "/ui-gradient-left.png";
 
         public const string HeroArt = KeyArtDir + "/key-art-hero-moon.jpg";

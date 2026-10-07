@@ -65,11 +65,23 @@ namespace AuraKnight.Editor
             return box;
         }
 
+        /// <summary>
+        /// Real idle frame + the variant's override controller + the lit sprite material when the art exists (scale 1: the sheets
+        /// are authored at 32 PPU); otherwise the tinted white square, so the generator still runs before art is imported.
+        /// </summary>
         static SpriteRenderer AddVisual(Transform root, EnemyVariantSpec spec, Sprite square, AnimatorController controller)
         {
-            var go = AuraPrefabParts.AddSprite(root, "Visual", square, Vector2.zero, spec.Size, spec.Color, 3);
-            var animator = go.AddComponent<Animator>();
-            animator.runtimeAnimatorController = EnemyAnimatorControllerBuilder.OverrideFor(spec.Name) ?? controller;
+            var art = EnemyArt.LoadIdleSprite(spec.ArtId);
+            var lit = AssetDatabase.LoadAssetAtPath<Material>(EnemyArt.LitMaterialPath);
+            var overrideController = EnemyAnimatorControllerBuilder.OverrideFor(spec.ArtId);
+            bool hasArt = art != null && lit != null && overrideController != null;
+            if (!hasArt) Debug.LogWarning($"[EnemyPrefabBuilder] Art for {spec.Name} (artId {spec.ArtId}) incomplete; run Aura/Art/Generate All. Using the placeholder.");
+
+            var go = hasArt
+                ? AuraPrefabParts.AddSprite(root, "Visual", art, Vector2.zero, Vector2.one, Color.white, 3)
+                : AuraPrefabParts.AddSprite(root, "Visual", square, Vector2.zero, spec.Size, spec.Color, 3);
+            if (hasArt) go.GetComponent<SpriteRenderer>().sharedMaterial = lit;
+            go.AddComponent<Animator>().runtimeAnimatorController = hasArt ? overrideController : controller;
             return go.GetComponent<SpriteRenderer>();
         }
 

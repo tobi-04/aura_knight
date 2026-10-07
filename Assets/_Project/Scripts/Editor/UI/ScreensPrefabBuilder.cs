@@ -18,6 +18,9 @@ namespace AuraKnight.Editor
                 var director = root.AddComponent<GameUiDirector>();
                 var canvas = UiFactory.CreateCanvas("ScreensCanvas", 20, root.transform).transform;
 
+                var shop = ShopMapScreensBuilder.Shop(canvas, router);
+                var map = ShopMapScreensBuilder.Map(canvas, router);
+                root.AddComponent<ShopMapLauncher>().Bind(router, map, shop);
                 var banner = OverlayScreensBuilder.BossBanner(canvas);
                 var gameOver = OverlayScreensBuilder.GameOver(canvas);
                 var settings = PauseSettingsBuilder.Settings(canvas, router);

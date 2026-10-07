@@ -41,6 +41,11 @@ namespace AuraKnight.UI
                 var c = image.color;
                 c.a = opacity;
                 image.color = c;
+                var ring = button.transform.Find("Ring");
+                if (ring == null || !ring.TryGetComponent<Image>(out var ringImage)) continue;
+                var rc = ringImage.color;
+                rc.a = Mathf.Clamp01(opacity + 0.35f);
+                ringImage.color = rc;
             }
         }
     }

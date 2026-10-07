@@ -12,6 +12,8 @@ namespace AuraKnight.Enemies
     {
         [Header("Identity")]
         public string enemyId = "enemy";
+        [Tooltip("Folder/sheet name under Art/Enemies when it differs from enemyId (BugThorn art lives in ThornBug). Set by the generator.")]
+        public string artId = "";
         public EnemyArchetype archetype = EnemyArchetype.Walker;
 
         [Header("Body")]
