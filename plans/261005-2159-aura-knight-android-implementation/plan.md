@@ -49,7 +49,7 @@ Dựng toàn bộ game **Aura Knight: Mảnh Vỡ Ánh Sáng** cho Android theo 
 
 **2026-10-08:** Code xong cả 13 phase. Compile sạch, EditMode 964/964, PlayMode 166 pass + 2 skip (test chụp ảnh cần GPU), APK dev 54.9 MB, review 8/10 (0 critical, 3 warning đã sửa ở d02c5d7). 34 phòng, không cần cắt. Lệch plan: làm trong 1 đợt thay vì 8 tuần; ánh sáng Lâu Đài 0.05 → 0.15.
 
-**Còn lại (cần người/máy thật):** profiling fps/RAM trên 2 máy, 3 tỉ lệ màn hình thật, playtest M1–M3, checklist thủ công `docs/qa/device-checklist.md`, keystore + APK release, video demo, xác nhận quyền dùng key art (`Art/KeyArt`) và 2 PDF trong repo public.
+**Còn lại (cần người/máy thật):** profiling fps/RAM trên 2 máy, 3 tỉ lệ màn hình thật, playtest M1–M3, checklist thủ công `docs/qa/device-checklist.md`, keystore + APK release, video demo. Key art: nhóm xác nhận được phép dùng (2026-10-08).
 
 ## Phases
 

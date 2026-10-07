@@ -489,4 +489,4 @@ Mỗi file C# dưới 200 dòng, mỗi class một trách nhiệm.
 
 1. Giảng viên có yêu cầu nộp lên Google Play không? Nếu có thì cần build AAB, target API mới nhất và privacy policy; nếu không thì APK là đủ.
 2. Có yêu cầu bắt buộc tự vẽ một phần asset không? (Ảnh hưởng đến việc dùng 100% asset pack.)
-3. Key art trong PDF do ai tạo, có được phép dùng trong bản nộp không?
+3. ~~Key art trong PDF do ai tạo, có được phép dùng trong bản nộp không?~~ Đã chốt 2026-10-08: tài liệu của nhóm, được phép dùng (xem `Assets/_Project/Art/LICENSES.md`).

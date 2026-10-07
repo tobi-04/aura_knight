@@ -15,7 +15,7 @@ All fonts are from Google Fonts under the SIL Open Font License 1.1 (OFL). Redis
 |------|------|---------|
 | `Assets/TextMesh Pro/Fonts/LiberationSans.ttf` (+ `LiberationSans SDF` assets in `TextMesh Pro/Resources`) | Default TMP font and fallback, imported by Unity's TMP Essential Resources | SIL OFL 1.1. Copyright (c) 2010 Google Corporation (digitized data, Arimo/Tinos/Cousine) and (c) 2012 Red Hat, Inc., Reserved Font Name "Liberation". Licence text shipped next to the font: `Assets/TextMesh Pro/Fonts/LiberationSans - OFL.txt` |
 
-Key art provenance is tracked in `Art/LICENSES.md` (section "Key art", unconfirmed).
+Key art provenance is tracked in `Art/LICENSES.md` (section "Key art", team-provided, confirmed 2026-10-08).
 
 ## OFL 1.1 text
 

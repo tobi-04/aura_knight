@@ -30,14 +30,14 @@ tiles above. All sprites are drawn on a 16 px logical grid and scaled x2, so eve
 | `Presets/Sprite_Pixel32_Template.png` | 4x4 white square used to author the import preset | `Pixel32Importer.cs` | generated, project-owned |
 | `UI/ui-heart.png`, `ui-sun.png`, `ui-white.png`, `ui-gradient-left.png`, `ui-disc.png`, `ui-ring.png` | HUD heart, sun coin, white pixel, left fade, disc and ring, drawn pixel by pixel in code | `Scripts/Editor/UI/UiSpriteGenerator.cs` (`Aura/UI/Generate All`) | generated, project-owned |
 
-## Key art: provenance NOT confirmed
+## Key art (team-provided, confirmed 2026-10-08)
 
 | Files | Source | Licence |
 |-------|--------|---------|
-| `KeyArt/key-art-hero-moon.jpg`, `key-art-aura-wind.jpg`, `key-art-aura-fire.jpg`, `key-art-aura-water.jpg` | Images extracted with `pdfimages` from the slide deck `docs/reference/NỀN TẢNG Mobile.pdf` (phase 10 report). No generator script. The author of the images is not recorded anywhere in the repo | **unknown, to be confirmed** (open question GDD 17.3: who made the key art, may it ship). Until answered: treat as placeholder, do not claim it as project-owned or CC0 |
+| `KeyArt/key-art-hero-moon.jpg`, `key-art-aura-wind.jpg`, `key-art-aura-fire.jpg`, `key-art-aura-water.jpg` | Images extracted with `pdfimages` from the team's design deck `docs/reference/NỀN TẢNG Mobile.pdf` (phase 10 report) | Project team material: the project owner confirmed on 2026-10-08 that the team owns or is permitted to use this art in the project and the public repository. Not CC0: do not reuse outside Aura Knight |
 
-Key art is used for the Main Menu and Aura popups only, never in gameplay sprites. If rights cannot be confirmed, delete `KeyArt/` and
-replace the images with generated art (`UiAssetPaths.HeroArt` / `AuraArt` and `UiSpriteGenerator.ConfigureKeyArt` are the only code references).
+Key art is used for the Main Menu and Aura popups only, never in gameplay sprites (`UiAssetPaths.HeroArt` / `AuraArt` and
+`UiSpriteGenerator.ConfigureKeyArt` are the only code references).
 
 ## Not art-licensed files
 
