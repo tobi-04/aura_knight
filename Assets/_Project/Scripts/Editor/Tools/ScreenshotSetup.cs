@@ -36,7 +36,10 @@ namespace AuraKnight.Editor.Tools
             foreach (var brain in UnityEngine.Object.FindObjectsByType<CinemachineBrain>()) brain.enabled = false; // else it overrides our framing
             foreach (var follow in camera.GetComponents<SimpleCameraFollow>()) follow.enabled = false;
             var focus = player != null ? (Vector2)player.transform.position : Vector2.zero;
-            camera.transform.position = new Vector3(focus.x + job.FocusOffset.x, focus.y + 2f + job.FocusOffset.y, -10f);
+            camera.transform.position = job.Focus.HasValue
+                ? new Vector3(job.Focus.Value.x, job.Focus.Value.y, -10f)
+                : new Vector3(focus.x + job.FocusOffset.x, focus.y + 2f + job.FocusOffset.y, -10f);
+            if (job.OrthoSize > 0f) camera.orthographicSize = job.OrthoSize;
             ConvertOverlayCanvases(camera);
             return camera;
         }

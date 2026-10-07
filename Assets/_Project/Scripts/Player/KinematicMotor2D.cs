@@ -71,6 +71,10 @@ namespace AuraKnight.Player
 
         public bool TouchingWall(int direction) => Probe(new Vector2(direction, 0f), skinWidth + ProbeDistance - 0.01f);
 
+        /// <summary>Wall contact Leo may grip: like <see cref="TouchingWall"/> but colliders marked <see cref="SmoothWall"/> do not count.</summary>
+        public bool GripsWall(int direction) =>
+            Cast(_position, new Vector2(direction, 0f), skinWidth + ProbeDistance - 0.01f, out _, ignoreSmooth: true);
+
         public void SetCrouched(bool crouched)
         {
             IsCrouched = crouched;
@@ -148,7 +152,7 @@ namespace AuraKnight.Player
 
         bool Probe(Vector2 direction, float distance) => Cast(_position, direction, distance, out _);
 
-        bool Cast(Vector2 origin, Vector2 direction, float distance, out RaycastHit2D nearest)
+        bool Cast(Vector2 origin, Vector2 direction, float distance, out RaycastHit2D nearest, bool ignoreSmooth = false)
         {
             nearest = default;
             int count = Physics2D.CapsuleCast(origin + _capsule.offset, _capsule.size, CapsuleDirection2D.Vertical, 0f,
@@ -159,6 +163,7 @@ namespace AuraKnight.Player
             {
                 var hit = _hits[i];
                 if (hit.collider == _capsule || !Blocks(hit, direction)) continue;
+                if (ignoreSmooth && hit.collider.TryGetComponent<SmoothWall>(out _)) continue;
                 if (hit.distance >= best) continue;
                 best = hit.distance;
                 nearest = hit;

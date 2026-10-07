@@ -83,9 +83,10 @@ case "$1" in
     wait "$unity_pid"; code=$?
     pkill -P "$watchdog" 2>/dev/null; kill "$watchdog" 2>/dev/null; wait "$watchdog" 2>/dev/null
     grep -E "^\[SceneScreenshot\]" "$LOG" || true
+    (exit "$code")
     ;;
 esac
-if [ "$1" != shot ]; then code=$?; fi
+code=$?  # status of the Unity run (inside `if`, $? would be the test's own 0)
 errors=$(grep -E "error CS[0-9]+" "$LOG" | sort -u)
 grep -E "^(Exception|.*Exception:)" "$LOG" | grep -v "Licensing" | head -5
 if [ -n "$errors" ]; then echo "$errors"; echo "COMPILE ERRORS (see $LOG)"; exit 1; fi

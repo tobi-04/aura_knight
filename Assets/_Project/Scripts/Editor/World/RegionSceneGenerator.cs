@@ -35,6 +35,12 @@ namespace AuraKnight.Editor
             foreach (var root in scene.GetRootGameObjects())
                 if (root.name == RootName) Object.DestroyImmediate(root);
 
+            // Regions with room files get their real rooms from LevelGenerator; the greybox start room would duplicate room ids.
+            if (LevelCatalog.HasRooms(region.regionId))
+            {
+                EditorSceneManager.SaveScene(scene, path);
+                return;
+            }
             string roomId = $"{region.regionId}_01";
             var room = (GameObject)PrefabUtility.InstantiatePrefab(template, scene);
             room.name = RootName;

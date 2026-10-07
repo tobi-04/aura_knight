@@ -54,7 +54,8 @@ namespace AuraKnight.Tests.PlayMode
             // Systems that read the state at startup took the loaded values, not the defaults.
             Assert.AreEqual(7, Player.GetComponent<PlayerStats>().Health.Max);
             Assert.AreEqual(AuraId.Wind, AuraManager.Instance.Current);
-            yield return WaitUntil(() => !SceneLoader.IsLoaded("Region_Hub"), "hub not loaded");
+            Assert.IsFalse(SceneLoader.IsLoaded("Region_Cave"), "a region that is not a neighbour of the current room is not loaded");
+            Assert.IsFalse(SceneLoader.IsLoaded("Region_Castle"));
         }
 
         [UnityTest]
@@ -122,7 +123,9 @@ namespace AuraKnight.Tests.PlayMode
             Assert.IsFalse(health.IsDead);
             Assert.AreEqual(health.Max, health.Current);
             Assert.AreNotEqual(PlayerStateId.Dead, Player.GetComponent<PlayerController>().StateMachine.CurrentId);
-            yield return WaitUntil(() => !SceneLoader.IsLoaded("Region_Hub"), "hub unloaded after the switch");
+            // forest_01 is a gateway room: it keeps the hub preloaded for the way back, so the hub stays; unrelated regions never load.
+            Assert.IsFalse(SceneLoader.IsLoaded("Region_Cave"));
+            Assert.IsFalse(SceneLoader.IsLoaded("Region_City"));
         }
 
         [UnityTest]

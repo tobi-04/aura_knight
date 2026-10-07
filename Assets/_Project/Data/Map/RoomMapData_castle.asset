@@ -22,8 +22,64 @@ MonoBehaviour:
       y: 0
       width: 4
       height: 3
+  - roomId: castle_02
+    cells:
+      x: 4
+      y: 0
+      width: 4
+      height: 3
+  - roomId: castle_03
+    cells:
+      x: 8
+      y: 0
+      width: 4
+      height: 3
+  - roomId: castle_04
+    cells:
+      x: 12
+      y: 0
+      width: 4
+      height: 5
+  - roomId: castle_05
+    cells:
+      x: 16
+      y: 0
+      width: 4
+      height: 3
+  - roomId: castle_06
+    cells:
+      x: 20
+      y: 0
+      width: 4
+      height: 3
+  - roomId: castle_boss
+    cells:
+      x: 24
+      y: 0
+      width: 4
+      height: 3
   icons:
+  - kind: 1
+    id: castle_boss
+    roomId: castle_boss
+    cell: {x: 26, y: 1}
   - kind: 0
     id: castle_altar_01
     roomId: castle_01
     cell: {x: 0, y: 0}
+  - kind: 0
+    id: castle_altar_02
+    roomId: castle_06
+    cell: {x: 23, y: 0}
+  - kind: 2
+    id: chest_castle_01
+    roomId: castle_03
+    cell: {x: 10, y: 0}
+  - kind: 2
+    id: chest_castle_02
+    roomId: castle_05
+    cell: {x: 18, y: 1}
+  - kind: 3
+    id: shortcut_castle
+    roomId: castle_01
+    cell: {x: 1, y: 0}

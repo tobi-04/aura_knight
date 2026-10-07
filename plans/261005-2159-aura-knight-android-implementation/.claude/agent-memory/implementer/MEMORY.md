@@ -1,0 +1,2 @@
+- [Unity batch gotchas](unity-batch-gotchas.md) — exit=0 hides aborted generator runs; background long runs; read results XML right away
+- [PlayMode world test pitfalls](playmode-world-test-pitfalls.md) — door-trigger adjacency, Aura popup pause, spawn safety, unique room ids

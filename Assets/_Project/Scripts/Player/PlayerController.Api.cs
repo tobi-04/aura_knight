@@ -47,11 +47,11 @@ namespace AuraKnight.Player
             SetVelocityX(HorizontalMotion.Step(config, Velocity.x, dir * RunSpeed, Dt, SpeedMultiplier));
         }
 
-        /// <summary>The wall side (-1/+1) the player touches AND pushes toward, else 0.</summary>
+        /// <summary>The wall side (-1/+1) the player grips (touches AND pushes toward; smooth walls cannot be gripped), else 0.</summary>
         public int WallContactToward()
         {
             int dir = MoveDirection;
-            return dir != 0 && Motor.TouchingWall(dir) ? dir : 0;
+            return dir != 0 && Motor.GripsWall(dir) ? dir : 0;
         }
 
         /// <summary>Starts a jump with the given launch speed from any state (ground, coyote, double jump).</summary>

@@ -18,7 +18,7 @@ namespace AuraKnight.Tests.PlayMode
         static void SetField(Room room, string field, string value) =>
             typeof(Room).GetField(field, BindingFlags.NonPublic | BindingFlags.Instance).SetValue(room, value);
 
-        /// <summary>A second room of the hub region (same region, so the region loader keeps the scene), registered under its own id.</summary>
+        /// <summary>An extra room of the hub region (same region, so the region loader keeps the scene), registered under its own id (hub_99: the real hub has hub_01 to hub_03).</summary>
         static Room AddSecondHubRoom()
         {
             var parked = new GameObject("Parked");
@@ -26,7 +26,7 @@ namespace AuraKnight.Tests.PlayMode
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(TemplatePath);
             var instance = Object.Instantiate(prefab, parked.transform);
             var room = instance.GetComponent<Room>();
-            SetField(room, "roomId", "hub_02");
+            SetField(room, "roomId", "hub_99");
             SetField(room, "regionId", "hub");
             instance.transform.position = new Vector3(200f, 0f, 0f);
             instance.transform.SetParent(null);
@@ -57,12 +57,12 @@ namespace AuraKnight.Tests.PlayMode
             Assert.IsTrue(rooms.EnterRoom("hub_01"));
             Assert.IsTrue(EnemiesOf("hub_01").activeSelf);
 
-            Assert.IsTrue(rooms.EnterRoom("hub_02"));
-            Assert.IsTrue(EnemiesOf("hub_02").activeSelf, "the entered room is live at once");
+            Assert.IsTrue(rooms.EnterRoom("hub_99"));
+            Assert.IsTrue(EnemiesOf("hub_99").activeSelf, "the entered room is live at once");
             Assert.IsTrue(EnemiesOf("hub_01").activeSelf, "the room being left stays live while the camera blends");
 
             yield return WaitUntil(() => !EnemiesOf("hub_01").activeSelf, "left room switched off after the blend", 5f);
-            Assert.IsTrue(EnemiesOf("hub_02").activeSelf);
+            Assert.IsTrue(EnemiesOf("hub_99").activeSelf);
         }
 
         [UnityTest]
@@ -71,11 +71,11 @@ namespace AuraKnight.Tests.PlayMode
             yield return LoadHubWithTwoRooms();
             var rooms = RoomManager.Instance;
             rooms.EnterRoom("hub_01");
-            rooms.EnterRoom("hub_02");
+            rooms.EnterRoom("hub_99");
             rooms.EnterRoom("hub_01"); // back before the delayed deactivation fires
             yield return new WaitForSeconds(RoomBlendTiming.HoldSeconds(0.3f, 1f) + 0.3f);
             Assert.IsTrue(EnemiesOf("hub_01").activeSelf, "the stale deactivation of hub_01 must not hit the current room");
-            Assert.IsFalse(EnemiesOf("hub_02").activeSelf);
+            Assert.IsFalse(EnemiesOf("hub_99").activeSelf);
         }
     }
 }

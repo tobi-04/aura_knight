@@ -12,7 +12,7 @@ Nguồn: [`plans/261005-2159-aura-knight-android-implementation/plan.md`](../pla
 | 6 | Khung thế giới + save | Xong, chờ kiểm trên máy thật |
 | 7 | AI quái | Chưa làm |
 | 8 | Boss | Chưa làm |
-| 9 | Nội dung 4 vùng | Chưa làm |
+| 9 | Nội dung 4 vùng | Xong 34 phòng (3 + 7 + 7 + 7 + 6 + 4 phòng boss), greybox + art vùng có sẵn; chờ playtest cân bằng và kiểm hình trên máy thật |
 | 10 | UI, HUD, menu | Chưa làm |
 | 11 | Âm thanh | Chưa làm |
 | 12 | Tiến trình, shop, bản đồ | Chưa làm |

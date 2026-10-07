@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: AuraKnight::AuraKnight.Progression.RoomMapData
   regionId: city
   cellWorldSize: 10
-  gridOffset: {x: 0, y: -5}
+  gridOffset: {x: 0, y: -7}
   rooms:
   - roomId: city_01
     cells:
@@ -22,8 +22,70 @@ MonoBehaviour:
       y: 0
       width: 4
       height: 3
+  - roomId: city_02
+    cells:
+      x: 4
+      y: 0
+      width: 4
+      height: 3
+  - roomId: city_03
+    cells:
+      x: 8
+      y: 0
+      width: 4
+      height: 3
+  - roomId: city_04
+    cells:
+      x: 12
+      y: 0
+      width: 4
+      height: 5
+  - roomId: city_05
+    cells:
+      x: 16
+      y: 0
+      width: 4
+      height: 3
+  - roomId: city_06
+    cells:
+      x: 20
+      y: 0
+      width: 4
+      height: 3
+  - roomId: city_07
+    cells:
+      x: 24
+      y: 0
+      width: 4
+      height: 3
+  - roomId: city_boss
+    cells:
+      x: 28
+      y: 0
+      width: 4
+      height: 3
   icons:
+  - kind: 1
+    id: city_boss
+    roomId: city_boss
+    cell: {x: 30, y: 1}
   - kind: 0
     id: city_altar_01
     roomId: city_01
     cell: {x: 0, y: 0}
+  - kind: 0
+    id: city_altar_02
+    roomId: city_07
+    cell: {x: 27, y: 0}
+  - kind: 2
+    id: chest_city_01
+    roomId: city_03
+    cell: {x: 10, y: 1}
+  - kind: 2
+    id: chest_city_02
+    roomId: city_05
+    cell: {x: 18, y: 1}
+  - kind: 3
+    id: shortcut_city
+    roomId: city_01
+    cell: {x: 1, y: 0}

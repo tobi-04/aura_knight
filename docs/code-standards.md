@@ -37,8 +37,8 @@ Dùng `Singleton.IsDuplicate(Instance, this)` ở đầu `Awake`; true thì `ret
 
 | Loại | Vị trí | Ghi chú |
 |------|--------|---------|
-| EditMode | `Tests/EditMode/{Core,Player,Combat,Aura,World,Enemies,UI,Audio,Art,Integration}` | asmdef riêng: `AuraKnight.Tests.EditMode`, `.Player`, `.Combat`, `.Aura`. Test logic thuần và bản mô phỏng. Aura mở `internal` cho test qua `InternalsVisibleTo` |
-| PlayMode | `Tests/PlayMode` (asmdef `AuraKnight.Tests.PlayMode`, nền `WorldPlayTestBase`) | Vào scene `Core` thật: new game, continue, respawn xuyên vùng, chuyển phòng, save. Chạy headless được |
+| EditMode | `Tests/EditMode/{Core,Player,Combat,Aura,World,Enemies,UI,Audio,Art,Integration,Levels}` | asmdef riêng: `AuraKnight.Tests.EditMode`, `.Player`, `.Combat`, `.Aura`, `.Levels` (đọc file phòng, bộ giải lưới, mô phỏng vật lý với `PlayerController` thật). Test logic thuần và bản mô phỏng. Aura mở `internal` cho test qua `InternalsVisibleTo` |
+| PlayMode | `Tests/PlayMode` (asmdef `AuraKnight.Tests.PlayMode`, nền `WorldPlayTestBase`; `Levels/` đi qua từng cửa, cổng, bẫy trong scene thật) | Vào scene `Core` thật: new game, continue, respawn xuyên vùng, chuyển phòng, save. Chạy headless được |
 
 - Lỗi tìm được thì viết test tái hiện trước khi sửa. Không bỏ qua test đỏ.
 - Lệnh chạy: `tools/unity-batch.sh test EditMode` / `test PlayMode`; `UNITY_TEST_FILTER=<tên>` thu hẹp phạm vi.
@@ -62,18 +62,19 @@ Một object không được vừa có Hitbox vừa có Hurtbox khác team (vali
 
 Prefab, ScriptableObject, scene `Test_*`, scene `Core` và phòng khởi đầu của vùng được sinh bởi code trong `Scripts/Editor/**`. Sửa generator rồi chạy lại, không sửa tay file sinh ra (sẽ bị ghi đè). Menu `Aura/...` hoặc batch:
 
-Một lệnh cho tất cả, đúng thứ tự phụ thuộc (art → player → aura → enemies → audio → world-core → ui → validators; chi tiết ở `system-architecture.md` §9): `tools/unity-batch.sh exec AuraKnight.Editor.Tools.RegenerateAll.Run` (menu `Aura/Regenerate All`). Generator riêng lẻ:
+Một lệnh cho tất cả, đúng thứ tự phụ thuộc (art → player → aura → enemies → audio → world-core → bosses → progression → levels → map → ui → validators; chi tiết ở `system-architecture.md` §9): `tools/unity-batch.sh exec AuraKnight.Editor.Tools.RegenerateAll.Run` (menu `Aura/Regenerate All`). Generator riêng lẻ:
 
 ```bash
 tools/unity-batch.sh exec AuraKnight.Editor.PlayerAssetGenerator.Generate
 tools/unity-batch.sh exec AuraKnight.Editor.AuraAssetGenerator.Generate
 tools/unity-batch.sh exec AuraKnight.Editor.WorldAssetGenerator.GenerateAll
 tools/unity-batch.sh exec AuraKnight.Editor.WorldSceneGenerator.GenerateAll
-tools/unity-batch.sh exec AuraKnight.Editor.RegionSceneGenerator.GenerateAll
+tools/unity-batch.sh exec AuraKnight.Editor.RegionSceneGenerator.GenerateAll   # chỉ cho vùng chưa có file phòng
+tools/unity-batch.sh exec AuraKnight.Editor.LevelGenerator.GenerateAll          # phòng, bẫy, boss arena, nội dung scene Region_*
 tools/unity-batch.sh exec AuraKnight.Editor.RoomIdValidator.RunBatch
 ```
 
-Scene vùng (`Region_*`) đã có phòng khởi đầu và `SunAltar` sinh tự động; người sở hữu scene phải giữ đúng bàn thờ ghi trong `RegionGraph` (`RegionNode.altarIds`). `RoomIdValidator` kiểm tra ID phòng, đồ thị vùng và bàn thờ.
+Scene vùng (`Region_*`) do `LevelGenerator` dựng từ `Data/Levels/*.room.txt` (các file này là nguồn sự thật: sửa file rồi chạy lại generator, không sửa tay prefab phòng hay scene vùng). Bàn thờ đặt trong phòng phải khớp `RegionGraph` (`RegionNode.altarIds`); generator tự lấy danh sách này từ các file phòng. `RoomIdValidator` kiểm tra ID phòng, đồ thị vùng và bàn thờ.
 
 ## 8. Tương thích save
 

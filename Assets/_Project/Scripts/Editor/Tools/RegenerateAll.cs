@@ -43,8 +43,16 @@ namespace AuraKnight.Editor.Tools
             new RegenerateStep("enemies", EnemyAssetGenerator.GenerateAll),
             // Mixer, SfxLibrary, music, the Audio object in Core, probe on the Player prefab.
             new RegenerateStep("audio", AudioAssetGenerator.GenerateAll),
-            // RegionGraph, room template, altars, region start rooms, Test_Rooms, Core managers + camera.
+            // RegionGraph, room template, altars, Test_Rooms, Core managers + camera (start rooms only for regions without room files).
             new RegenerateStep("world-core", WorldSceneGenerator.GenerateAll),
+            // Boss stats and prefabs and the four arena rooms (the level step finishes the arenas: exit back, tiles, backdrop).
+            new RegenerateStep("bosses", BossAssetGenerator.GenerateAll),
+            // Shop items, Sol's dialogue, TreasureChest / NpcSol prefabs (rooms place them). Must precede the UI step.
+            new RegenerateStep("progression", ProgressionAssetGenerator.GenerateAll),
+            // Data/Levels/*.room.txt -> hazard prefabs, room prefabs, boss arena exits, Region_* scene contents, RegionGraph altars.
+            new RegenerateStep("levels", LevelGenerator.GenerateAll),
+            // Map screen data from the rooms now placed in the region scenes.
+            new RegenerateStep("map", RoomMapDataBuilder.RebuildAll),
             // Fonts, theme, HUD, screens, UI_Root in Core and the MainMenu screens (needs Core to exist).
             new RegenerateStep("ui", UiGenerator.GenerateAll),
             new RegenerateStep("validators", RunValidators),
@@ -75,6 +83,7 @@ namespace AuraKnight.Editor.Tools
             var errors = new List<string>();
             errors.AddRange(RoomIdValidator.Validate(out int rooms));
             errors.AddRange(EnemyRoomLimitValidator.Validate());
+            errors.AddRange(LevelGenerator.Validate());
             if (errors.Count > 0)
                 throw new InvalidOperationException($"{errors.Count} validation error(s):\n{string.Join("\n", errors)}");
             Debug.Log($"[RegenerateAll] Validators clean ({rooms} room(s)).");

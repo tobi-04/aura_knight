@@ -54,7 +54,15 @@ namespace AuraKnight.Tests.PlayMode.Bosses
             string folder = bossName == "RootTree" ? "Forest" : bossName == "GiantStoneSpider" ? "Cave" : bossName == "RogueMachine" ? "City" : "Castle";
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>($"Assets/_Project/Prefabs/Rooms/{folder}/Room_Boss_{folder}.prefab");
             if (prefab == null) throw new System.InvalidOperationException("missing boss room for " + bossName);
-            var room = Object.Instantiate(prefab);
+            // Built inactive and renamed first: with the real region scenes loaded the world already has a room with this id.
+            var parked = new GameObject("Parked");
+            parked.SetActive(false);
+            var room = Object.Instantiate(prefab, parked.transform);
+            var component = room.GetComponent<AuraKnight.World.Room>();
+            typeof(AuraKnight.World.Room).GetField("roomId", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                .SetValue(component, component.RoomId + "_test");
+            room.transform.SetParent(null);
+            Object.Destroy(parked);
             room.transform.position = new Vector3(offsetX, 0f, 0f);
             return room;
 #else

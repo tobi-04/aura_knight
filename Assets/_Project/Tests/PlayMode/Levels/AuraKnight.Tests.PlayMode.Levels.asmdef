@@ -1,0 +1,24 @@
+{
+    "name": "AuraKnight.Tests.PlayMode.Levels",
+    "rootNamespace": "AuraKnight.Tests.PlayMode.Levels",
+    "references": [
+        "AuraKnight",
+        "AuraKnight.Tests.PlayMode",
+        "Unity.RenderPipelines.Universal.2D.Runtime",
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

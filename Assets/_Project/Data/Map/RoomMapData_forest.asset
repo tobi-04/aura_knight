@@ -14,16 +14,78 @@ MonoBehaviour:
   m_EditorClassIdentifier: AuraKnight::AuraKnight.Progression.RoomMapData
   regionId: forest
   cellWorldSize: 10
-  gridOffset: {x: -6, y: 0}
+  gridOffset: {x: -34, y: 0}
   rooms:
   - roomId: forest_01
+    cells:
+      x: 28
+      y: 0
+      width: 4
+      height: 3
+  - roomId: forest_02
+    cells:
+      x: 24
+      y: 0
+      width: 4
+      height: 3
+  - roomId: forest_03
+    cells:
+      x: 20
+      y: 0
+      width: 4
+      height: 3
+  - roomId: forest_04
+    cells:
+      x: 16
+      y: 0
+      width: 4
+      height: 5
+  - roomId: forest_05
+    cells:
+      x: 12
+      y: 0
+      width: 4
+      height: 3
+  - roomId: forest_06
+    cells:
+      x: 8
+      y: 0
+      width: 4
+      height: 3
+  - roomId: forest_07
+    cells:
+      x: 4
+      y: 0
+      width: 4
+      height: 3
+  - roomId: forest_boss
     cells:
       x: 0
       y: 0
       width: 4
       height: 3
   icons:
+  - kind: 1
+    id: forest_boss
+    roomId: forest_boss
+    cell: {x: 2, y: 1}
   - kind: 0
     id: forest_altar_01
     roomId: forest_01
-    cell: {x: 0, y: 0}
+    cell: {x: 31, y: 0}
+  - kind: 0
+    id: forest_altar_02
+    roomId: forest_07
+    cell: {x: 4, y: 0}
+  - kind: 2
+    id: chest_forest_02
+    roomId: forest_05
+    cell: {x: 13, y: 0}
+  - kind: 2
+    id: chest_forest_01
+    roomId: forest_06
+    cell: {x: 9, y: 1}
+  - kind: 3
+    id: shortcut_forest
+    roomId: forest_01
+    cell: {x: 30, y: 0}

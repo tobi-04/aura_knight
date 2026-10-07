@@ -22,6 +22,18 @@ MonoBehaviour:
       y: 0
       width: 4
       height: 3
+  - roomId: hub_02
+    cells:
+      x: 4
+      y: 0
+      width: 4
+      height: 3
+  - roomId: hub_03
+    cells:
+      x: 8
+      y: 0
+      width: 4
+      height: 3
   icons:
   - kind: 0
     id: hub_altar_01

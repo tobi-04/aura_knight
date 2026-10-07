@@ -10,7 +10,7 @@ namespace AuraKnight.Tests.Integration
         public void StepsRunInDependencyOrder()
         {
             var names = RegenerateAll.Steps.Select(s => s.Name).ToArray();
-            CollectionAssert.AreEqual(new[] { "art", "player", "aura", "enemies", "audio", "world-core", "ui", "validators" }, names);
+            CollectionAssert.AreEqual(new[] { "art", "player", "aura", "enemies", "audio", "world-core", "bosses", "progression", "levels", "map", "ui", "validators" }, names);
         }
 
         [Test]

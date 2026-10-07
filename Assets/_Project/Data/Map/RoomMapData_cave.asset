@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: AuraKnight::AuraKnight.Progression.RoomMapData
   regionId: cave
   cellWorldSize: 10
-  gridOffset: {x: 6, y: 0}
+  gridOffset: {x: 14, y: 0}
   rooms:
   - roomId: cave_01
     cells:
@@ -22,8 +22,70 @@ MonoBehaviour:
       y: 0
       width: 4
       height: 3
+  - roomId: cave_02
+    cells:
+      x: 4
+      y: 0
+      width: 4
+      height: 3
+  - roomId: cave_03
+    cells:
+      x: 8
+      y: 0
+      width: 4
+      height: 3
+  - roomId: cave_04
+    cells:
+      x: 12
+      y: 0
+      width: 4
+      height: 3
+  - roomId: cave_05
+    cells:
+      x: 16
+      y: 0
+      width: 4
+      height: 3
+  - roomId: cave_06
+    cells:
+      x: 20
+      y: 0
+      width: 4
+      height: 3
+  - roomId: cave_07
+    cells:
+      x: 24
+      y: 0
+      width: 4
+      height: 3
+  - roomId: cave_boss
+    cells:
+      x: 28
+      y: 0
+      width: 4
+      height: 3
   icons:
+  - kind: 1
+    id: cave_boss
+    roomId: cave_boss
+    cell: {x: 30, y: 1}
   - kind: 0
     id: cave_altar_01
     roomId: cave_01
     cell: {x: 0, y: 0}
+  - kind: 0
+    id: cave_altar_02
+    roomId: cave_07
+    cell: {x: 27, y: 0}
+  - kind: 2
+    id: chest_cave_01
+    roomId: cave_03
+    cell: {x: 10, y: 1}
+  - kind: 2
+    id: chest_cave_02
+    roomId: cave_05
+    cell: {x: 18, y: 0}
+  - kind: 3
+    id: shortcut_cave
+    roomId: cave_01
+    cell: {x: 1, y: 0}

@@ -28,21 +28,25 @@ MonoBehaviour:
     - hub
     altarIds:
     - forest_altar_01
+    - forest_altar_02
   - regionId: cave
     sceneName: Region_Cave
     neighbors:
     - hub
     altarIds:
     - cave_altar_01
+    - cave_altar_02
   - regionId: city
     sceneName: Region_City
     neighbors:
     - hub
     altarIds:
     - city_altar_01
+    - city_altar_02
   - regionId: castle
     sceneName: Region_Castle
     neighbors:
     - hub
     altarIds:
     - castle_altar_01
+    - castle_altar_02

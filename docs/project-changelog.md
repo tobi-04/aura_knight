@@ -2,6 +2,20 @@
 
 Mới nhất ở trên. Kế hoạch: [`development-roadmap.md`](development-roadmap.md).
 
+## 2026-10-08
+
+Phase 9: nội dung 4 vùng. Chưa commit.
+
+### Thêm
+- `Data/Levels/*.room.txt`: 30 phòng dạng lưới ký tự (nguồn sự thật), `docs/level-map.md` (bản đồ, ký hiệu, cổng, bí mật, đường tắt).
+- `LevelGenerator` (+ `RoomFile` parser, bộ giải lưới `LevelReachability`, `LevelProgression`, `LevelValidator`, `BossRoomLinker`, `LevelSceneBuilder`) và các bước `bosses`, `progression`, `levels`, `map` trong `RegenerateAll`.
+- Runtime: bẫy (`Spikes`, `CollapsingPlatform`, `FallingStalactite`, `Piston`, `MovingSpikeFloor`, `AcidPool`; hơi nóng/bẫy lửa dùng lại `HeatVent`/`ExtinguishableGate`), `ParallaxLayer`, `RegionLighting`, `RegionPreloadZone`, `SealGate`/`AuraSeal`, `SmoothWall`.
+- Gating: vách nhẵn 6 ô (Hang, cần Gió), Rào Gỗ ở `hub_03` (Hỏa), cổng 3 ấn (Gió + Hỏa + Thủy). Có test chứng minh bằng bộ giải lưới và bằng mô phỏng `PlayerController` thật.
+
+### Thay đổi
+- `KinematicMotor2D.GripsWall` / `PlayerController.WallContactToward`: vách có `SmoothWall` không bám được (không thì chuỗi wall jump leo được vách 6 ô).
+- Test cũ phải đổi vì thế giới thật nay có `hub_02`, `forest_boss`...: `RoomSwitchPlayModeTests` dùng id `hub_99`, `BossTestKit.SpawnRoom` đổi id bản sao, `WorldFlowPlayModeTests` không còn đòi hub bị unload (`forest_01` là phòng cửa ngõ giữ hub).
+
 ## 2026-10-06
 
 Phase 1, 3, 4, 5, 6 và hai vòng sửa theo review. Chưa commit. Số đã kiểm: EditMode 421/421, PlayMode 20/20, `compile` 0 lỗi / 0 cảnh báo, dev APK build được (56 MB). Chưa chạy trên thiết bị thật.

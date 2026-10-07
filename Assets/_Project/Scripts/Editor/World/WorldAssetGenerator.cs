@@ -41,16 +41,24 @@ namespace AuraKnight.Editor
                 graph = ScriptableObject.CreateInstance<RegionGraph>();
                 AssetDatabase.CreateAsset(graph, RegionGraphPath);
             }
+            var rooms = LevelCatalog.Load();
             graph.SetRegions(new List<RegionNode>
             {
-                new RegionNode("hub", "Region_Hub", "forest", "cave", "city", "castle").WithAltars(GameState.StartAltarId),
-                new RegionNode("forest", "Region_Forest", "hub").WithAltars("forest_altar_01"),
-                new RegionNode("cave", "Region_Cave", "hub").WithAltars("cave_altar_01"),
-                new RegionNode("city", "Region_City", "hub").WithAltars("city_altar_01"),
-                new RegionNode("castle", "Region_Castle", "hub").WithAltars("castle_altar_01"),
+                new RegionNode("hub", "Region_Hub", "forest", "cave", "city", "castle").WithAltars(AltarsOf(rooms, "hub", GameState.StartAltarId)),
+                new RegionNode("forest", "Region_Forest", "hub").WithAltars(AltarsOf(rooms, "forest", "forest_altar_01")),
+                new RegionNode("cave", "Region_Cave", "hub").WithAltars(AltarsOf(rooms, "cave", "cave_altar_01")),
+                new RegionNode("city", "Region_City", "hub").WithAltars(AltarsOf(rooms, "city", "city_altar_01")),
+                new RegionNode("castle", "Region_Castle", "hub").WithAltars(AltarsOf(rooms, "castle", "castle_altar_01")),
             });
             EditorUtility.SetDirty(graph);
             return graph;
+        }
+
+        /// <summary>The altars of a region come from the room files once they exist (every altar must exist in its scene); before that the single start altar.</summary>
+        static string[] AltarsOf(List<RoomFile> rooms, string region, string fallback)
+        {
+            var ids = LevelCatalog.AltarIds(rooms, region);
+            return ids.Count > 0 ? ids.ToArray() : new[] { fallback };
         }
 
         public static void GenerateRoomTemplate()
@@ -98,6 +106,9 @@ namespace AuraKnight.Editor
             // The altar origin sits on the floor; Leo (1.9 tall, centre pivot) respawns 1 unit above it.
             var spawn = Child(root, "SpawnPoint");
             spawn.transform.localPosition = new Vector3(0f, 1f, 0f);
+            // Greybox look, unlit so the altar stays visible in the dark regions: a stone plinth with a golden sun block on it.
+            AddBlock(root, "Plinth", new Vector3(0f, 0.4f, 0f), new Vector3(1.6f, 0.8f, 1f), new Color(0.55f, 0.45f, 0.3f));
+            AddBlock(root, "Sun", new Vector3(0f, 1.5f, 0f), new Vector3(0.7f, 1.2f, 1f), new Color(1f, 0.82f, 0.3f));
 
             var so = new SerializedObject(root.AddComponent<SunAltar>());
             so.FindProperty("spawnPoint").objectReferenceValue = spawn.transform;
@@ -119,11 +130,24 @@ namespace AuraKnight.Editor
             var block = blocker.AddComponent<BoxCollider2D>();
             block.size = new Vector2(1f, 4f);
             block.offset = new Vector2(0f, 2f);
+            AddBlock(blocker, "Slab", new Vector3(0f, 2f, 0f), new Vector3(1f, 4f, 1f), new Color(0.5f, 0.38f, 0.26f));
 
             var so = new SerializedObject(root.AddComponent<Shortcut>());
             so.FindProperty("doorBlocker").objectReferenceValue = blocker;
             so.ApplyModifiedPropertiesWithoutUndo();
             Save(root, ShortcutPath);
+        }
+
+        /// <summary>A coloured square (the built-in white sprite, default unlit material) for the greybox look of world props.</summary>
+        static void AddBlock(GameObject parent, string name, Vector3 position, Vector3 scale, Color color)
+        {
+            var go = Child(parent, name);
+            go.transform.localPosition = position;
+            go.transform.localScale = scale;
+            var sr = go.AddComponent<SpriteRenderer>();
+            sr.sprite = PrefabKit.Square;
+            sr.color = color;
+            sr.sortingOrder = 2;
         }
 
         static GameObject AddTilemap(GameObject grid, string name, int sortingOrder)

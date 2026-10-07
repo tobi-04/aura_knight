@@ -3,7 +3,8 @@
     "rootNamespace": "AuraKnight.Editor",
     "references": [
         "AuraKnight",
-        "Unity.Cinemachine"
+        "Unity.Cinemachine",
+        "Unity.RenderPipelines.Universal.2D.Runtime"
     ],
     "includePlatforms": [
         "Editor"

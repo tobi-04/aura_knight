@@ -1,6 +1,6 @@
 # Kiến trúc hệ thống (Aura Knight)
 
-Mô tả những gì đã có trong code (phase 1-7, 10, 11 và pipeline art). Bosses, Shop/Map: xem tài liệu phase tương ứng khi hoàn tất. Thiết kế: [`game-design-document.md`](game-design-document.md) §12. Quy ước: [`code-standards.md`](code-standards.md).
+Mô tả những gì đã có trong code (phase 1-12 và pipeline art; boss: `Scripts/Bosses`, shop/bản đồ: `Scripts/Progression`). Thiết kế: [`game-design-document.md`](game-design-document.md) §12. Quy ước: [`code-standards.md`](code-standards.md).
 
 ## 1. Bố cục scene
 
@@ -9,7 +9,7 @@ Mô tả những gì đã có trong code (phase 1-7, 10, 11 và pipeline art). B
 | `Boot` (build index 0) | `Bootstrapper`: đặt 60 fps, chặn tắt màn hình, load `MainMenu` |
 | `MainMenu` | Màn hình menu (`MenuScreens`); nút chơi gọi `GameLauncher.Begin` (xem §5) |
 | `Core` | Luôn được giữ khi chơi. Camera (Cinemachine + confiner) và object `Managers`: `GameManager`, `CheckpointService`, `RoomManager`, `RegionLoader`, `WorldEntry`. Player là prefab do `WorldEntry` tạo |
-| `Region_Hub/Forest/Cave/City/Castle` | Mỗi vùng một scene, load/unload additive bởi `RegionLoader`. Chứa các `Room` và `SunAltar`; hiện mới có phòng khởi đầu greybox do generator sinh |
+| `Region_Hub/Forest/Cave/City/Castle` | Mỗi vùng một scene, load/unload additive bởi `RegionLoader`. Chứa các `Room` (prefab sinh từ `Data/Levels`), `SunAltar` và `RegionLighting` (Global Light 2D của vùng). Xem §11 |
 | `Test/Test_Movement`, `Test_Aura`, `Test_Rooms`, `Test_Enemies` | Scene thử độc lập, sinh bởi generator (`Test_Movement`, `Test_Aura` có `TestCheckpoint` vì hồi sinh không còn "sống lại tại chỗ") |
 
 ## 2. Bản đồ module
@@ -41,7 +41,7 @@ flowchart LR
 | Player | Máy trạng thái 13 state, `KinematicMotor2D` (di chuyển động học, không dùng physics solver), `PlayerInputReader` (`IPlayerInput`), `PlayerStats` (tim, năng lượng, xu), `PlayerCombat` |
 | Combat | `Health`, `Hitbox`/`Hurtbox` theo `Team`, `Knockback`, `HitStop`, i-frame, `EnergyPool` |
 | Aura | `AuraManager` (Aura hiện tại, mở khóa, đổi, cast), `AuraDefinition` (SO), `PlayerAuraBinder` (passive vào Player), 3 skill, `AuraInteractionProbe` |
-| World | `Room`/`RoomManager`/`RoomExit`, `RegionGraph`, `SunAltar` + `CheckpointService`, `Shortcut`, `WorldEntry`, `Interactables/*`, `Pickups/*` |
+| World | `Room`/`RoomManager`/`RoomExit`, `RegionGraph`, `SunAltar` + `CheckpointService`, `Shortcut`, `WorldEntry`, `Interactables/*`, `Pickups/*`, `Hazards/*`, `ParallaxLayer`, `RegionLighting`, `RegionPreloadZone`, `SealGate`/`AuraSeal` (xem §11) |
 | UI | Xem §5: theme, router màn hình, HUD, menu, `VirtualControls`. Chỉ nghe `EventBus` |
 | Enemies | Xem §6: 4 archetype + modifier, `EnemyStats`, drop xu |
 | Audio | Xem §7: `Sfx.Play`, `AudioManager`, nhạc theo vùng |
@@ -117,12 +117,25 @@ Hướng phụ thuộc:
 3. `aura`: `AuraAssetGenerator.Generate` + `AuraTestSceneGenerator`
 4. `enemies`: `EnemyAssetGenerator.GenerateAll` (stats, prefab, `Test_Enemies`)
 5. `audio`: `AudioAssetGenerator.GenerateAll` (mixer, library, object `Audio` trong Core, probe)
-6. `world-core`: `WorldSceneGenerator.GenerateAll`
-7. `ui`: `UiGenerator.GenerateAll`
-8. `validators`: `RoomIdValidator.Validate` + `EnemyRoomLimitValidator.Validate` (lỗi thì ném exception)
+6. `world-core`: `WorldSceneGenerator.GenerateAll` (RegionGraph, template phòng, bàn thờ, `Test_Rooms`, Core; phòng khởi đầu greybox chỉ cho vùng chưa có file phòng)
+7. `bosses`: `BossAssetGenerator.GenerateAll` (stats, prefab, 4 phòng boss thô)
+8. `progression`: `ProgressionAssetGenerator.GenerateAll` (shop, thoại Sol, prefab `TreasureChest`/`NpcSol`)
+9. `levels`: `LevelGenerator.GenerateAll` (§11: prefab bẫy, 30 phòng, hoàn thiện 4 phòng boss, bàn thờ trong RegionGraph, nội dung scene `Region_*`)
+10. `map`: `RoomMapDataBuilder.RebuildAll` (dữ liệu màn bản đồ từ các phòng vừa đặt)
+11. `ui`: `UiGenerator.GenerateAll`
+12. `validators`: `RoomIdValidator.Validate` + `EnemyRoomLimitValidator.Validate` + `LevelGenerator.Validate` (lỗi thì ném exception)
 
 Mỗi step lỗi sẽ log tên step rồi ném lại (batch thoát mã 1). Chạy lại cho cùng nội dung; file YAML vẫn đổi số `fileID` vì Unity gán ID ngẫu nhiên cho object tạo bằng code.
 
 ## 10. Công cụ chụp màn hình
 
 `SceneScreenshot` (`Scripts/Editor/Tools`) render scene ở chế độ edit vào RenderTexture, ghi `Logs/screenshots/<job>_<w>x<h>.png`. Chạy `tools/unity-batch.sh shot` (không có `-nographics`, cần GPU; tùy chọn `-shotScenes a.unity;b.unity -shotSizes 1920x1080,2340x1080 -shotPlayer -shotHud`). Bộ mặc định: MainMenu, Core+Region_Hub (Player tại bàn thờ + HUD), Test_Movement/Aura/Enemies ở 1920x1080, 2340x1080, 2520x1080. Canvas Overlay được đổi tạm sang Screen Space Camera và `CanvasScaler` thay bằng hệ số tương đương; ảnh trống (một màu) bị báo lỗi. Giới hạn: chỉ thấy trạng thái tĩnh (không chạy script runtime), HUD ở giá trị mặc định, Cinemachine bị tắt và camera đặt tay.
+
+## 11. Nội dung màn chơi (`Data/Levels`, `Scripts/World/Hazards`, `Scripts/Editor/World/Levels`)
+
+- **Nguồn sự thật:** `Assets/_Project/Data/Levels/<Vùng>/<id>.room.txt` (30 phòng; 4 phòng boss do `BossAssetGenerator` dựng rồi `BossRoomLinker` hoàn thiện). Mỗi file có phần header (`id`, `region`, `slot`, `size`, `doors`, `altar`, `ids`, `rewards`, `requires`, `preload`, `zones`) và lưới ký tự (dòng trên cùng là hàng trên cùng, y hướng lên). Ký hiệu, bản đồ và bảng phòng: [`level-map.md`](level-map.md). `RoomFileParser` kiểm mọi đầu vào của file (kích thước, ký tự, cửa, id) và ném `FormatException` nêu tên file.
+- **Pipeline (`LevelGenerator.GenerateAll`):** parse + `LevelValidator.ValidateFiles` (dừng nếu lỗi) → `HazardPrefabs` (Spikes, KillZone, CollapsingPlatform, FallingStalactite, Piston, AcidPool, MovingSpikeFloor, SealGate, AuraSeal) → `RoomPrefabBuilder` mỗi phòng (khung `Room_Template`, `RoomTerrain`: tile rule của vùng + collider hộp gộp trên layer Ground, `RoomHazards`, `RoomProps`, `RoomEnemies`, `RoomLinks`: `RoomExit` + spawn `from_<phòng>`, `RoomBackdrop`: 4 lớp parallax) → `BossRoomLinker` → `WorldAssetGenerator.GenerateRegionGraph` (altar lấy từ file) → `LevelSceneBuilder` (đặt phòng theo ô lưới, `RegionLighting`).
+- **Cửa và spawn:** cửa là dải chữ số ở cột trái/phải. `RoomExit` của phòng A dẫn tới B dùng spawn `from_A` của B (phòng boss chỉ có `default`). Spawn cách cửa 3 ô; validator cấm quái trong 7 cột và bẫy trong 2 ô quanh điểm đến.
+- **Thành phần runtime mới (`AuraKnight.World`):** `Hazards/` (`Spikes`, `CollapsingPlatform` + `CollapseCycle`, `FallingStalactite` + `StalactiteCycle`, `Piston` + `PistonCycle`, `MovingSpikeFloor` + `PingPongPath`, `AcidPool`); hơi nóng dùng lại `HeatVent`, bẫy lửa dùng lại `ExtinguishableGate`. `ParallaxLayer` (+ `ParallaxMath`, chỉ vẽ lớp của phòng Leo đang đứng), `RegionLighting` (+ `RegionLightingTable`; mỗi scene vùng một Global Light 2D, chỉ bật khi phòng hiện tại thuộc vùng đó), `RegionPreloadZone` (phòng có lối sang nhiều vùng: `hub_03`), `SealGate` + `AuraSeal` + `SealRules`. `Player/SmoothWall` đánh dấu vách không bám được (`KinematicMotor2D.GripsWall`).
+- **Gating:** vách nhẵn 6 ô ở `cave_01`, Rào Gỗ 2×5 và cổng ấn trong `hub_03`. `LevelReachability` (bộ giải lưới) chứng minh hai chiều: mô hình `Safe` (nhảy thoải mái) cho thấy đường đi tồn tại; mô hình `Max` (giới hạn vật lý + dư) cho thấy cổng không qua được khi thiếu Aura. `LevelProgression` đi thử toàn game từ bàn thờ hub tới Malakor.
+
