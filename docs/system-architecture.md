@@ -1,6 +1,6 @@
 # Kiến trúc hệ thống (Aura Knight)
 
-Mô tả những gì đã có trong code (phase 1-12 và pipeline art; boss: `Scripts/Bosses`, shop/bản đồ: `Scripts/Progression`). Thiết kế: [`game-design-document.md`](game-design-document.md) §12. Quy ước: [`code-standards.md`](code-standards.md).
+Mô tả những gì đã có trong code (phase 1-13 và pipeline art; boss: `Scripts/Bosses` (§13), shop/bản đồ: `Scripts/Progression`). Thiết kế: [`game-design-document.md`](game-design-document.md) §12. Quy ước: [`code-standards.md`](code-standards.md).
 
 ## 1. Bố cục scene
 
@@ -79,7 +79,8 @@ Hướng phụ thuộc:
 ## 4. Giới hạn đã biết
 
 - `WorldEntry` chưa unload vùng đang load khi bắt đầu game mới lần hai; cổng/shortcut chỉ mở thêm, không đóng lại. Luồng menu nên quay về `Core` mới.
-- Pause menu tương lai phải đặt `GameMode.Paused` và khôi phục về `HitStop.GameplayScale`.
+- `PauseController` đặt `GameMode.Paused` và khôi phục về `HitStop.GameplayScale`, nhưng chưa tự pause khi app vào nền (lưu thì có: `GameManager.OnApplicationPause`, bỏ qua khi là game mới chưa lưu mà đã có save).
+- Quái bị giết hồi sinh khi phòng bật lại, chưa có ledger "đã giết từ lần nghỉ cuối".
 - Chưa chạy thử trên thiết bị: rung (`VibrationEffect`), `File.Replace` trên Android IL2CPP (có đường copy dự phòng).
 
 ## 5. UI (`Scripts/UI`, namespace `AuraKnight.UI`)
@@ -129,7 +130,7 @@ Mỗi step lỗi sẽ log tên step rồi ném lại (batch thoát mã 1). Chạ
 
 ## 10. Công cụ chụp màn hình
 
-`SceneScreenshot` (`Scripts/Editor/Tools`) render scene ở chế độ edit vào RenderTexture, ghi `Logs/screenshots/<job>_<w>x<h>.png`. Chạy `tools/unity-batch.sh shot` (không có `-nographics`, cần GPU; tùy chọn `-shotScenes a.unity;b.unity -shotSizes 1920x1080,2340x1080 -shotPlayer -shotHud`). Bộ mặc định: MainMenu, Core+Region_Hub (Player tại bàn thờ + HUD), Test_Movement/Aura/Enemies ở 1920x1080, 2340x1080, 2520x1080. Canvas Overlay được đổi tạm sang Screen Space Camera và `CanvasScaler` thay bằng hệ số tương đương; ảnh trống (một màu) bị báo lỗi. Giới hạn: chỉ thấy trạng thái tĩnh (không chạy script runtime), HUD ở giá trị mặc định, Cinemachine bị tắt và camera đặt tay.
+`SceneScreenshot` (`Scripts/Editor/Tools`) render scene ở chế độ edit vào RenderTexture, ghi `Logs/screenshots/<job>_<w>x<h>.png`. Chạy `tools/unity-batch.sh shot` (không có `-nographics`, cần GPU, `SHOT_TIMEOUT` mặc định 900 s; tùy chọn `-shotScenes a.unity;b.unity -shotSizes 1920x1080,2340x1080 -shotPlayer -shotHud`). Bộ mặc định: MainMenu, Core+Region_Hub (Player tại bàn thờ + HUD), Test_Movement/Aura/Enemies ở 1920x1080, 2340x1080, 2520x1080. Canvas Overlay được đổi tạm sang Screen Space Camera và `CanvasScaler` thay bằng hệ số tương đương; ảnh trống (một màu) bị báo lỗi. Giới hạn: chỉ thấy trạng thái tĩnh (không chạy script runtime), HUD ở giá trị mặc định, Cinemachine bị tắt và camera đặt tay.
 
 ## 11. Nội dung màn chơi (`Data/Levels`, `Scripts/World/Hazards`, `Scripts/Editor/World/Levels`)
 
@@ -150,3 +151,22 @@ Mỗi step lỗi sẽ log tên step rồi ném lại (batch thoát mã 1). Chạ
 - **Phát hành:** `ProjectSetup` đặt `1.0.0` mã 1, Development Build tắt, vsync 0. `BuildScript.BuildDevelopmentApk` (bật Development) và `BuildReleaseApk` (từ chối, thoát mã 1, khi thiếu keystore; keystore không bao giờ nằm trong repo). Credits dựng từ ba `LICENSES.md` bởi `CreditsTextBuilder` trước mỗi build.
 - **Ánh sáng Lâu Đài:** `RegionLightingTable.Castle` là 0.15 (GDD §10 ghi 0.05; ảnh runtime cho thấy 0.05 che hết bệ đứng). Xem `docs/qa/bug-log.md` BUG-001.
 - **QA:** `docs/qa/` (test case, bug log, playtest M1 đến M3, checklist thiết bị).
+
+## 13. Boss (`Scripts/Bosses`, `Scripts/Editor/Bosses`, GDD §7.4)
+
+- **Khung:** `BossBase` (partial: Attacks/Combat/Visuals/Spawns), `BossStats` (SO trong `Data/Bosses`: id, HP, thưởng Aura, `finalBoss`, nhịp), `BossPhase` + `WeightedPicker` (chọn đòn theo trọng số, tránh lặp đòn vừa dùng), `BossAttack` trừu tượng chạy trên `BossAttackTimeline` (Telegraph/Execute/Recover; `BossTiming` giữ báo trước tối thiểu 0.5 s), `BossHazard` + `BossHazardPool` (§12), `WeakPointHurtbox` (nhân x2 mọi sát thương, BUG-004), `PlayerSlowStatus`.
+- **4 boss:** `RootTree/`, `StoneSpider/`, `RogueMachine/`, `Malakor/` (mỗi thư mục: lớp boss + 3 đòn; Malakor thêm `DarkPhaseController` và `AuraColorStrikeAttack` ở phase 3, 25% HP). Số đòn và hồ đòn từng phase nằm trong `BossAttackSetup` (Editor); đổi số thì chạy lại generator, không sửa prefab.
+- **`BossArena`:** trigger vào phòng đóng cửa, publish `BossEncounterStarted`/`BossHealthChanged`/`BossEncounterEnded`, đổi nhạc; `ResetEncounter()` khi `PlayerDied`. `Refresh()` đọc `GameState.defeatedBosses` khi bật và khi `GameStateLoaded`: boss đã thắng không xuất hiện lại.
+- **Thứ tự chiến thắng (`BossVictorySequence`):** `UnlockReward()` (qua `IBossVictorySteps`, trả `false` nếu không cấp được Aura, khi đó dừng, boss chưa bị đánh dấu thắng) → `MarkDefeated` → `BossDefeated` (autosave) → `EndEncounter` → nhạc. Boss cuối: `PlayEnding` rồi `GameCompleted`.
+- **Phòng boss:** `BossAssetGenerator` dựng prefab thô `Room_Boss_<Vùng>`; `BossRoomLinker` (step `levels`, §11) hoàn thiện (lối ra, tile, nền). Id phòng `<vùng>_boss`.
+
+## 14. `tools/unity-batch.sh`
+
+| Lệnh | Việc |
+|------|------|
+| `compile` / `setup` | Import + compile; `setup` chạy `ProjectSetup.Run` |
+| `test [EditMode\|PlayMode]` | Ghi `Logs/test-results.xml`; `UNITY_TEST_FILTER` thu hẹp; `UNITY_GRAPHICS=1` bỏ `-nographics` để test chụp ảnh runtime có GPU |
+| `exec Namespace.Class.Method` | Chạy hàm editor tĩnh (generator) |
+| `shot [...]` | Chụp scene (§10) |
+
+Mã thoát là mã thật của Unity (`code=$?` ngay sau lệnh chạy): `1` khi có `error CS` hoặc generator ném exception; `64` sai cú pháp; `75` Editor đang mở project. Khoá chạy tuần tự bằng thư mục `.unity-batch.lock` (reclaim khi chủ khoá đã chết). Chưa có timeout cho `compile`/`test`/`exec` (chỉ `shot` có); nếu run chết sớm, phần tóm tắt có thể in số của `Logs/test-results.xml` cũ, nên đọc log trước khi tin số.

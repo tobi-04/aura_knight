@@ -1,7 +1,7 @@
 ---
 title: "Aura Knight Android - 8 week implementation"
 description: "Unity 6 (6000.6.0f1) + C# Android 2D Metroidvania: 4 vùng, 4 boss, 3 Aura, nhóm 4 người trong 8 tuần"
-status: pending
+status: in-progress
 priority: P1
 effort: 8w
 branch: dev
@@ -47,25 +47,27 @@ Dựng toàn bộ game **Aura Knight: Mảnh Vỡ Ánh Sáng** cho Android theo 
 
 ## Progress
 
-**Current session (2026-10-05):** Phases 1, 3, 4, 5, 6 completed (code + EditMode 421/421 + PlayMode 20/20). Git + device testing pending.
+**2026-10-08:** Code xong cả 13 phase. Compile sạch, EditMode 964/964, PlayMode 166 pass + 2 skip (test chụp ảnh cần GPU), APK dev 54.9 MB, review 8/10 (0 critical, 3 warning đã sửa ở d02c5d7). 34 phòng, không cần cắt. Lệch plan: làm trong 1 đợt thay vì 8 tuần; ánh sáng Lâu Đài 0.05 → 0.15.
+
+**Còn lại (cần người/máy thật):** profiling fps/RAM trên 2 máy, 3 tỉ lệ màn hình thật, playtest M1–M3, checklist thủ công `docs/qa/device-checklist.md`, keystore + APK release, video demo, xác nhận quyền dùng key art (`Art/KeyArt`) và 2 PDF trong repo public.
 
 ## Phases
 
 | Phase | Name | Status |
 |-------|------|--------|
 | 1 | [Project Setup and Repo](./phase-01-project-setup-and-repo.md) | Completed* |
-| 2 | [Asset Sourcing and Art Pipeline](./phase-02-asset-sourcing-and-art-pipeline.md) | Pending |
+| 2 | [Asset Sourcing and Art Pipeline](./phase-02-asset-sourcing-and-art-pipeline.md) | Completed* |
 | 3 | [Player Movement and Touch Input](./phase-03-player-movement-and-touch-input.md) | Completed* |
 | 4 | [Combat and Health](./phase-04-combat-and-health.md) | Completed* |
 | 5 | [Aura System](./phase-05-aura-system.md) | Completed* |
 | 6 | [World Framework and Save](./phase-06-world-framework-and-save.md) | Completed* |
-| 7 | [Enemy AI Archetypes](./phase-07-enemy-ai-archetypes.md) | Pending |
-| 8 | [Bosses](./phase-08-bosses.md) | Pending |
-| 9 | [Level Content Four Regions](./phase-09-level-content-four-regions.md) | Pending |
-| 10 | [UI Screens and HUD](./phase-10-ui-screens-and-hud.md) | Pending |
-| 11 | [Audio](./phase-11-audio.md) | Pending |
-| 12 | [Progression Shop and Map](./phase-12-progression-shop-and-map.md) | Pending |
-| 13 | [QA Optimization and Release](./phase-13-qa-optimization-and-release.md) | Pending |
+| 7 | [Enemy AI Archetypes](./phase-07-enemy-ai-archetypes.md) | Completed* |
+| 8 | [Bosses](./phase-08-bosses.md) | Completed* |
+| 9 | [Level Content Four Regions](./phase-09-level-content-four-regions.md) | Completed* |
+| 10 | [UI Screens and HUD](./phase-10-ui-screens-and-hud.md) | Completed* |
+| 11 | [Audio](./phase-11-audio.md) | Completed* |
+| 12 | [Progression Shop and Map](./phase-12-progression-shop-and-map.md) | Completed* |
+| 13 | [QA Optimization and Release](./phase-13-qa-optimization-and-release.md) | Completed* |
 
 **\* Marked "Completed" with device/on-device feel verification pending (phase 13 QA scope).**
 

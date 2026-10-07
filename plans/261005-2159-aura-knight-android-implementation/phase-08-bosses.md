@@ -1,7 +1,7 @@
 ---
 phase: 8
 title: "Bosses"
-status: pending
+status: completed
 effort: "10d"
 owner: "B"
 weeks: "3 (Gốc Cây), 5 (Nhện), 6 (Cỗ Máy), 7 (Malakor)"
@@ -13,7 +13,7 @@ weeks: "3 (Gốc Cây), 5 (Nhện), 6 (Cỗ Máy), 7 (Malakor)"
 - GDD §7.4 (bảng boss), §6 (Aura dùng chống boss), §9.4 (Boss intro, HP bar)
 
 ## Overview
-- Priority: P0 (Malakor phase 3 là P2) · Status: pending
+- Priority: P0 (Malakor phase 3 là P2) · Status: completed (code; mục cần máy thật/người chơi còn mở, xem plan.md)
 - 4 boss trên framework chung: 3 đòn, 2 phase (phase 2 ở 50% HP thì nhanh hơn 25% + thêm biến thể đòn), phòng boss khóa cửa, hạ boss thì nhận Aura + mảnh vỡ.
 
 ## Key Insights

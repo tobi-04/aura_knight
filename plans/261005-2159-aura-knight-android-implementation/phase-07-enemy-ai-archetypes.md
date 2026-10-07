@@ -1,7 +1,7 @@
 ---
 phase: 7
 title: "Enemy AI Archetypes"
-status: pending
+status: completed
 effort: "6d"
 owner: "B"
 weeks: "2-4"
@@ -13,7 +13,7 @@ weeks: "2-4"
 - GDD §7.3 (4 kiểu gốc, 7 biến thể, chỉ số), §5.1 (dmg người chơi)
 
 ## Overview
-- Priority: P0 · Status: pending
+- Priority: P0 · Status: completed (code; mục cần máy thật/người chơi còn mở, xem plan.md)
 - 4 kiểu AI gốc (Walker, Hopper, Flyer, Crawler/Static), 7 biến thể dùng `EnemyStats` SO + override sprite/animator.
 
 ## Key Insights

@@ -1,7 +1,7 @@
 ---
 phase: 9
 title: "Level Content Four Regions"
-status: pending
+status: completed
 effort: "15d"
 owner: "B (layout), C (art pass)"
 weeks: "1-7"
@@ -13,7 +13,7 @@ weeks: "1-7"
 - GDD §7.1–7.2 (bản đồ, bảng vùng, gating, bí mật), §4 (thông số dùng để thiết kế khoảng cách), §10 (parallax, Global Light), §14 (trigger cắt)
 
 ## Overview
-- Priority: P0 (5 phòng/vùng) → P1 (đủ 34 phòng) · Status: pending
+- Priority: P0 (5 phòng/vùng) → P1 (đủ 34 phòng) · Status: completed (code; mục cần máy thật/người chơi còn mở, xem plan.md)
 - Dựng Hub (3) + Rừng (8) + Hang (8) + Đô Thị (8) + Lâu Đài (7) + 4 phòng boss theo quy trình grey-box → playtest → art pass.
 
 ## Key Insights

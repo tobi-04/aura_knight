@@ -188,7 +188,7 @@ Khiên Hào Quang là phần thể hiện hình ảnh của Aura: Leo giơ khiê
 | **Đô Thị Hơi Nước** | 8 | Rào Gỗ Cổ ở hub (cần Hỏa) | Ống xả hơi nóng (bật/tắt chu kỳ 2 s), piston dập, bể axit, khu ngập nước | Robot Tuần Tra, Rác Cơ Khí Phóng Điện | **Cỗ Máy Nổi Loạn** → Aura Thủy + Mảnh vỡ 3 | Khu ngập sâu dẫn tới rương nâng cấp (Thủy) |
 | **Lâu Đài Bóng Tối** | 7 | Cổng 3 ấn: Luồng Gió + đuốc Hỏa + hào nước Thủy | Bóng tối (chỉ thấy trong glow), sàn gai chuyển động, bẫy lửa | Hiệp Sĩ Bóng Đêm, Bóng Ma | **Chúa Tể Malakor** (boss cuối) → Ending | — |
 
-**Tổng cộng 34 phòng + 4 phòng boss.** Kích thước phòng chuẩn là 40 × 22 ô (vừa 2 màn hình); phòng dọc (trục leo) là 22 × 44 ô.
+**Tổng cộng 34 phòng, đã tính 4 phòng boss** (cột "Số phòng" gồm cả phòng boss; trong code: Hub 3, Rừng 7 + boss, Hang 7 + boss, Đô Thị 7 + boss, Lâu Đài 6 + boss, xem [`level-map.md`](level-map.md)). Kích thước phòng chuẩn là 40 × 22 ô (vừa 2 màn hình); phòng dọc (trục leo) là 22 × 44 ô.
 
 ### 7.3 Quái thường (4 kiểu gốc, đổi skin theo vùng)
 
@@ -211,6 +211,8 @@ AI viết bằng state machine đơn giản `Patrol → Detect → Attack → Co
 | **Chúa Tể Malakor** | 70 (3 phase) | Chém bóng tối tầm xa | Dịch chuyển + đâm | Phase 3: tắt hết ánh sáng phòng, Leo phải đổi Aura theo màu đòn đánh (khiên Thủy chặn, Hỏa chiếu sáng, Gió né trên không) | Dùng đủ 3 Aura |
 
 Boss HP bar hiện ở cạnh dưới màn hình, theo style UI ở mục 9.
+
+*Đối chiếu code (`Data/Bosses/*.asset`, `BossAttackSetup`):* HP 30 / 40 / 50 / 70 khớp bảng. Phase 2 ở 50% HP (nhanh x1.25, mọi đòn báo trước tối thiểu 0.5 s). Malakor vào phase 3 ở **25% HP** (bóng tối + `AuraColorStrikeAttack`). Điểm yếu nhân x2 sát thương hiện áp cho **mọi** loại sát thương, không riêng Cầu Lửa (BUG-004, mở). Số đòn là first-pass, chưa cân bằng bằng người chơi thật.
 
 ---
 
@@ -304,7 +306,8 @@ TextMeshPro: tạo Font Asset dạng **Dynamic** để render đủ dấu tiến
 - **Leo:** chọn sprite hiệp sĩ gần nhất rồi recolor theo key art trang 1 (tóc nâu, giáp `#1B2233` viền `#C99A3B`, khăn xanh). Glow Aura làm bằng Light2D + đổi màu viền giáp qua shader/material (tint), **không vẽ lại 3 bộ sprite**.
 - **Key art trong PDF** (Leo, 3 Aura, bản đồ Solarus, hang) dùng cho Main Menu, popup Aura, nền Map, Loading.
 - **Parallax 4 lớp:** Foreground ×1.2 · Action ×1.0 · Midground ×0.5 · Background ×0.1.
-- **Ánh sáng:** URP 2D Light; Global Light theo vùng (Rừng 0.6, Hang 0.25, Đô Thị 0.45, Lâu Đài 0.05); Shadow Caster 2D trên tile đá (P1, có thể tắt trên máy yếu).
+- **Ánh sáng:** URP 2D Light; Global Light theo vùng (Rừng 0.6, Hang 0.25, Đô Thị 0.45, Lâu Đài **0.15**); Shadow Caster 2D trên tile đá (P1, có thể tắt trên máy yếu).
+  - *Ghi chú (2026-10-08):* Lâu Đài ban đầu là 0.05, nhưng ảnh chụp runtime cho thấy bệ đứng gần như vô hình nên code (`RegionLightingTable.Castle`) đặt 0.15, vẫn là vùng tối nhất. **Cần xác nhận trên máy thật** (độ sáng màn hình khác nhau, xem `docs/qa/bug-log.md` BUG-001). Phase 3 của Malakor làm mờ mọi Global Light xuống 0.04 (`DarkPhaseController`).
 
 ---
 
@@ -398,7 +401,7 @@ Mỗi file C# dưới 200 dòng, mỗi class một trách nhiệm.
 
 - Sprite Atlas theo vùng; chỉ giữ atlas của vùng hiện tại và vùng kề.
 - Object pool cho đạn, xu, VFX.
-- `Application.targetFrameRate = 60`; tắt Shadow Caster khi bật "Chế độ tiết kiệm" trong Settings.
+- `Application.targetFrameRate = 60` (30 khi "Chế độ tiết kiệm"; vsync 0 vì Android bỏ qua `targetFrameRate` khi bật vsync). Chưa có Shadow Caster trong game, nên chế độ tiết kiệm hiện chỉ giảm số Light2D (8 xuống 4, `LightBudget`). Chi tiết: `system-architecture.md` §12.
 - Kiểm tra mỗi tuần trên **ít nhất 2 máy thật** (1 máy yếu); dùng Unity Profiler qua USB.
 
 ---

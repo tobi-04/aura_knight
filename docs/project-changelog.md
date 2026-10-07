@@ -2,9 +2,40 @@
 
 Mới nhất ở trên. Kế hoạch: [`development-roadmap.md`](development-roadmap.md).
 
+## 2026-10-08 (sửa theo review cuối, commit d02c5d7)
+
+Reviewer cuối (`f89a05d..e0623d5`, quyết định SEALED, 0 lỗi critical) nêu 3 cảnh báo; cả ba đã sửa trong code.
+
+### Sửa
+- **Cổng và đường tắt lưu ngay:** `OneTimeAuraGate` và `Shortcut` gọi `GameManager.Save()` sau khi đánh dấu đã mở, giống ấn, rương, shop. Trước đó trạng thái chỉ nằm trong bộ nhớ, mất nếu tiến trình bị kill mà `OnApplicationPause` không chạy.
+- **Chống mất boss khi thiếu phần thưởng:** `IBossVictorySteps.UnlockReward()` trả `bool`; `BossVictorySteps` trả `false` khi không có `AuraManager`, và `BossVictorySequence` khi đó không `MarkDefeated`/`BossDefeated` (boss không biến mất vĩnh viễn mà Aura chưa nhận).
+- **Game mới không đè save cũ:** `GameManager.OnApplicationPause` bỏ qua lần lưu khi state là game mới chưa lưu mà đã có save (`!stateSaved && HasSave`), nên đưa app vào nền ngay sau "Game mới" không ghi đè slot Tiếp tục.
+
+### Còn mở (từ review, chưa sửa)
+- Chưa có hộp xác nhận "Game mới" khi đã có save.
+- Key art (`Art/KeyArt`) chưa rõ nguồn và quyền: xem `Assets/_Project/Art/LICENSES.md`, GDD §17.3.
+- `BuildScript`: mật khẩu keystore chỉ có trong phiên Unity nên build release bằng batch luôn bị từ chối; `unity-batch.sh` chưa có timeout cho compile/test/exec.
+
+## 2026-10-08 (phase 8)
+
+Boss (`Scripts/Bosses`). Số đã kiểm khi hoàn thành: EditMode 800/800, PlayMode 127 xanh + 1 bỏ qua.
+
+### Thêm
+- Khung boss: `BossBase` (partial), `BossStats` (SO, `Data/Bosses/{RootTree,GiantStoneSpider,RogueMachine,Malakor}.asset`), `BossPhase` + `WeightedPicker` (chọn đòn có trọng số, tránh lặp), `BossAttackTimeline` (Telegraph/Execute/Recover, báo trước tối thiểu 0.5 s ở mọi tốc độ phase), `BossHazard`, `BossArena` (cửa đóng, thanh máu, nhạc, reset khi Leo chết), `WeakPointHurtbox` (x2 sát thương), `PlayerSlowStatus` (tơ nhện làm chậm).
+- 4 boss, mỗi boss 3 đòn + 1 biến thể phase 2 (50% HP, nhanh x1.25); Malakor có phase 3 ở 25% HP (`DarkPhaseController` làm tối, `AuraColorStrikeAttack`). HP 30 / 40 / 50 / 70.
+- Thứ tự chiến thắng (`BossVictorySequence`): `AuraManager.Unlock` (lưu) → `MarkBossDefeated` → `BossDefeated` → `BossEncounterEnded` → nhạc; boss cuối: `GameCompleted`. Boss đã thắng không xuất hiện lại sau Continue.
+- Generator `BossAssetGenerator` (stats, prefab, phòng boss thô, `Test_Boss_*`), số đòn trong `BossAttackSetup`; hook debug `BossDebugControls` chỉ trong Editor.
+
+### Giới hạn
+- Chưa cân bằng bằng người chơi thật; hazard/prop là hình chữ nhật placeholder; thân boss không có collider đặc.
+
+## 2026-10-07 (phase 2, 7, 10, 11, 12)
+
+Chạy song song. Phase 2: pipeline art (`ArtPipeline`, art sinh bằng `tools/art/*.py`, một pack CC0 Kenney Tiny Dungeon). Phase 7: 4 archetype quái + 3 modifier, 8 biến thể, `CoinPickup`, `EnemyRoomLimitValidator`, `Test_Enemies`. Phase 10: UI (theme, router, HUD, menu, cài đặt, credits, `Strings_vi.json`, `UiGenerator`). Phase 11: âm thanh sinh bằng script (27 SFX, BGM theo vùng 2 lớp), `AudioManager`, `MusicLayerController`. Phase 12: `Wallet`, shop + NPC Sol, rương, dữ liệu và màn bản đồ. Chi tiết kiến trúc ở `system-architecture.md` §5-8. Công cụ chụp màn hình `tools/unity-batch.sh shot` thêm trong đợt tích hợp.
+
 ## 2026-10-08 (phase 13)
 
-QA, tối ưu, sẵn sàng phát hành. Chưa commit. Số đã kiểm: EditMode 963/963, PlayMode 165 xanh + 2 bỏ qua (ảnh chụp, cần GPU), `compile` 0 lỗi / 0 cảnh báo, `RegenerateAll` sạch, dev APK 48.5 MB. Chưa chạy trên thiết bị thật.
+QA, tối ưu, sẵn sàng phát hành. Số đã kiểm: EditMode 963/963, PlayMode 165 xanh + 2 bỏ qua (ảnh chụp, cần GPU), `compile` 0 lỗi / 0 cảnh báo, `RegenerateAll` sạch, dev APK 48.5 MB. Chưa chạy trên thiết bị thật.
 
 ### Thêm
 - `docs/qa/`: test case (ánh xạ GDD §15.1 sang test), bug log, mẫu playtest M1-M3, checklist thiết bị (mẫu trống).
@@ -14,12 +45,12 @@ QA, tối ưu, sẵn sàng phát hành. Chưa commit. Số đã kiểm: EditMode
 
 ### Thay đổi
 - Phiên bản `1.0.0` (mã 1), Development Build tắt, vsync 0 ở mọi quality level.
-- `RegionLightingTable.Castle` 0.05 thành 0.15 (ảnh runtime cho thấy 0.05 không thấy bệ đứng). GDD §10 chưa cập nhật.
+- `RegionLightingTable.Castle` 0.05 thành 0.15 (ảnh runtime cho thấy 0.05 không thấy bệ đứng). GDD §10 đã ghi số mới, kèm "cần xác nhận trên máy thật".
 - `BuildScript.ReleaseSigningProblem` tách thành hàm thuần có test.
 
 ## 2026-10-08
 
-Phase 9: nội dung 4 vùng. Chưa commit.
+Phase 9: nội dung 4 vùng. Số đã kiểm: EditMode 948/948, PlayMode 154 xanh + 1 bỏ qua (GPU).
 
 ### Thêm
 - `Data/Levels/*.room.txt`: 30 phòng dạng lưới ký tự (nguồn sự thật), `docs/level-map.md` (bản đồ, ký hiệu, cổng, bí mật, đường tắt).

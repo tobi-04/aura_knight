@@ -1,37 +1,41 @@
 {
-  "task": "Implement Aura Knight plan phases 1, 3, 4, 5, 6 (project setup, player movement + touch input, combat/health, aura system, world framework + save) on Unity 6000.6.0f1 for Android",
+  "task": "Implement Aura Knight plan phases 2, 7-13 (art pipeline, enemy AI, bosses, four-region level content, UI/HUD, audio, progression/shop/map, QA/release) on Unity 6000.6.0f1 for Android",
   "mode": "interactive",
   "acceptanceCriteria": [
-    "project compiles with no C# errors and builds an IL2CPP ARM64 Android APK",
-    "movement numbers match GDD §4 (jump 2/4.5 tiles, dash 5 tiles, slide through 1-tile gap, wall jump)",
-    "combat: hitbox/hurtbox/team rules, i-frames, death and respawn at the altar",
-    "aura: switch/unlock/skills/passives and gates open only for the matching aura",
-    "world: room transitions, region loading, cross-region respawn, save and continue from lastAltarId"
+    "project compiles with no C# errors; EditMode and PlayMode suites green; dev IL2CPP ARM64 APK under 150 MB; release build refused without keystore",
+    "4 bosses with 2 phases (Malakor 3), telegraph >= 0.5 s, Aura unlocked and saved before BossDefeated",
+    "Hub + 4 regions (34 rooms) with altars, chests, shortcuts; Cave/City/Castle gating not bypassable without the required Aura",
+    "HUD/screens per NEN TANG Mobile style: hearts, energy colour, aura ring, boss bar only during encounters, 16:9 to 21:9",
+    "shop/wallet/chests/map persist; save survives background/kill; New Game does not destroy Continue before first altar",
+    "only CC0 / project-owned / OFL assets in the public repo, no secrets"
   ],
   "touchpoints": [
-    "Assets/_Project/Scripts/Core",
+    "Assets/_Project/Scripts/Bosses",
+    "Assets/_Project/Scripts/Enemies",
     "Assets/_Project/Scripts/World",
-    "Assets/_Project/Scripts/Player",
-    "Assets/_Project/Scripts/Combat",
-    "Assets/_Project/Scripts/Aura",
-    "Assets/_Project/Scripts/UI/VirtualControls",
+    "Assets/_Project/Scripts/UI",
+    "Assets/_Project/Scripts/Audio",
+    "Assets/_Project/Scripts/Progression",
+    "Assets/_Project/Scripts/Core",
     "Assets/_Project/Scripts/Editor",
+    "Assets/_Project/Data/Levels",
     "Assets/_Project/Tests",
-    "ProjectSettings",
-    "Packages/manifest.json",
-    "tools/unity-batch.sh"
+    "tools/unity-batch.sh",
+    "tools/art",
+    "tools/audio",
+    "docs/qa"
   ],
   "blastRadius": [
-    "save file format and backward compatibility (GameState version 1)",
-    "respawn and continue flow across additive region scenes",
-    "physics layer collision matrix used by every hitbox and probe",
-    "Android build settings"
+    "save file (GameState v1) and continue slot",
+    "room graph / region loading across 5 additive scenes",
+    "player motor (SmoothWall grip change)",
+    "Android build and quality settings (vsync, frame rate, version)"
   ],
   "contracts": [
-    "EventBus event structs in Core/GameEvents.cs",
-    "GameState JSON schema (GDD §12.4 + openedGates)",
-    "PlayerController hooks (CanDoubleJump, CanGlide, SpeedMultiplier, JumpMultiplier, SwimMode, ExternalInvulnerable, ControlsEnabled)",
-    "AuraManager.Unlock / TryCastSkill, PlayerStats.TrySpendEnergy",
-    "tools/unity-batch.sh compile|setup|test|exec"
+    "EventBus events in Core/GameEvents.cs and UI/UiEvents.cs",
+    "IBossVictorySteps / BossVictorySequence order",
+    "Data/Levels/*.room.txt format",
+    "GameState JSON schema",
+    "tools/unity-batch.sh compile|setup|test|exec|shot (real exit codes)"
   ]
 }

@@ -1,7 +1,7 @@
 ---
 phase: 11
 title: "Audio"
-status: pending
+status: completed
 effort: "6d"
 owner: "D"
 weeks: "2-7"
@@ -13,7 +13,7 @@ weeks: "2-7"
 - GDD §11 (BGM, SFX, kỹ thuật audio)
 
 ## Overview
-- Priority: P0 (SFX cốt lõi + 1 BGM/vùng) / P1 (dynamic music 2 layer) · Status: pending
+- Priority: P0 (SFX cốt lõi + 1 BGM/vùng) / P1 (dynamic music 2 layer) · Status: completed (code; mục cần máy thật/người chơi còn mở, xem plan.md)
 - AudioManager + pool SFX + MusicLayerController + bộ SFX tự làm bằng bfxr + BGM CC0/CC-BY.
 
 ## Key Insights

@@ -1,121 +1,110 @@
 {
   "score": 8,
   "criticalCount": 0,
-  "decision": "SEALED",
+  "decision": "REWORK",
   "acceptanceCovered": [
-    "save/load ordering: boss reward Aura is unlocked and saved before BossDefeated is marked and published (BossVictorySequence.Run); a kill interrupted between the two leaves the Aura owned and the boss re-fightable, no softlock",
-    "bosses, seals, chests, shortcuts and gates persist by PersistentId in GameState and re-apply on Start and on GameStateLoaded; menu return reloads Core in single mode so no stale in-session state survives New Game",
-    "corrupt, empty, wrong-version and unreadable saves never throw (SaveSystem.TryLoad, Guarded reads); valid .bak recovers a damaged main; wrong version is not replaced by .bak",
-    "event bus subscription symmetry: every EventBus.Subscribe has a matching Unsubscribe in the paired lifecycle method across Scripts/ (scripted count + lifecycle check)",
-    "pooled objects: BossHazard fully re-Configured on rent (velocity, age, armed, events, hitbox registry cleared), harmless markers never pooled, destroyed pool entries skipped; CoinPickup.Launch resets age, velocity, resting, collected",
-    "wallet: adds saturate at int.MaxValue, spends never negative, negative prices rejected, Quote gates MaxedOut/AtStatLimit before spend, shop purchase saves immediately",
-    "gating: SmoothWall excluded only from wall grip (GripsWall), applied by RoomTerrain generator; OneTimeAuraGate accepts only the matching Aura and interaction",
-    "release safety: no keystore or secrets tracked (.gitignore covers *.keystore/*.jks), BuildReleaseApk refuses without a complete custom keystore and exits 1 in batch, ARM64 IL2CPP",
-    "licensing: Art/Audio/Fonts contents match their LICENSES.md (27 SFX wav, 12 ogg generated; fonts OFL; one CC0 Kenney pack); credits text aggregates them",
-    "tools/unity-batch.sh exit code: code=$? after case captures the Unity run status (shot branch returns it via subshell), compile errors force exit 1, usage errors 64, busy editor 75"
+    "project compiles with no C# errors; EditMode and PlayMode suites green; dev IL2CPP ARM64 APK under 150 MB; release build refused without keystore: orchestrator-verified after d02c5d7 (compile clean, EditMode 964/964, PlayMode 166 + 2 GPU skips, dev APK 54,924,029 bytes exit 0); release refusal at Assets/_Project/Scripts/Editor/BuildScript.cs:24-31 and 48-55, test Assets/_Project/Tests/EditMode/Integration/ReleaseConfigTests.cs",
+    "4 bosses with 2 phases (Malakor 3), telegraph >= 0.5 s, Aura unlocked and saved before BossDefeated: telegraph floor tested at Assets/_Project/Tests/PlayMode/Bosses/BossArenaPlayModeTests.cs:132 and BossLogicTests.cs:89,129; order at Assets/_Project/Scripts/Bosses/BossVictorySequence.cs:22-31 (UnlockReward gates MarkDefeated/PublishDefeated), AuraManager.Unlock saves at Aura/AuraManager.cs:100-107; test UngrantedRewardLeavesTheBossUndefeatedSoItCanBeFoughtAgain in Assets/_Project/Tests/EditMode/Bosses/BossLogicTests.cs",
+    "Hub + 4 regions (34 rooms) with altars, chests, shortcuts; Cave/City/Castle gating not bypassable without the required Aura: gates accept only the matching Aura (World/Interactables/OneTimeAuraGate.cs TryInteract via AuraInteractionRules.Accepts), seals need the worn Aura (World/AuraSeal.cs:64-76), smooth wall excluded only from grip (Player/KinematicMotor2D.cs:75, Editor/World/Levels/RoomTerrain.cs:65); 34 rooms built per implementer-261008-phase-09.md; known pogo-solver gap BUG-005 open (docs/qa/bug-log.md), not a demonstrated bypass",
+    "HUD/screens per NEN TANG Mobile style: hearts, energy colour, aura ring, boss bar only during encounters, 16:9 to 21:9: orchestrator viewed runtime HUD screenshots at 1920x1080 and 2520x1080 (hearts, energy colour, aura ring, padlocks, hidden boss bar correct); Assets/_Project/Tests/PlayMode/UI/HudPlayModeTests.cs and RuntimeScreenshotTests.cs",
+    "shop/wallet/chests/map persist; save survives background/kill; New Game does not destroy Continue before first altar: shop Save at Progression/ShopService.cs:46, chest Save at World/Interactables/TreasureChest.cs:62, gate Save at OneTimeAuraGate.cs:46-47, shortcut Save at World/Shortcut.cs:48-50, pause-save guard at Core/GameManager.cs:57-63 (!stateSaved && HasSave returns), test BackgroundingAFreshNewGameKeepsThePreviousSave in Assets/_Project/Tests/PlayMode/Levels/QaRuntimePlayModeTests.cs. Residual: a first-progress Save (chest, shop, gate) before the first altar still replaces the old slot, and there is no New Game confirm"
   ],
   "regressionChecked": [
-    "GameManager OnApplicationPause save and stateSaved lifecycle",
-    "RegionLoader/RoomManager/CheckpointService coroutines tolerate disabled or destroyed rooms (null guards, room != Current check)",
-    "BossArena OnEnable/OnDisable symmetry and ResetEncounter on room unload",
-    "LightBudgetController restores only lights it suppressed and RestoreAll on disable",
-    "Haptics JNI failure falls back and latches jniBroken",
-    "file sizes: only BossBase.cs (206) and MapScreen.cs (201) exceed 200 lines"
+    "BossVictorySequence final-boss path still plays ending and GameCompleted (UnlockReward returns true for no-reward boss)",
+    "GameManager pause-save: Continue sets stateSaved true so normal runs still save on pause",
+    "OneTimeAuraGate/Shortcut early return when GameManager is null",
+    "IBossVictorySteps contract change (void to bool) updated in the only real implementation BossVictorySteps and the test Recorder",
+    "EventBus subscription symmetry, pools and save recovery unchanged from the first review"
   ],
-  "contractStatus": "OK",
+  "contractStatus": "CHANGED",
   "refuted": [],
-  "unproven": [],
+  "unproven": [
+    "only CC0 / project-owned / OFL assets in the public repo, no secrets: no secrets found, art/audio/fonts match their LICENSES.md, but Assets/_Project/Art/LICENSES.md:37 records KeyArt/*.jpg (4 images extracted from a slide deck) as 'unknown, to be confirmed' and they ship in the Main Menu and Aura popups, so the CC0/project-owned/OFL claim cannot be shown"
+  ],
   "reachableRegressions": [],
   "findings": [
     {
       "severity": "Warning",
       "category": "Persistence",
-      "location": "Assets/_Project/Scripts/World/Interactables/OneTimeAuraGate.cs:45",
-      "summary": "Burned/extinguished gate is marked opened in memory only, no gm.Save(); AuraSeal and SealGate do save. Lost if Android kills the process without OnApplicationPause. Add gm.Save() after MarkGateOpened (same for Shortcut.cs:48)",
-      "disposition": "Accept"
+      "location": "Assets/_Project/Scripts/World/Interactables/OneTimeAuraGate.cs:45-47",
+      "summary": "Resolved in d02c5d7: gate open now calls gm.Save() after MarkGateOpened",
+      "disposition": "Reject"
     },
     {
       "severity": "Warning",
       "category": "Persistence",
-      "location": "Assets/_Project/Scripts/World/Shortcut.cs:48",
-      "summary": "Shortcut open is not saved immediately (MarkShortcutOpened only); persists only at the next altar, boss, shop or app-pause save",
-      "disposition": "Accept"
+      "location": "Assets/_Project/Scripts/World/Shortcut.cs:48-50",
+      "summary": "Resolved in d02c5d7: shortcut open now saves immediately",
+      "disposition": "Reject"
     },
     {
       "severity": "Warning",
       "category": "Softlock",
-      "location": "Assets/_Project/Scripts/Bosses/BossVictorySteps.cs:20-26",
-      "summary": "If AuraManager.Instance is null the reward is skipped with a warning but MarkDefeated still runs, so the boss is gone for good and the Aura (and the gates behind it) is permanently unobtainable. UnlockReward should return bool and the sequence should not mark defeated on failure",
-      "disposition": "Accept"
+      "location": "Assets/_Project/Scripts/Bosses/BossVictorySequence.cs:25-30",
+      "summary": "Resolved in d02c5d7: failed reward no longer marks the boss defeated; covered by UngrantedRewardLeavesTheBossUndefeatedSoItCanBeFoughtAgain",
+      "disposition": "Reject"
     },
     {
       "severity": "Warning",
       "category": "Persistence",
-      "location": "Assets/_Project/Scripts/Core/GameManager.cs:57-60",
-      "summary": "OnApplicationPause saves for every mode but Menu, including right after StartNewGame (stateSaved false, Mode Loading/Playing): backgrounding the app before the first altar overwrites the old Continue slot with a fresh state; MainMenuScreen.StartNewGame has no overwrite confirmation. Skip the pause-save while !stateSaved && State is a fresh game, and/or confirm New Game when HasSave",
-      "disposition": "Accept"
+      "location": "Assets/_Project/Scripts/Core/GameManager.cs:57-63",
+      "summary": "Resolved for the pause path in d02c5d7 (test BackgroundingAFreshNewGameKeepsThePreviousSave); a chest, shop buy or gate opened before the first altar still overwrites the old slot and New Game has no confirm (MainMenuScreen.cs:56-64)",
+      "disposition": "Defer"
     },
     {
       "severity": "Warning",
-      "category": "Completeness",
-      "location": "Assets/_Project/Scripts/UI/Screens/MainMenuScreen.cs:56-64",
-      "summary": "No confirm dialog before New Game when a save exists",
+      "category": "Licensing",
+      "location": "Assets/_Project/Art/LICENSES.md:37",
+      "summary": "KeyArt jpgs have unknown authorship and licence yet ship in a public repo and in the game UI. Confirm rights in writing or delete Art/KeyArt and its uses before publishing",
+      "disposition": "Accept"
+    },
+    {
+      "severity": "Suggestion",
+      "category": "Licensing",
+      "location": "Assets/TextMesh Pro/Fonts/LiberationSans.ttf:1",
+      "summary": "TMP default LiberationSans (OFL) not listed in credits; also no repo-level LICENSE and docs/reference PDFs need publication rights confirmed",
       "disposition": "Defer"
     },
     {
       "severity": "Suggestion",
       "category": "Performance",
       "location": "Assets/_Project/Scripts/World/LightBudgetController.cs:65-71",
-      "summary": "FindObjectsByType<Light2D>() allocates an array twice a second and _candidates.Contains is O(n^2); acceptable at 2 Hz but a Light2D registry (OnEnable/OnDisable) removes the scan and the GC",
+      "summary": "FindObjectsByType allocation every 0.5 s and O(n^2) Contains; use a Light2D registry",
       "disposition": "Defer"
     },
     {
       "severity": "Suggestion",
       "category": "Economy",
       "location": "Assets/_Project/Scripts/Bosses/StoneSpider/SummonSpiderlingsAttack.cs:32-45",
-      "summary": "Summoned spiderlings use the normal StoneSpider drop table and are re-summoned whenever fewer than 2 live: coins farmable during the boss fight. Zero the drop table on summoned minions",
+      "summary": "Summoned spiderlings drop coins and are re-summoned: farmable in the fight",
       "disposition": "Defer"
     },
     {
       "severity": "Suggestion",
       "category": "Maintainability",
       "location": "Assets/_Project/Scripts/Bosses/BossBase.cs:1-206",
-      "summary": "206 lines, over the 200-line standard (MapScreen.cs is 201); move Target/properties or Validate into a partial",
-      "disposition": "Defer"
-    },
-    {
-      "severity": "Suggestion",
-      "category": "Maintainability",
-      "location": "Assets/_Project/Scripts/Bosses/BossBase.Spawns.cs:37",
-      "summary": "Two comments merged on one line with a stray // (explains recycled vs pooled); split",
+      "summary": "206 lines (MapScreen.cs 201), over the 200-line standard",
       "disposition": "Defer"
     },
     {
       "severity": "Suggestion",
       "category": "Build",
       "location": "Assets/_Project/Scripts/Editor/BuildScript.cs:42-43",
-      "summary": "PlayerSettings keystore passwords are not persisted across Unity sessions, so batch release always refuses with 'password is empty'; read them from env vars (AURA_KEYSTORE_PASS etc.) and set before the check; also bump AndroidBundleVersionCode",
+      "summary": "Keystore passwords are session-only in Unity so batch release always refuses; read env vars and bump versionCode",
       "disposition": "Defer"
     },
     {
       "severity": "Suggestion",
       "category": "Build",
       "location": "tools/unity-batch.sh:72-87",
-      "summary": "compile/test/exec have no timeout (only shot does) so a hung Unity holds the lock forever; test does not delete Logs/test-results.xml first, so a run that dies early prints the previous run's totals",
-      "disposition": "Defer"
-    },
-    {
-      "severity": "Suggestion",
-      "category": "Licensing",
-      "location": "Assets/_Project/Art/LICENSES.md:3-4",
-      "summary": "Art/UI pngs, KeyArt jpgs, TMP LiberationSans.ttf and docs/reference PDFs are not individually listed with provenance; no repo-level LICENSE file for a public repo. Confirm key art and the lecturer PDF (Tai_Lieu...v2 (1).pdf) may be published",
+      "summary": "No timeout on compile/test/exec; stale test-results.xml summary can print if a run dies early",
       "disposition": "Defer"
     },
     {
       "severity": "Suggestion",
       "category": "Reliability",
       "location": "Assets/_Project/Scripts/UI/PauseController.cs:37-44",
-      "summary": "No auto-pause on OnApplicationPause/Focus loss: returning from the background resumes live mid-fight. Pause (without screen) when the app is backgrounded in Playing mode",
+      "summary": "No auto-pause when the app is backgrounded",
       "disposition": "Defer"
     }
   ]

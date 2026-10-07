@@ -1,7 +1,7 @@
 ---
 phase: 10
 title: "UI Screens and HUD"
-status: pending
+status: completed
 effort: "10d"
 owner: "C"
 weeks: "2-7"
@@ -14,7 +14,7 @@ weeks: "2-7"
 - Tham chiếu hình ảnh: `docs/reference/NỀN TẢNG Mobile.pdf` slide 1, 3, 8–10, 11, 12, 13
 
 ## Overview
-- Priority: P0 (HUD, menu, pause, settings, game over, popup Aura) / P1 (map, cutscene, credits) · Status: pending
+- Priority: P0 (HUD, menu, pause, settings, game over, popup Aura) / P1 (map, cutscene, credits) · Status: completed (code; mục cần máy thật/người chơi còn mở, xem plan.md)
 - Toàn bộ UI uGUI + TextMeshPro theo style slide: nền navy, thanh nhấn gold dọc, label mono `NN / TÊN`, card viền trái theo màu vùng.
 
 ## Key Insights

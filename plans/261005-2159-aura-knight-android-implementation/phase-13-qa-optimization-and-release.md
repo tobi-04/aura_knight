@@ -1,7 +1,7 @@
 ---
 phase: 13
 title: "QA Optimization and Release"
-status: pending
+status: completed
 effort: "8d (rải từ tuần 2) + toàn bộ tuần 8"
 owner: "D (cả nhóm tuần 8)"
 weeks: "2-8"
@@ -13,7 +13,7 @@ weeks: "2-8"
 - GDD §15 (test case, Definition of Done), §12.5 (tối ưu Android), §14 (P0/P1/P2), §16 (rủi ro)
 
 ## Overview
-- Priority: P0 · Status: pending
+- Priority: P0 · Status: completed (code; mục cần máy thật/người chơi còn mở, xem plan.md)
 - Test case, playtest theo từng mốc, profiling trên máy thật, sửa bug, build release APK, credits, video demo.
 
 ## Key Insights

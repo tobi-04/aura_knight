@@ -1,7 +1,7 @@
 ---
 phase: 12
 title: "Progression Shop and Map"
-status: pending
+status: completed
 effort: "5d"
 owner: "A (logic), C (UI)"
 weeks: "4-5"
@@ -13,7 +13,7 @@ weeks: "4-5"
 - GDD §8 (xu, shop, rương, cân bằng), §9.4 (Shop, Bản đồ), §12.4 (GameState)
 
 ## Overview
-- Priority: P0 (xu + shop tim/NL) / P1 (rèn kiếm, mua bản đồ, map screen đầy đủ, rương) · Status: pending
+- Priority: P0 (xu + shop tim/NL) / P1 (rèn kiếm, mua bản đồ, map screen đầy đủ, rương) · Status: completed (code; mục cần máy thật/người chơi còn mở, xem plan.md)
 - Kinh tế xu, Shop của Tư Tế Sol, rương bí mật, màn hình bản đồ.
 
 ## Key Insights

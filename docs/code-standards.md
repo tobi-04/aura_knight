@@ -42,6 +42,8 @@ Dùng `Singleton.IsDuplicate(Instance, this)` ở đầu `Awake`; true thì `ret
 
 - Lỗi tìm được thì viết test tái hiện trước khi sửa. Không bỏ qua test đỏ.
 - Lệnh chạy: `tools/unity-batch.sh test EditMode` / `test PlayMode`; `UNITY_TEST_FILTER=<tên>` thu hẹp phạm vi.
+- Test cần GPU (`RuntimeScreenshotTests`, `RuntimeRoomScreenshotTests`, đánh dấu `[Explicit]`, bị bỏ qua mặc định): `UNITY_GRAPHICS=1 UNITY_TEST_FILTER=<tên> tools/unity-batch.sh test PlayMode`. Mã thoát của script là mã thật (1 khi lỗi compile/generator); xem `system-architecture.md` §14.
+- Boss/hazard có hitbox lấy từ `BossHazardPool` (không `Instantiate/Destroy`); `Configure` phải reset toàn bộ trạng thái. Đèn cục bộ do `LightBudgetController` quản (giữ 8, hoặc 4 khi tiết kiệm): không tự tắt/bật `Light2D` cục bộ ở chỗ khác.
 
 ## 6. Physics layer
 

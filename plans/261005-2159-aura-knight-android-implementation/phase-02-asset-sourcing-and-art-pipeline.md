@@ -1,7 +1,7 @@
 ---
 phase: 2
 title: "Asset Sourcing and Art Pipeline"
-status: pending
+status: completed
 effort: "4d"
 owner: "C"
 weeks: "1 (khóa asset), 2-7 (tích hợp dần)"
@@ -14,7 +14,7 @@ weeks: "1 (khóa asset), 2-7 (tích hợp dần)"
 - Key art: `docs/reference/NỀN TẢNG Mobile.pdf` (trang 1 Leo, 8–10 Aura, 11 map, 16 hang)
 
 ## Overview
-- Priority: P0 · Status: pending
+- Priority: P0 · Status: completed (code; mục cần máy thật/người chơi còn mở, xem plan.md)
 - Chọn và **khóa** asset pack cho Leo + 4 vùng + quái + boss ngay tuần 1; dựng pipeline import; recolor Leo theo key art trang 1.
 
 ## Key Insights

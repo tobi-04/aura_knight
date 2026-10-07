@@ -9,7 +9,13 @@ All fonts are from Google Fonts under the SIL Open Font License 1.1 (OFL). Redis
 | BeVietnamPro-Regular.ttf | Be Vietnam Pro, body | Copyright 2021 The Be Vietnam Pro Project Authors |
 | BarlowCondensed-Bold.ttf | Barlow Condensed Bold, HUD numbers | Copyright 2017 The Barlow Project Authors |
 
-Key art in `Art/KeyArt` is extracted from the team's own design deck (docs/reference/NỀN TẢNG Mobile.pdf) and is placeholder concept art.
+## Unity TextMeshPro default font
+
+| File | Role | Licence |
+|------|------|---------|
+| `Assets/TextMesh Pro/Fonts/LiberationSans.ttf` (+ `LiberationSans SDF` assets in `TextMesh Pro/Resources`) | Default TMP font and fallback, imported by Unity's TMP Essential Resources | SIL OFL 1.1. Copyright (c) 2010 Google Corporation (digitized data, Arimo/Tinos/Cousine) and (c) 2012 Red Hat, Inc., Reserved Font Name "Liberation". Licence text shipped next to the font: `Assets/TextMesh Pro/Fonts/LiberationSans - OFL.txt` |
+
+Key art provenance is tracked in `Art/LICENSES.md` (section "Key art", unconfirmed).
 
 ## OFL 1.1 text
 

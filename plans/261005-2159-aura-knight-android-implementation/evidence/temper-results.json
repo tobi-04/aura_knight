@@ -5,28 +5,35 @@
       "exitCode": 0,
       "status": "pass",
       "summary": "0 compile errors · exit=0 (log: /Users/tgiap.dev/devs/aura_knight/Logs/batch-compile.log)",
-      "ts": "2026-10-05T17:04:52.235Z"
+      "ts": "2026-10-07T19:16:00.000Z"
     },
     {
       "command": "tools/unity-batch.sh test EditMode",
       "exitCode": 0,
       "status": "pass",
-      "summary": "total=\"421\" passed=\"421\" failed=\"0\" · 0 compile errors · exit=0 (log: /Users/tgiap.dev/devs/aura_knight/Logs/batch-test-EditMode.log)",
-      "ts": "2026-10-05T17:05:00.967Z"
+      "summary": "total=\"964\" passed=\"964\" failed=\"0\" · exit=0 (log: /Users/tgiap.dev/devs/aura_knight/Logs/batch-test-EditMode.log)",
+      "ts": "2026-10-07T19:20:00.000Z"
     },
     {
       "command": "tools/unity-batch.sh test PlayMode",
       "exitCode": 0,
       "status": "pass",
-      "summary": "total=\"20\" passed=\"20\" failed=\"0\" · 0 compile errors · exit=0 (log: /Users/tgiap.dev/devs/aura_knight/Logs/batch-test-PlayMode.log)",
-      "ts": "2026-10-05T17:05:22.029Z"
+      "summary": "total=\"168\" passed=\"166\" failed=\"0\" skipped=\"2\" (explicit GPU screenshot tests) · exit=0 (log: /Users/tgiap.dev/devs/aura_knight/Logs/batch-test-PlayMode.log)",
+      "ts": "2026-10-07T19:25:00.000Z"
+    },
+    {
+      "command": "UNITY_GRAPHICS=1 UNITY_TEST_FILTER=AuraKnight.Tests.PlayMode.UI.RuntimeScreenshotTests tools/unity-batch.sh test PlayMode",
+      "exitCode": 0,
+      "status": "pass",
+      "summary": "total=\"1\" passed=\"1\" · runtime HUD screenshots viewed",
+      "ts": "2026-10-07T17:27:32.000Z"
     },
     {
       "command": "tools/unity-batch.sh exec AuraKnight.Editor.BuildScript.BuildDevelopmentApk",
       "exitCode": 0,
       "status": "pass",
-      "summary": "0 compile errors · exit=0 (log: /Users/tgiap.dev/devs/aura_knight/Logs/batch-exec-BuildDevelopmentApk.log)",
-      "ts": "2026-10-05T17:05:53.729Z"
+      "summary": "dev APK 54,924,029 bytes · exit=0 (log: /Users/tgiap.dev/devs/aura_knight/Logs/batch-exec-BuildDevelopmentApk.log)",
+      "ts": "2026-10-07T19:29:00.000Z"
     }
   ]
 }
