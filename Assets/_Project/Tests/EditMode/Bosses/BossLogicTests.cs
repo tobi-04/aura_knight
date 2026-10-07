@@ -198,7 +198,8 @@ namespace AuraKnight.Tests.Bosses
         sealed class Recorder : IBossVictorySteps
         {
             public readonly List<string> Calls = new List<string>();
-            public void UnlockReward() => Calls.Add("Unlock");
+            public bool RewardGranted = true;
+            public bool UnlockReward() { Calls.Add("Unlock"); return RewardGranted; }
             public void MarkDefeated() => Calls.Add("Mark");
             public void PublishDefeated() => Calls.Add("BossDefeated");
             public void EndEncounter() => Calls.Add("Ended");
@@ -221,6 +222,14 @@ namespace AuraKnight.Tests.Bosses
             var steps = new Recorder();
             BossVictorySequence.Run(steps, true);
             CollectionAssert.AreEqual(new[] { "Unlock", "Mark", "BossDefeated", "Ended", "PlayEnding", "GameCompleted" }, steps.Calls);
+        }
+
+        [Test]
+        public void UngrantedRewardLeavesTheBossUndefeatedSoItCanBeFoughtAgain()
+        {
+            var steps = new Recorder { RewardGranted = false };
+            BossVictorySequence.Run(steps, false);
+            CollectionAssert.AreEqual(new[] { "Unlock", "Ended", "ReleaseMusic" }, steps.Calls);
         }
     }
 }

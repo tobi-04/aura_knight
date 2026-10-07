@@ -42,7 +42,9 @@ namespace AuraKnight.World
             if (IsOpen) return true;
             Open();
             var gm = GameManager.Instance;
-            if (gm != null) gm.State.MarkGateOpened(SavedId);
+            if (gm == null) return true;
+            gm.State.MarkGateOpened(SavedId);
+            gm.Save(); // like seals and chests: an opened gate must survive a process kill
             return true;
         }
 

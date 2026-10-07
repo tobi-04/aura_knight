@@ -42,6 +42,19 @@ namespace AuraKnight.Tests.PlayMode.Levels
         }
 
         [UnityTest]
+        public IEnumerator BackgroundingAFreshNewGameKeepsThePreviousSave()
+        {
+            yield return NewGame();
+            Manager.State.coins = 55;
+            Assert.IsTrue(Manager.Save(), "the previous run's save");
+            Manager.StartNewGame(); // New Game from the menu, no altar reached yet
+            Manager.State.coins = 3;
+            Manager.SendMessage("OnApplicationPause", true);
+            Assert.IsTrue(Manager.Continue());
+            Assert.AreEqual(55, Manager.State.coins, "Continue still offers the previous run");
+        }
+
+        [UnityTest]
         public IEnumerator TheMenuDoesNotWriteASaveWhenTheAppGoesToTheBackground()
         {
             yield return null;

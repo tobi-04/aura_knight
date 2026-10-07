@@ -13,16 +13,17 @@ namespace AuraKnight.Bosses
 
         public BossVictorySteps(BossStats stats) { _stats = stats; }
 
-        public void UnlockReward()
+        public bool UnlockReward()
         {
-            if (!AuraIds.TryParse(_stats.rewardAura, out var aura) || aura == AuraId.None) return;
+            if (!AuraIds.TryParse(_stats.rewardAura, out var aura) || aura == AuraId.None) return true;
             var manager = AuraManager.Instance;
             if (manager == null)
             {
                 Debug.LogWarning($"[Boss] No AuraManager in the scene; the {_stats.rewardAura} reward of {_stats.bossId} is not granted.");
-                return;
+                return false;
             }
             manager.Unlock(aura); // false only when already owned
+            return true;
         }
 
         public void MarkDefeated() => GameManager.Instance?.State.MarkBossDefeated(_stats.bossId);

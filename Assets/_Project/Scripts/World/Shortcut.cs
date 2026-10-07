@@ -45,7 +45,9 @@ namespace AuraKnight.World
             if (IsOpen) return;
             ApplyOpen();
             var gm = GameManager.Instance;
-            if (gm != null) gm.State.MarkShortcutOpened(persistentId.Id);
+            if (gm == null) return;
+            gm.State.MarkShortcutOpened(persistentId.Id);
+            gm.Save();
         }
 
         void ApplyOpen()

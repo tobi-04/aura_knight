@@ -3,8 +3,8 @@ namespace AuraKnight.Bosses
     /// <summary>The side effects of beating a boss, in the order they must happen. Implemented by <c>BossVictorySteps</c>.</summary>
     public interface IBossVictorySteps
     {
-        /// <summary>Grants the reward Aura (persists immediately). Nothing for the final boss.</summary>
-        void UnlockReward();
+        /// <summary>Grants the reward Aura (persists immediately). True when there is nothing to grant (final boss) or it was granted.</summary>
+        bool UnlockReward();
         void MarkDefeated();
         /// <summary>Publishes Core.BossDefeated; GameManager autosaves on it.</summary>
         void PublishDefeated();
@@ -22,9 +22,12 @@ namespace AuraKnight.Bosses
     {
         public static void Run(IBossVictorySteps steps, bool finalBoss)
         {
-            steps.UnlockReward();
-            steps.MarkDefeated();
-            steps.PublishDefeated();
+            // An Aura that could not be granted must not be lost for good: the boss stays undefeated and can be fought again.
+            if (steps.UnlockReward())
+            {
+                steps.MarkDefeated();
+                steps.PublishDefeated();
+            }
             steps.EndEncounter();
             if (finalBoss)
             {

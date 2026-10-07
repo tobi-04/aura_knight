@@ -56,7 +56,10 @@ namespace AuraKnight.Core
 
         void OnApplicationPause(bool paused)
         {
-            if (paused && Mode != GameMode.Menu) Save();
+            if (!paused || Mode == GameMode.Menu) return;
+            // A new game that never reached an altar must not overwrite the previous run's Continue slot.
+            if (!stateSaved && HasSave) return;
+            Save();
         }
 
         public void SetMode(GameMode mode) => Mode = mode;
