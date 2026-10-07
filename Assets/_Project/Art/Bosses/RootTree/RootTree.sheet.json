@@ -1,0 +1,66 @@
+{
+  "name": "RootTree",
+  "cellWidth": 96,
+  "cellHeight": 96,
+  "pivotX": 0.5,
+  "pivotY": 0.5,
+  "pixelsPerUnit": 32,
+  "anims": [
+    {
+      "name": "Idle",
+      "row": 0,
+      "frames": 4,
+      "fps": 5,
+      "loop": true
+    },
+    {
+      "name": "Move",
+      "row": 1,
+      "frames": 4,
+      "fps": 7,
+      "loop": true
+    },
+    {
+      "name": "Attack1",
+      "row": 2,
+      "frames": 4,
+      "fps": 10,
+      "loop": false
+    },
+    {
+      "name": "Attack2",
+      "row": 3,
+      "frames": 4,
+      "fps": 10,
+      "loop": false
+    },
+    {
+      "name": "Attack3",
+      "row": 4,
+      "frames": 4,
+      "fps": 10,
+      "loop": false
+    },
+    {
+      "name": "Hurt",
+      "row": 5,
+      "frames": 2,
+      "fps": 10,
+      "loop": false
+    },
+    {
+      "name": "Death",
+      "row": 6,
+      "frames": 4,
+      "fps": 6,
+      "loop": false
+    },
+    {
+      "name": "Exposed",
+      "row": 7,
+      "frames": 2,
+      "fps": 4,
+      "loop": true
+    }
+  ]
+}

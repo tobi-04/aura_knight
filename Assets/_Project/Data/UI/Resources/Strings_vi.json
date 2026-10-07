@@ -1,0 +1,364 @@
+{
+ "entries": [
+  {
+   "key": "ctl.jump",
+   "value": "JUMP"
+  },
+  {
+   "key": "ctl.attack",
+   "value": "ATK"
+  },
+  {
+   "key": "ctl.dash",
+   "value": "DASH"
+  },
+  {
+   "key": "ctl.skill",
+   "value": "SKILL"
+  },
+  {
+   "key": "ctl.pause",
+   "value": "II"
+  },
+  {
+   "key": "ctl.map",
+   "value": "MAP"
+  },
+  {
+   "key": "ctl.aura_wind",
+   "value": "G"
+  },
+  {
+   "key": "ctl.aura_fire",
+   "value": "H"
+  },
+  {
+   "key": "ctl.aura_water",
+   "value": "T"
+  },
+  {
+   "key": "hud.boss_label",
+   "value": "BOSS / {0}"
+  },
+  {
+   "key": "hud.energy",
+   "value": "NĂNG LƯỢNG"
+  },
+  {
+   "key": "boss.label",
+   "value": "BOSS"
+  },
+  {
+   "key": "splash.studio",
+   "value": "Aura Studio"
+  },
+  {
+   "key": "splash.title",
+   "value": "AURA KNIGHT"
+  },
+  {
+   "key": "menu.label",
+   "value": "KỴ SỸ ÁNH SÁNG"
+  },
+  {
+   "key": "menu.title",
+   "value": "AURA KNIGHT"
+  },
+  {
+   "key": "menu.subtitle",
+   "value": "MẢNH VỠ ÁNH SÁNG"
+  },
+  {
+   "key": "menu.continue",
+   "value": "TIẾP TỤC"
+  },
+  {
+   "key": "menu.new_game",
+   "value": "TRÒ CHƠI MỚI"
+  },
+  {
+   "key": "menu.settings",
+   "value": "CÀI ĐẶT"
+  },
+  {
+   "key": "menu.about",
+   "value": "GIỚI THIỆU"
+  },
+  {
+   "key": "intro.label",
+   "value": "CỐT TRUYỆN"
+  },
+  {
+   "key": "intro.title",
+   "value": "Ánh sáng vỡ thành bốn"
+  },
+  {
+   "key": "intro.skip",
+   "value": "BỎ QUA"
+  },
+  {
+   "key": "intro.1",
+   "value": "Solarus trù phú nhờ Mặt Trời Lõi."
+  },
+  {
+   "key": "intro.2",
+   "value": "Shadow Syndicate phá lõi thành 4 mảnh nguyên tố."
+  },
+  {
+   "key": "intro.3",
+   "value": "Leo, hiệp sĩ cuối cùng của Order of the Sun."
+  },
+  {
+   "key": "intro.4",
+   "value": "Thu thập mảnh vỡ, khôi phục ánh sáng."
+  },
+  {
+   "key": "pause.label",
+   "value": "TẠM DỪNG"
+  },
+  {
+   "key": "pause.title",
+   "value": "Nghỉ một chút"
+  },
+  {
+   "key": "pause.resume",
+   "value": "TIẾP TỤC"
+  },
+  {
+   "key": "pause.aura",
+   "value": "AURA"
+  },
+  {
+   "key": "pause.settings",
+   "value": "CÀI ĐẶT"
+  },
+  {
+   "key": "pause.menu",
+   "value": "VỀ MENU"
+  },
+  {
+   "key": "settings.label",
+   "value": "CÀI ĐẶT"
+  },
+  {
+   "key": "settings.title",
+   "value": "Tùy chỉnh trò chơi"
+  },
+  {
+   "key": "settings.music",
+   "value": "Âm lượng nhạc"
+  },
+  {
+   "key": "settings.sfx",
+   "value": "Âm lượng hiệu ứng"
+  },
+  {
+   "key": "settings.haptics",
+   "value": "Rung"
+  },
+  {
+   "key": "settings.button_size",
+   "value": "Kích thước nút"
+  },
+  {
+   "key": "settings.button_opacity",
+   "value": "Độ mờ nút"
+  },
+  {
+   "key": "settings.power_saving",
+   "value": "Tiết kiệm pin (30 fps)"
+  },
+  {
+   "key": "settings.language",
+   "value": "Ngôn ngữ"
+  },
+  {
+   "key": "settings.on",
+   "value": "BẬT"
+  },
+  {
+   "key": "settings.off",
+   "value": "TẮT"
+  },
+  {
+   "key": "settings.back",
+   "value": "QUAY LẠI"
+  },
+  {
+   "key": "lang.vi",
+   "value": "Tiếng Việt"
+  },
+  {
+   "key": "lang.en",
+   "value": "English"
+  },
+  {
+   "key": "aura.label",
+   "value": "AURA"
+  },
+  {
+   "key": "aura.tab_wind",
+   "value": "GIÓ"
+  },
+  {
+   "key": "aura.tab_fire",
+   "value": "HỎA"
+  },
+  {
+   "key": "aura.tab_water",
+   "value": "THỦY"
+  },
+  {
+   "key": "aura.locked",
+   "value": "CHƯA MỞ KHÓA"
+  },
+  {
+   "key": "aura.unknown",
+   "value": "???"
+  },
+  {
+   "key": "aura.continue",
+   "value": "TIẾP TỤC"
+  },
+  {
+   "key": "aura.back",
+   "value": "QUAY LẠI"
+  },
+  {
+   "key": "aura.wind.name",
+   "value": "Aura Gió"
+  },
+  {
+   "key": "aura.wind.tag",
+   "value": "EMERALD GREEN"
+  },
+  {
+   "key": "aura.wind.s1",
+   "value": "Nhảy đúp trên không"
+  },
+  {
+   "key": "aura.wind.s2",
+   "value": "Giảm tốc rơi"
+  },
+  {
+   "key": "aura.wind.s3",
+   "value": "Vòng gió đẩy lùi kẻ địch"
+  },
+  {
+   "key": "aura.wind.s4",
+   "value": "Bay trên luồng gió"
+  },
+  {
+   "key": "aura.fire.name",
+   "value": "Aura Hỏa"
+  },
+  {
+   "key": "aura.fire.tag",
+   "value": "SUNSET CRIMSON"
+  },
+  {
+   "key": "aura.fire.s1",
+   "value": "Chạy nhanh hơn 20%"
+  },
+  {
+   "key": "aura.fire.s2",
+   "value": "Miễn nhiễm hơi nóng"
+  },
+  {
+   "key": "aura.fire.s3",
+   "value": "Cầu lửa bay thẳng 12 ô"
+  },
+  {
+   "key": "aura.fire.s4",
+   "value": "Đốt rào gỗ và gai độc"
+  },
+  {
+   "key": "aura.water.name",
+   "value": "Aura Thủy"
+  },
+  {
+   "key": "aura.water.tag",
+   "value": "DEEP OCEAN"
+  },
+  {
+   "key": "aura.water.s1",
+   "value": "Bơi tự do, thở vô hạn"
+  },
+  {
+   "key": "aura.water.s2",
+   "value": "Miễn nhiễm axit nhẹ"
+  },
+  {
+   "key": "aura.water.s3",
+   "value": "Khiên nước chặn một đòn"
+  },
+  {
+   "key": "aura.water.s4",
+   "value": "Dập lửa, đóng băng dung nham"
+  },
+  {
+   "key": "gameover.title",
+   "value": "ÁNH SÁNG LỤI TẮT"
+  },
+  {
+   "key": "gameover.respawn",
+   "value": "HỒI SINH TẠI BÀN THỜ"
+  },
+  {
+   "key": "loading.label",
+   "value": "ĐANG TẢI"
+  },
+  {
+   "key": "credits.label",
+   "value": "GHI CÔNG"
+  },
+  {
+   "key": "credits.title",
+   "value": "Đội ngũ thực hiện"
+  },
+  {
+   "key": "credits.title_ending",
+   "value": "Ánh sáng đã trở lại"
+  },
+  {
+   "key": "credits.close",
+   "value": "QUAY LẠI"
+  },
+  {
+   "key": "credits.close_ending",
+   "value": "VỀ MENU"
+  },
+  {
+   "key": "credits.missing",
+   "value": "Chưa có dữ liệu ghi công."
+  },
+  {
+   "key": "footer.p01",
+   "value": "AURA KNIGHT / 01"
+  },
+  {
+   "key": "footer.p02",
+   "value": "AURA KNIGHT / 02"
+  },
+  {
+   "key": "footer.p03",
+   "value": "AURA KNIGHT / 03"
+  },
+  {
+   "key": "footer.p04",
+   "value": "AURA KNIGHT / 04"
+  },
+  {
+   "key": "footer.p05",
+   "value": "AURA KNIGHT / 05"
+  },
+  {
+   "key": "footer.p06",
+   "value": "AURA KNIGHT / 06"
+  },
+  {
+   "key": "footer.p07",
+   "value": "AURA KNIGHT / 07"
+  }
+ ]
+}

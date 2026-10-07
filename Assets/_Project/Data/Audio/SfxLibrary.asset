@@ -1,0 +1,146 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc3d0e90df541413ca8263fec2073381, type: 3}
+  m_Name: SfxLibrary
+  m_EditorClassIdentifier: AuraKnight::AuraKnight.Audio.SfxLibrary
+  entries:
+  - id: 1
+    clips:
+    - {fileID: 8300000, guid: 46c161fdb51214c31940a1d90b254f07, type: 3}
+    - {fileID: 8300000, guid: f1d66822ebda6424f9e27d8d4389857f, type: 3}
+    volume: 0.45
+    pitchVariance: 0.08
+  - id: 2
+    clips:
+    - {fileID: 8300000, guid: 667cf9e557f8f45aa85cb70bbaa57e36, type: 3}
+    volume: 0.7
+    pitchVariance: 0.05
+  - id: 3
+    clips:
+    - {fileID: 8300000, guid: 1ff082b308280408a9356597b57f46fc, type: 3}
+    volume: 0.7
+    pitchVariance: 0.05
+  - id: 4
+    clips:
+    - {fileID: 8300000, guid: 6b03d67d50a834de391fc5fa46ada840, type: 3}
+    volume: 0.7
+    pitchVariance: 0.05
+  - id: 5
+    clips:
+    - {fileID: 8300000, guid: e2f020137c8ac4bd78bfbc25c15ab5be, type: 3}
+    volume: 0.7
+    pitchVariance: 0.05
+  - id: 6
+    clips:
+    - {fileID: 8300000, guid: f10304c9b2c5743898d492fea151cbd4, type: 3}
+    volume: 0.4
+    pitchVariance: 0.05
+  - id: 7
+    clips:
+    - {fileID: 8300000, guid: bd83279bcac1c4ef29cb1fd818fd11c3, type: 3}
+    volume: 0.6
+    pitchVariance: 0.06
+  - id: 8
+    clips:
+    - {fileID: 8300000, guid: b79125eba914c4c07b68398a084ce20c, type: 3}
+    volume: 0.85
+    pitchVariance: 0.05
+  - id: 9
+    clips:
+    - {fileID: 8300000, guid: e8ae2f23eaef545c8acf624f2d396e9d, type: 3}
+    volume: 0.9
+    pitchVariance: 0.03
+  - id: 10
+    clips:
+    - {fileID: 8300000, guid: ff8faff1f461647fda3545cf040aaaed, type: 3}
+    volume: 0.9
+    pitchVariance: 0
+  - id: 11
+    clips:
+    - {fileID: 8300000, guid: 2f87f42400c4646fc92b51bcf6f036ef, type: 3}
+    volume: 0.7
+    pitchVariance: 0.05
+  - id: 12
+    clips:
+    - {fileID: 8300000, guid: 9dc3b15a9d9f748f9909b4409ef2c5b8, type: 3}
+    volume: 0.7
+    pitchVariance: 0.05
+  - id: 13
+    clips:
+    - {fileID: 8300000, guid: 3355b710cd919401c807a6337c57b682, type: 3}
+    volume: 0.7
+    pitchVariance: 0.05
+  - id: 14
+    clips:
+    - {fileID: 8300000, guid: b9d312174d4184851b01a0f8f1b49830, type: 3}
+    volume: 0.9
+    pitchVariance: 0
+  - id: 15
+    clips:
+    - {fileID: 8300000, guid: 0b169b5af900f4e458d222daf3213005, type: 3}
+    volume: 0.7
+    pitchVariance: 0.05
+  - id: 16
+    clips:
+    - {fileID: 8300000, guid: ad21497227b54497d8a38b5438a8321f, type: 3}
+    volume: 0.7
+    pitchVariance: 0.05
+  - id: 17
+    clips:
+    - {fileID: 8300000, guid: 19e2fae76458045c09f1c103b2b966f2, type: 3}
+    volume: 0.7
+    pitchVariance: 0.05
+  - id: 18
+    clips:
+    - {fileID: 8300000, guid: f6b4843ca3d3346e4b8cea136aa61eda, type: 3}
+    volume: 0.6
+    pitchVariance: 0.04
+  - id: 19
+    clips:
+    - {fileID: 8300000, guid: ee3b874a17be145caa23b63ee5c97033, type: 3}
+    volume: 0.8
+    pitchVariance: 0.03
+  - id: 20
+    clips:
+    - {fileID: 8300000, guid: 697f389dc24a7480093f2ede91ec537d, type: 3}
+    volume: 0.8
+    pitchVariance: 0
+  - id: 21
+    clips:
+    - {fileID: 8300000, guid: 57590f664eb994606be0c24363f6b303, type: 3}
+    volume: 0.7
+    pitchVariance: 0
+  - id: 22
+    clips:
+    - {fileID: 8300000, guid: 079803a2f0e0e40f08e1013c663f5aed, type: 3}
+    volume: 0.7
+    pitchVariance: 0
+  - id: 23
+    clips:
+    - {fileID: 8300000, guid: b241aa9b8a689491c9d1407b4c923975, type: 3}
+    volume: 1
+    pitchVariance: 0.03
+  - id: 24
+    clips:
+    - {fileID: 8300000, guid: 83d0509513dbf4b81a78f78af096264e, type: 3}
+    volume: 0.7
+    pitchVariance: 0.05
+  - id: 25
+    clips:
+    - {fileID: 8300000, guid: 516a654b5748e46cb9e281489c60a195, type: 3}
+    volume: 0.7
+    pitchVariance: 0.05
+  - id: 26
+    clips:
+    - {fileID: 8300000, guid: 4f438ab9952b14b52b6ebadba3a53e66, type: 3}
+    volume: 0.7
+    pitchVariance: 0.05

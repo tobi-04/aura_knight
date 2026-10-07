@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57473c6f2f088495581ce0737e3abf92, type: 3}
+  m_Name: UITheme
+  m_EditorClassIdentifier: AuraKnight::AuraKnight.UI.UITheme
+  night: {r: 0.02745098, g: 0.050980393, b: 0.12156863, a: 1}
+  panel: {r: 0.05490196, g: 0.101960786, b: 0.17254902, a: 1}
+  paper: {r: 0.94509804, g: 0.9411765, b: 0.8980392, a: 1}
+  paperAlt: {r: 0.8509804, g: 0.827451, b: 0.78039217, a: 1}
+  gold: {r: 1, g: 0.78431374, b: 0.34117648, a: 1}
+  wind: {r: 0.15294118, g: 0.827451, b: 0.54901963, a: 1}
+  fire: {r: 1, g: 0.36078432, b: 0.34117648, a: 1}
+  water: {r: 0.15294118, g: 0.70980394, b: 0.96862745, a: 1}
+  textPrimary: {r: 1, g: 1, b: 1, a: 1}
+  textMuted: {r: 0.5411765, g: 0.5764706, b: 0.6509804, a: 1}
+  textInk: {r: 0.047058824, g: 0.09411765, b: 0.14117648, a: 1}
+  display: {fileID: 11400000, guid: 9b1d04e32217d4d9dbacc267f41c2893, type: 2}
+  mono: {fileID: 11400000, guid: 110bfd266046e411b8b07d39eb5e7a3c, type: 2}
+  monoRegular: {fileID: 11400000, guid: 5034becb2e142411d9debaa33c3f77a0, type: 2}
+  body: {fileID: 11400000, guid: 7a04b64ba66f14cc58b6446ecdc69f99, type: 2}
+  number: {fileID: 11400000, guid: 436c985a33ea94891b774f83bf3902ee, type: 2}
+  accentBarWidth: 6
+  cardBorderWidth: 4
+  monoSpacing: 15
+  transitionSeconds: 0.2
+  slidePixels: 16
+  pressScale: 0.95

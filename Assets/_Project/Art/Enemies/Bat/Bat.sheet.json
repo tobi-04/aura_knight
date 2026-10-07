@@ -1,0 +1,45 @@
+{
+  "name": "Bat",
+  "cellWidth": 48,
+  "cellHeight": 48,
+  "pivotX": 0.5,
+  "pivotY": 0.5,
+  "pixelsPerUnit": 32,
+  "anims": [
+    {
+      "name": "Idle",
+      "row": 0,
+      "frames": 4,
+      "fps": 8,
+      "loop": true
+    },
+    {
+      "name": "Move",
+      "row": 1,
+      "frames": 4,
+      "fps": 12,
+      "loop": true
+    },
+    {
+      "name": "Attack",
+      "row": 2,
+      "frames": 4,
+      "fps": 12,
+      "loop": false
+    },
+    {
+      "name": "Hurt",
+      "row": 3,
+      "frames": 2,
+      "fps": 10,
+      "loop": false
+    },
+    {
+      "name": "Death",
+      "row": 4,
+      "frames": 4,
+      "fps": 8,
+      "loop": false
+    }
+  ]
+}

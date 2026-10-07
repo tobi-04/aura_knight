@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Light2DProvider:
     rid: -2
   m_SelectionSources:
-    rid: 6871197935976579072
+    rid: 6871197979494842370
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 0.92, b: 0.62, a: 1}
   m_Intensity: 1
@@ -96,7 +96,7 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 6871197935976579072
+    - rid: 6871197979494842370
       type: {class: Light2DProviderSources, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
       data:
         m_SelectedHashCode: 3
@@ -277,6 +277,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: AuraKnight::AuraKnight.Player.PlayerAnimatorBridge
   controller: {fileID: 6319225484458713644}
   animator: {fileID: 0}
+  combat: {fileID: 0}
   visual: {fileID: 5177515101747485159}
 --- !u!114 &9001465928567663882
 MonoBehaviour:
@@ -589,6 +590,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5177515101747485159}
   - component: {fileID: 3669603887951348657}
+  - component: {fileID: 7448347502642059012}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -637,7 +639,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 79343c8a27d0942e4b6ce24c7839a830, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -660,14 +662,36 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 53efac68fe1ad4548b803477570106a2, type: 3}
+  m_Sprite: {fileID: -1668883255, guid: f2020d3dcba4e4d12becd3f671c6a8ba, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
+--- !u!95 &7448347502642059012
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7313772563951313764}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b35e2f44c69e142c1af80e4d858aa3c4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

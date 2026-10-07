@@ -1,0 +1,128 @@
+{
+  "name": "Tiles_Forest",
+  "cell": 32,
+  "columns": 3,
+  "rows": 8,
+  "sprites": [
+    {
+      "name": "Forest_Ground_TL",
+      "col": 0,
+      "row": 0
+    },
+    {
+      "name": "Forest_Ground_T",
+      "col": 1,
+      "row": 0
+    },
+    {
+      "name": "Forest_Ground_TR",
+      "col": 2,
+      "row": 0
+    },
+    {
+      "name": "Forest_Ground_L",
+      "col": 0,
+      "row": 1
+    },
+    {
+      "name": "Forest_Ground_C",
+      "col": 1,
+      "row": 1
+    },
+    {
+      "name": "Forest_Ground_R",
+      "col": 2,
+      "row": 1
+    },
+    {
+      "name": "Forest_Ground_BL",
+      "col": 0,
+      "row": 2
+    },
+    {
+      "name": "Forest_Ground_B",
+      "col": 1,
+      "row": 2
+    },
+    {
+      "name": "Forest_Ground_BR",
+      "col": 2,
+      "row": 2
+    },
+    {
+      "name": "Forest_Wall_TL",
+      "col": 0,
+      "row": 3
+    },
+    {
+      "name": "Forest_Wall_T",
+      "col": 1,
+      "row": 3
+    },
+    {
+      "name": "Forest_Wall_TR",
+      "col": 2,
+      "row": 3
+    },
+    {
+      "name": "Forest_Wall_L",
+      "col": 0,
+      "row": 4
+    },
+    {
+      "name": "Forest_Wall_C",
+      "col": 1,
+      "row": 4
+    },
+    {
+      "name": "Forest_Wall_R",
+      "col": 2,
+      "row": 4
+    },
+    {
+      "name": "Forest_Wall_BL",
+      "col": 0,
+      "row": 5
+    },
+    {
+      "name": "Forest_Wall_B",
+      "col": 1,
+      "row": 5
+    },
+    {
+      "name": "Forest_Wall_BR",
+      "col": 2,
+      "row": 5
+    },
+    {
+      "name": "Forest_Platform_L",
+      "col": 0,
+      "row": 6
+    },
+    {
+      "name": "Forest_Platform_M",
+      "col": 1,
+      "row": 6
+    },
+    {
+      "name": "Forest_Platform_R",
+      "col": 2,
+      "row": 6
+    },
+    {
+      "name": "Forest_Spikes_Up",
+      "col": 0,
+      "row": 7
+    },
+    {
+      "name": "Forest_Spikes_UpB",
+      "col": 1,
+      "row": 7
+    },
+    {
+      "name": "Forest_Spikes_UpC",
+      "col": 2,
+      "row": 7
+    }
+  ]
+}

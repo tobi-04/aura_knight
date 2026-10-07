@@ -1,0 +1,128 @@
+{
+  "name": "Tiles_Cave",
+  "cell": 32,
+  "columns": 3,
+  "rows": 8,
+  "sprites": [
+    {
+      "name": "Cave_Ground_TL",
+      "col": 0,
+      "row": 0
+    },
+    {
+      "name": "Cave_Ground_T",
+      "col": 1,
+      "row": 0
+    },
+    {
+      "name": "Cave_Ground_TR",
+      "col": 2,
+      "row": 0
+    },
+    {
+      "name": "Cave_Ground_L",
+      "col": 0,
+      "row": 1
+    },
+    {
+      "name": "Cave_Ground_C",
+      "col": 1,
+      "row": 1
+    },
+    {
+      "name": "Cave_Ground_R",
+      "col": 2,
+      "row": 1
+    },
+    {
+      "name": "Cave_Ground_BL",
+      "col": 0,
+      "row": 2
+    },
+    {
+      "name": "Cave_Ground_B",
+      "col": 1,
+      "row": 2
+    },
+    {
+      "name": "Cave_Ground_BR",
+      "col": 2,
+      "row": 2
+    },
+    {
+      "name": "Cave_Wall_TL",
+      "col": 0,
+      "row": 3
+    },
+    {
+      "name": "Cave_Wall_T",
+      "col": 1,
+      "row": 3
+    },
+    {
+      "name": "Cave_Wall_TR",
+      "col": 2,
+      "row": 3
+    },
+    {
+      "name": "Cave_Wall_L",
+      "col": 0,
+      "row": 4
+    },
+    {
+      "name": "Cave_Wall_C",
+      "col": 1,
+      "row": 4
+    },
+    {
+      "name": "Cave_Wall_R",
+      "col": 2,
+      "row": 4
+    },
+    {
+      "name": "Cave_Wall_BL",
+      "col": 0,
+      "row": 5
+    },
+    {
+      "name": "Cave_Wall_B",
+      "col": 1,
+      "row": 5
+    },
+    {
+      "name": "Cave_Wall_BR",
+      "col": 2,
+      "row": 5
+    },
+    {
+      "name": "Cave_Platform_L",
+      "col": 0,
+      "row": 6
+    },
+    {
+      "name": "Cave_Platform_M",
+      "col": 1,
+      "row": 6
+    },
+    {
+      "name": "Cave_Platform_R",
+      "col": 2,
+      "row": 6
+    },
+    {
+      "name": "Cave_Spikes_Up",
+      "col": 0,
+      "row": 7
+    },
+    {
+      "name": "Cave_Spikes_UpB",
+      "col": 1,
+      "row": 7
+    },
+    {
+      "name": "Cave_Spikes_UpC",
+      "col": 2,
+      "row": 7
+    }
+  ]
+}

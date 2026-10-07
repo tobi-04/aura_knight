@@ -45,3 +45,12 @@ user.keystore
 .DS_Store
 /.unity-batch.lock/
 .utmp/
+
+# Unity test runner leftovers
+/Assets/InitTestScene*.unity*
+
+# Python
+__pycache__/
+.venv/
+venv/
+tools/art/.cache/

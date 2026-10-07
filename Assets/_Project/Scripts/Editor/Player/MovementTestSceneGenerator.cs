@@ -36,6 +36,7 @@ namespace AuraKnight.Editor
                 AssetDatabase.LoadAssetAtPath<GameObject>(PlayerAssetGenerator.PlayerPrefabPath));
             player.transform.position = new Vector3(0f, 0.97f, 0f);
             TestCheckpoint.Build(new Vector2(0f, 0.97f));
+            CreateGlobalLight();
             var camera = CreateCamera(player.transform);
             CreateGizmos(player.transform);
 
@@ -47,6 +48,15 @@ namespace AuraKnight.Editor
             PlayerGeneratorUtil.EnsureFolder("Assets/_Project/Scenes/Test");
             EditorSceneManager.SaveScene(scene, ScenePath);
             Debug.Log($"[MovementTestSceneGenerator] Saved {ScenePath} (camera '{camera.name}').");
+        }
+
+        /// <summary>Leo uses the lit sprite material, so a scene needs a Global Light 2D or only his own glow lights him.</summary>
+        static void CreateGlobalLight()
+        {
+            var go = new GameObject("Global Light 2D");
+            var light = go.AddComponent<UnityEngine.Rendering.Universal.Light2D>();
+            light.lightType = UnityEngine.Rendering.Universal.Light2D.LightType.Global;
+            light.intensity = 0.8f;
         }
 
         static void BuildLevel(Transform parent, Sprite square)

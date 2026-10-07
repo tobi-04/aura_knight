@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: GiantStoneSpider
+  m_Controller: {fileID: 9100000, guid: f295df1cd44d0467d8810c8dcd9cd40c, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: e7458f25f22d643199c23d2a006fe0d2, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 6161250ddf70f4e3fb2caee28d83397d, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: e7cd0f3c1b83748a4a8c78a757fbcb2c, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 7f2e4bd9240ec482eaf67d1808912b62, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: fbee3b044e36a4f7c84a99cf030622a6, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 45ecbed6d70544474b348c37e71eb4c0, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 6fb5a445e10bb43649191894853232a5, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: a77c07a455ce34ac4b71235f956694a5, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: ece7e4b61d70949c78874db4347f4b6a, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: aeb688b9ead3244669b8670beeeae187, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: a441a5290c9754cf7a480eabbeb5d4b5, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 9d36955edbc4343038e441aeb7b8426a, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: a35bbd439138b462fafc3dcb15ce5576, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 04a89202b8979493c84ea50d3b71c611, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 17654009e03d94f0f8acb69f052dee8a, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 6161250ddf70f4e3fb2caee28d83397d, type: 2}

@@ -28,7 +28,12 @@ namespace AuraKnight.Tests.Player
             Assert.IsNotNull(prefab.GetComponent<PlayerAnimatorBridge>());
             Assert.AreEqual(RigidbodyType2D.Kinematic, prefab.GetComponent<Rigidbody2D>().bodyType);
             Assert.AreEqual(new Vector2(0.8f, 1.9f), prefab.GetComponent<CapsuleCollider2D>().size);
-            Assert.IsNull(prefab.GetComponentInChildren<Animator>(), "no art yet, bridge must cope without an Animator");
+            var animator = prefab.GetComponentInChildren<Animator>();
+            Assert.IsNotNull(animator, "Leo's visual carries the Animator driven by PlayerAnimatorBridge");
+            Assert.IsNotNull(animator.runtimeAnimatorController);
+            var renderer = prefab.GetComponentInChildren<SpriteRenderer>();
+            Assert.AreEqual("Leo_Idle_0", renderer.sprite.name);
+            Assert.AreEqual("Mat_SpriteLit", renderer.sharedMaterial.name, "lit material so Light2D and the Aura tint show");
 
             var controller = new SerializedObject(prefab.GetComponent<PlayerController>());
             Assert.IsNotNull(controller.FindProperty("config").objectReferenceValue);

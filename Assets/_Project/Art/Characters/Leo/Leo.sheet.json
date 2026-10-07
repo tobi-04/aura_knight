@@ -1,0 +1,122 @@
+{
+  "name": "Leo",
+  "cellWidth": 64,
+  "cellHeight": 64,
+  "pivotX": 0.5,
+  "pivotY": 0.5,
+  "pixelsPerUnit": 32,
+  "anims": [
+    {
+      "name": "Idle",
+      "row": 0,
+      "frames": 4,
+      "fps": 6,
+      "loop": true
+    },
+    {
+      "name": "Run",
+      "row": 1,
+      "frames": 6,
+      "fps": 12,
+      "loop": true
+    },
+    {
+      "name": "Jump",
+      "row": 2,
+      "frames": 2,
+      "fps": 8,
+      "loop": true
+    },
+    {
+      "name": "Fall",
+      "row": 3,
+      "frames": 2,
+      "fps": 8,
+      "loop": true
+    },
+    {
+      "name": "Attack1",
+      "row": 4,
+      "frames": 4,
+      "fps": 16,
+      "loop": false
+    },
+    {
+      "name": "Attack2",
+      "row": 5,
+      "frames": 4,
+      "fps": 16,
+      "loop": false
+    },
+    {
+      "name": "AttackUp",
+      "row": 6,
+      "frames": 4,
+      "fps": 16,
+      "loop": false
+    },
+    {
+      "name": "AirAttack",
+      "row": 7,
+      "frames": 4,
+      "fps": 16,
+      "loop": false
+    },
+    {
+      "name": "AirAttackUp",
+      "row": 8,
+      "frames": 4,
+      "fps": 16,
+      "loop": false
+    },
+    {
+      "name": "AirAttackDown",
+      "row": 9,
+      "frames": 3,
+      "fps": 14,
+      "loop": false
+    },
+    {
+      "name": "Dash",
+      "row": 10,
+      "frames": 2,
+      "fps": 12,
+      "loop": true
+    },
+    {
+      "name": "Slide",
+      "row": 11,
+      "frames": 2,
+      "fps": 8,
+      "loop": true
+    },
+    {
+      "name": "WallSlide",
+      "row": 12,
+      "frames": 2,
+      "fps": 8,
+      "loop": true
+    },
+    {
+      "name": "Hurt",
+      "row": 13,
+      "frames": 2,
+      "fps": 8,
+      "loop": false
+    },
+    {
+      "name": "Death",
+      "row": 14,
+      "frames": 5,
+      "fps": 8,
+      "loop": false
+    },
+    {
+      "name": "Swim",
+      "row": 15,
+      "frames": 4,
+      "fps": 8,
+      "loop": true
+    }
+  ]
+}

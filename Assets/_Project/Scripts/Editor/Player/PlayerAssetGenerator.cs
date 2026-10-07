@@ -21,6 +21,12 @@ namespace AuraKnight.Editor
         public const string LeoSpritePath = "Assets/_Project/Prefabs/Player/Placeholders/LeoPlaceholder.png";
         public const string SquareSpritePath = "Assets/_Project/Prefabs/Player/Placeholders/WhiteSquare.png";
 
+        // Leo art produced by the art pipeline (Aura/Art/Generate All). Loaded by path so this assembly needs no art references.
+        public const string LeoArtSpritePath = "Assets/_Project/Art/Characters/Leo/Leo.png";
+        public const string LeoArtControllerPath = "Assets/_Project/Art/Characters/Leo/Leo.controller";
+        public const string LitSpriteMaterialPath = "Assets/_Project/Art/Materials/Mat_SpriteLit.mat";
+        const string LeoIdleFrame = "Leo_Idle_0";
+
         static readonly Color LeoTint = new Color(0.30f, 0.65f, 1f, 1f);
 
         [MenuItem("Aura/Player/Generate Player Assets")]
@@ -69,11 +75,8 @@ namespace AuraKnight.Editor
                 var visual = new GameObject("Visual");
                 visual.transform.SetParent(root.transform, false);
                 var renderer = visual.AddComponent<SpriteRenderer>();
-                renderer.sprite = leo;
-                renderer.color = LeoTint;
                 renderer.sortingOrder = 10;
-                var material = PlayerGeneratorUtil.UnlitSpriteMaterial();
-                if (material != null) renderer.sharedMaterial = material;
+                ApplyLeoVisual(visual, renderer, leo);
 
                 var bridge = root.AddComponent<PlayerAnimatorBridge>();
                 PlayerGeneratorUtil.SetReference(bridge, "controller", controller);
@@ -86,6 +89,37 @@ namespace AuraKnight.Editor
                 PrefabUtility.SaveAsPrefabAsset(root, PlayerPrefabPath);
             }
             finally { Object.DestroyImmediate(root); }
+        }
+
+        /// <summary>
+        /// Real Leo sprite + Animator Controller + lit material when the art exists (Light2D and the Aura tint then show);
+        /// otherwise the blue placeholder on the unlit default material, so the generator still works before art is imported.
+        /// </summary>
+        static void ApplyLeoVisual(GameObject visual, SpriteRenderer renderer, Sprite placeholder)
+        {
+            var art = LoadLeoIdleSprite();
+            var controller = AssetDatabase.LoadAssetAtPath<RuntimeAnimatorController>(LeoArtControllerPath);
+            var lit = AssetDatabase.LoadAssetAtPath<Material>(LitSpriteMaterialPath);
+            if (art == null || lit == null)
+            {
+                Debug.LogWarning("[PlayerAssetGenerator] Leo art or lit material missing; run Aura/Art/Generate All. Using the placeholder.");
+                renderer.sprite = placeholder;
+                renderer.color = LeoTint;
+                var unlit = PlayerGeneratorUtil.UnlitSpriteMaterial();
+                if (unlit != null) renderer.sharedMaterial = unlit;
+                return;
+            }
+            renderer.sprite = art;
+            renderer.color = Color.white;
+            renderer.sharedMaterial = lit;
+            if (controller != null) visual.AddComponent<Animator>().runtimeAnimatorController = controller;
+        }
+
+        static Sprite LoadLeoIdleSprite()
+        {
+            foreach (var asset in AssetDatabase.LoadAllAssetRepresentationsAtPath(LeoArtSpritePath))
+                if (asset is Sprite sprite && sprite.name == LeoIdleFrame) return sprite;
+            return null;
         }
 
         static void BuildVirtualControlsPrefab()

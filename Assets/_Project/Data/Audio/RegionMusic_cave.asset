@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eff8e128efaf34887970692f84acfb29, type: 3}
+  m_Name: RegionMusic_cave
+  m_EditorClassIdentifier: AuraKnight::AuraKnight.Audio.RegionMusic
+  trackId: cave
+  explore: {fileID: 8300000, guid: cdcfbd879c9374960b95eadfe826eaf2, type: 3}
+  combat: {fileID: 8300000, guid: 3eb585d7e0f8c47ea8e3f458debc0b97, type: 3}
+  volume: 0.7
