@@ -1,111 +1,30 @@
 {
-  "score": 8,
+  "score": 9,
   "criticalCount": 0,
   "decision": "SEALED",
   "acceptanceCovered": [
-    "project compiles with no C# errors; EditMode and PlayMode suites green; dev IL2CPP ARM64 APK under 150 MB; release build refused without keystore: orchestrator-verified after d02c5d7 (compile clean, EditMode 964/964, PlayMode 166 + 2 GPU skips, dev APK 54,924,029 bytes exit 0); release refusal at Assets/_Project/Scripts/Editor/BuildScript.cs:24-31 and 48-55, test Assets/_Project/Tests/EditMode/Integration/ReleaseConfigTests.cs",
-    "4 bosses with 2 phases (Malakor 3), telegraph >= 0.5 s, Aura unlocked and saved before BossDefeated: telegraph floor tested at Assets/_Project/Tests/PlayMode/Bosses/BossArenaPlayModeTests.cs:132 and BossLogicTests.cs:89,129; order at Assets/_Project/Scripts/Bosses/BossVictorySequence.cs:22-31 (UnlockReward gates MarkDefeated/PublishDefeated), AuraManager.Unlock saves at Aura/AuraManager.cs:100-107; test UngrantedRewardLeavesTheBossUndefeatedSoItCanBeFoughtAgain in Assets/_Project/Tests/EditMode/Bosses/BossLogicTests.cs",
-    "Hub + 4 regions (34 rooms) with altars, chests, shortcuts; Cave/City/Castle gating not bypassable without the required Aura: gates accept only the matching Aura (World/Interactables/OneTimeAuraGate.cs TryInteract via AuraInteractionRules.Accepts), seals need the worn Aura (World/AuraSeal.cs:64-76), smooth wall excluded only from grip (Player/KinematicMotor2D.cs:75, Editor/World/Levels/RoomTerrain.cs:65); 34 rooms built per implementer-261008-phase-09.md; known pogo-solver gap BUG-005 open (docs/qa/bug-log.md), not a demonstrated bypass",
-    "HUD/screens per NEN TANG Mobile style: hearts, energy colour, aura ring, boss bar only during encounters, 16:9 to 21:9: orchestrator viewed runtime HUD screenshots at 1920x1080 and 2520x1080 (hearts, energy colour, aura ring, padlocks, hidden boss bar correct); Assets/_Project/Tests/PlayMode/UI/HudPlayModeTests.cs and RuntimeScreenshotTests.cs",
-    "shop/wallet/chests/map persist; save survives background/kill; New Game does not destroy Continue before first altar: shop Save at Progression/ShopService.cs:46, chest Save at World/Interactables/TreasureChest.cs:62, gate Save at OneTimeAuraGate.cs:46-47, shortcut Save at World/Shortcut.cs:48-50, pause-save guard at Core/GameManager.cs:57-63 (!stateSaved && HasSave returns), test BackgroundingAFreshNewGameKeepsThePreviousSave in Assets/_Project/Tests/PlayMode/Levels/QaRuntimePlayModeTests.cs. Residual: a first-progress Save (chest, shop, gate) before the first altar still replaces the old slot, and there is no New Game confirm",
-    "only CC0 / project-owned / OFL assets in the public repo, no secrets: no secrets or keystore tracked (.gitignore *.keystore/*.jks, ProjectSettings AndroidKeystoreName empty); art/audio/fonts match their LICENSES.md (27 SFX wav and 12 ogg generated, 5 OFL fonts + TMP LiberationSans listed at Assets/_Project/Art/Fonts/LICENSES.md:12-17 with licence text file present, one CC0 Kenney pack); KeyArt provenance documented at Assets/_Project/Art/LICENSES.md:33-40 as team material with project-owner confirmation 2026-10-08 (GDD section 17 q3 resolved, docs/game-design-document.md:492); ArtPipelineTests green (EditMode 964/964). Residual: owner-confirmed team material is neither CC0 nor generated, accepted on the owner's statement, and no repo-level LICENSE file"
+    "Rogue Machine boiler doubles only Fire (Fireball) damage; other hits count x1; Root Tree core unchanged; the real Fireball is tagged Fire: WeakPointHurtbox.cs Scale(amount, mult, kind, fireOnly); FireballProjectile.cs:41 sets Fire, asserted by FireballReviewTests.cs:27-47 with a real launch; prefabs RogueMachine fireOnly:1 and RootTree fireOnly:0 (RogueMachine.prefab:455, RootTree.prefab:127); BossLogicTests truth table",
+    "New Game asks for confirmation only when a save exists; Cancel and Back keep the menu and launch nothing; Confirm plays the intro then launches: MainMenuScreen.cs:64-72 gates on saveProbe(); ConfirmDialog.cs:36-46 removes the dialog before the callback; MainMenuPlayModeTests NewGameOverASaveAsksFirstAndCancelKeepsTheMenu; HandleBack guarded at ConfirmDialog.cs:47 and MainMenuScreen.cs:95; intro subscription deduped at MainMenuScreen.cs:81",
+    "root LICENSE covers code only and points art, audio, fonts and docs/reference to their own terms: LICENSE scope note lines 24-36; all cited paths verified to exist",
+    "project compiles; EditMode and PlayMode suites green: orchestrator re-run EditMode 968/968, PlayMode 167 passed + 2 explicit GPU skips, exit 0 (temper-results.json)"
   ],
   "regressionChecked": [
-    "BossVictorySequence final-boss path still plays ending and GameCompleted (UnlockReward returns true for no-reward boss)",
-    "GameManager pause-save: Continue sets stateSaved true so normal runs still save on pause",
-    "OneTimeAuraGate/Shortcut early return when GameManager is null",
-    "IBossVictorySteps contract change (void to bool) updated in the only real implementation BossVictorySteps and the test Recorder",
-    "EventBus subscription symmetry, pools and save recovery unchanged from the first review",
-    "Licensing docs re-read after owner decision: Art/LICENSES.md, Fonts/LICENSES.md, GDD section 17"
+    "DamageInfo construction sites all forward Kind (Hitbox.cs:166, WeakPointHurtbox.cs:63; OxygenMeter General)",
+    "pooled fireball Kind reset on every Launch",
+    "router stack order: dialog removed before intro push",
+    "Back during hide tween no longer quits (MainMenuScreen.cs:95)",
+    "CreditsText.txt consistent with Art/LICENSES.md and Fonts/LICENSES.md",
+    "bug-log BUG-004 updated to fixed with open design point"
   ],
-  "contractStatus": "CHANGED",
+  "contractStatus": "OK",
   "refuted": [],
   "unproven": [],
   "reachableRegressions": [],
   "findings": [
-    {
-      "severity": "Warning",
-      "category": "Persistence",
-      "location": "Assets/_Project/Scripts/World/Interactables/OneTimeAuraGate.cs:45-47",
-      "summary": "Resolved in d02c5d7: gate open now calls gm.Save() after MarkGateOpened",
-      "disposition": "Reject"
-    },
-    {
-      "severity": "Warning",
-      "category": "Persistence",
-      "location": "Assets/_Project/Scripts/World/Shortcut.cs:48-50",
-      "summary": "Resolved in d02c5d7: shortcut open now saves immediately",
-      "disposition": "Reject"
-    },
-    {
-      "severity": "Warning",
-      "category": "Softlock",
-      "location": "Assets/_Project/Scripts/Bosses/BossVictorySequence.cs:25-30",
-      "summary": "Resolved in d02c5d7: failed reward no longer marks the boss defeated; covered by UngrantedRewardLeavesTheBossUndefeatedSoItCanBeFoughtAgain",
-      "disposition": "Reject"
-    },
-    {
-      "severity": "Warning",
-      "category": "Persistence",
-      "location": "Assets/_Project/Scripts/Core/GameManager.cs:57-63",
-      "summary": "Resolved for the pause path in d02c5d7 (test BackgroundingAFreshNewGameKeepsThePreviousSave); a chest, shop buy or gate opened before the first altar still overwrites the old slot and New Game has no confirm (MainMenuScreen.cs:56-64)",
-      "disposition": "Defer"
-    },
-    {
-      "severity": "Suggestion",
-      "category": "Licensing",
-      "location": "Assets/_Project/Art/LICENSES.md:37",
-      "summary": "Resolved: KeyArt provenance now recorded as team material confirmed by the project owner on 2026-10-08 (LICENSES.md:33-40)",
-      "disposition": "Reject"
-    },
-    {
-      "severity": "Suggestion",
-      "category": "Licensing",
-      "location": "Assets/_Project/Art/Fonts/LICENSES.md:12",
-      "summary": "LiberationSans now listed in Fonts/LICENSES.md:12-17; remaining gap is no repo-level LICENSE file and confirming rights for docs/reference PDF Tai_Lieu...v2 (1).pdf",
-      "disposition": "Defer"
-    },
-    {
-      "severity": "Suggestion",
-      "category": "Performance",
-      "location": "Assets/_Project/Scripts/World/LightBudgetController.cs:65-71",
-      "summary": "FindObjectsByType allocation every 0.5 s and O(n^2) Contains; use a Light2D registry",
-      "disposition": "Defer"
-    },
-    {
-      "severity": "Suggestion",
-      "category": "Economy",
-      "location": "Assets/_Project/Scripts/Bosses/StoneSpider/SummonSpiderlingsAttack.cs:32-45",
-      "summary": "Summoned spiderlings drop coins and are re-summoned: farmable in the fight",
-      "disposition": "Defer"
-    },
-    {
-      "severity": "Suggestion",
-      "category": "Maintainability",
-      "location": "Assets/_Project/Scripts/Bosses/BossBase.cs:1-206",
-      "summary": "206 lines (MapScreen.cs 201), over the 200-line standard",
-      "disposition": "Defer"
-    },
-    {
-      "severity": "Suggestion",
-      "category": "Build",
-      "location": "Assets/_Project/Scripts/Editor/BuildScript.cs:42-43",
-      "summary": "Keystore passwords are session-only in Unity so batch release always refuses; read env vars and bump versionCode",
-      "disposition": "Defer"
-    },
-    {
-      "severity": "Suggestion",
-      "category": "Build",
-      "location": "tools/unity-batch.sh:72-87",
-      "summary": "No timeout on compile/test/exec; stale test-results.xml summary can print if a run dies early",
-      "disposition": "Defer"
-    },
-    {
-      "severity": "Suggestion",
-      "category": "Reliability",
-      "location": "Assets/_Project/Scripts/UI/PauseController.cs:37-44",
-      "summary": "No auto-pause when the app is backgrounded",
-      "disposition": "Defer"
-    }
+    { "severity": "Warning", "category": "Tests", "location": "Assets/_Project/Scripts/Aura/Skills/FireballProjectile.cs:41", "summary": "Launch tagging Fire now covered by FireballReviewTests", "disposition": "Accept" },
+    { "severity": "Warning", "category": "Docs", "location": "docs/qa/bug-log.md:23", "summary": "BUG-004 updated to fixed", "disposition": "Accept" },
+    { "severity": "Suggestion", "category": "Logic", "location": "Assets/_Project/Scripts/UI/Screens/ConfirmDialog.cs:47", "summary": "HandleBack returns false when nothing pending: fixed", "disposition": "Accept" },
+    { "severity": "Suggestion", "category": "Logic", "location": "Assets/_Project/Scripts/UI/Screens/MainMenuScreen.cs:95", "summary": "Back during dialog hide no longer quits: fixed", "disposition": "Accept" },
+    { "severity": "Suggestion", "category": "Tests", "location": "Assets/_Project/Scripts/Bosses/WeakPointHurtbox.cs:63", "summary": "Kind forwarding through the weak point has no direct assertion (covered indirectly by the boiler PlayMode test); test files over 200 lines", "disposition": "Defer" }
   ]
 }

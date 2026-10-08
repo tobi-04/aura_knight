@@ -4,36 +4,29 @@
       "command": "tools/unity-batch.sh compile",
       "exitCode": 0,
       "status": "pass",
-      "summary": "0 compile errors · exit=0 (log: /Users/tgiap.dev/devs/aura_knight/Logs/batch-compile.log)",
-      "ts": "2026-10-07T19:16:00.000Z"
+      "summary": "0 compile errors · exit=0",
+      "ts": "2026-10-08T12:08:30.355Z"
     },
     {
       "command": "tools/unity-batch.sh test EditMode",
       "exitCode": 0,
       "status": "pass",
-      "summary": "total=\"964\" passed=\"964\" failed=\"0\" · exit=0 (log: /Users/tgiap.dev/devs/aura_knight/Logs/batch-test-EditMode.log)",
-      "ts": "2026-10-07T19:20:00.000Z"
+      "summary": "passed=\"968\" failed=\"0\" skipped=\"0\" · exit=0 (after review fixes)",
+      "ts": "2026-10-08T12:08:30.355Z"
     },
     {
       "command": "tools/unity-batch.sh test PlayMode",
       "exitCode": 0,
       "status": "pass",
-      "summary": "total=\"168\" passed=\"166\" failed=\"0\" skipped=\"2\" (explicit GPU screenshot tests) · exit=0 (log: /Users/tgiap.dev/devs/aura_knight/Logs/batch-test-PlayMode.log)",
-      "ts": "2026-10-07T19:25:00.000Z"
+      "summary": "passed=\"167\" failed=\"0\" skipped=\"2\" (explicit GPU screenshot tests) · exit=0 (after review fixes)",
+      "ts": "2026-10-08T12:08:30.355Z"
     },
     {
-      "command": "UNITY_GRAPHICS=1 UNITY_TEST_FILTER=AuraKnight.Tests.PlayMode.UI.RuntimeScreenshotTests tools/unity-batch.sh test PlayMode",
+      "command": "UNITY_GRAPHICS=1 temporary MainMenu confirm-dialog screenshot test (removed after use)",
       "exitCode": 0,
       "status": "pass",
-      "summary": "total=\"1\" passed=\"1\" · runtime HUD screenshots viewed",
-      "ts": "2026-10-07T17:27:32.000Z"
-    },
-    {
-      "command": "tools/unity-batch.sh exec AuraKnight.Editor.BuildScript.BuildDevelopmentApk",
-      "exitCode": 0,
-      "status": "pass",
-      "summary": "dev APK 54,924,029 bytes · exit=0 (log: /Users/tgiap.dev/devs/aura_knight/Logs/batch-exec-BuildDevelopmentApk.log)",
-      "ts": "2026-10-07T19:29:00.000Z"
+      "summary": "1920x1080 capture viewed: title, body, HỦY/BẮT ĐẦU readable, no overlap",
+      "ts": "2026-10-08T12:08:30.355Z"
     }
   ]
 }

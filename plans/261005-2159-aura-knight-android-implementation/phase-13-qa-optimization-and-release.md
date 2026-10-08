@@ -21,10 +21,10 @@ weeks: "2-8"
 - Playtest bằng người **chưa từng chơi** ở mỗi mốc. Nhóm tự chơi sẽ không thấy độ khó thật.
 
 ## Requirements
-- EditMode/PlayMode tests (Unity Test Framework): `HealthTests`, `WalletTests`, `ShopServiceTests`, `SaveSystemTests` (round-trip + file hỏng), `AuraManagerTests` (unlock/switch/cost).
+- EditMode/PlayMode tests (Unity Test Framework): `HealthTests`, `WalletTests`, `ShopServiceTests`, `SaveSystemTests` (round-trip + file hỏng), `AuraManagerTests` (unlock/switch/cost). **2026-10-08:** 968 EditMode, 167 PlayMode + 2 GPU skip.
 - Checklist thủ công từ GDD §15.1 (movement, gate, chuyển phòng 50 lần, app vào nền, 3 tỉ lệ màn hình).
 - Profiling: ≥ 55 fps trung bình, không < 30 fps khi đánh boss; RAM < 600 MB; APK < 150 MB.
-- Release: keystore riêng (ngoài repo), IL2CPP ARM64, Development Build = off, version `1.0.0 (1)`.
+- Release: keystore riêng (ngoài repo), IL2CPP ARM64, Development Build = off, version `1.0.0 (1)`. **2026-10-08:** LICENSE MIT (code only; art, audio, fonts, docs/reference excluded).
 
 ## Architecture
 ```

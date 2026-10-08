@@ -2,6 +2,18 @@
 
 Mới nhất ở trên. Kế hoạch: [`development-roadmap.md`](development-roadmap.md).
 
+## 2026-10-08 (sửa nhỏ: BUG-004, xác nhận Game mới, LICENSE)
+
+Số đã kiểm: compile sạch, EditMode 968/968, PlayMode 167 xanh + 2 bỏ qua (ảnh chụp, cần GPU).
+
+### Sửa
+- **BUG-004:** thêm `Combat/DamageKind.cs` (General, Fire); `DamageInfo.Kind` tùy chọn, mặc định General; `Hitbox.Kind` đặt lúc chạy, `FireballProjectile.Launch` đặt Fire. `WeakPointHurtbox.fireOnly`: lò hơi Cỗ Máy chỉ nhân đôi Cầu Lửa (đòn khác x1), đúng GDD §7.4. Lõi Cây Mục vẫn nhân đôi mọi đòn, chờ thiết kế xác nhận.
+- **Xác nhận Game mới:** `UI/Screens/ConfirmDialog.cs`; `MainMenuScreen` hỏi "Bắt đầu lại?" chỉ khi đã có save. Hủy và Back đóng hộp; BẮT ĐẦU chạy intro rồi vào game. Hộp do `OverlayScreensBuilder.ConfirmNewGame` dựng trong `MenuScreens.prefab`; chuỗi `confirm.*` trong `Strings_vi.json`.
+
+### Thêm
+- `LICENSE` (MIT) ở gốc repo, chỉ cho code và tooling. Art, âm thanh, phông, `docs/reference/` loại trừ, trỏ tới các `LICENSES.md`.
+- Test: `AFireOnlyWeakPointDoublesOnlyFireDamage`, `BoilerTakesDoubleDamageFromAFireball`, kiểm `Kind` trong `FireballReviewTests` và `GeneratedBossAssetsTests`, `NewGameOverASaveAsksFirstAndCancelKeepsTheMenu`.
+
 ## 2026-10-08 (sửa theo review cuối, commit d02c5d7)
 
 Reviewer cuối (`f89a05d..e0623d5`, quyết định SEALED, 0 lỗi critical) nêu 3 cảnh báo; cả ba đã sửa trong code.
@@ -12,7 +24,7 @@ Reviewer cuối (`f89a05d..e0623d5`, quyết định SEALED, 0 lỗi critical) n
 - **Game mới không đè save cũ:** `GameManager.OnApplicationPause` bỏ qua lần lưu khi state là game mới chưa lưu mà đã có save (`!stateSaved && HasSave`), nên đưa app vào nền ngay sau "Game mới" không ghi đè slot Tiếp tục.
 
 ### Còn mở (từ review, chưa sửa)
-- Chưa có hộp xác nhận "Game mới" khi đã có save.
+- ~~Chưa có hộp xác nhận "Game mới" khi đã có save.~~ Đã làm, xem mục trên.
 - Key art (`Art/KeyArt`) chưa rõ nguồn và quyền: xem `Assets/_Project/Art/LICENSES.md`, GDD §17.3.
 - `BuildScript`: mật khẩu keystore chỉ có trong phiên Unity nên build release bằng batch luôn bị từ chối; `unity-batch.sh` chưa có timeout cho compile/test/exec.
 

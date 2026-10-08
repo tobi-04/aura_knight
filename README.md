@@ -34,8 +34,8 @@ Menu **Aura → Setup Project** áp lại cấu hình chuẩn (Player Settings A
 
 ```bash
 tools/unity-batch.sh compile          # import + compile, in lỗi C#
-tools/unity-batch.sh test EditMode    # chạy unit test (hiện 963 test)
-tools/unity-batch.sh test PlayMode    # chạy PlayMode test (vào scene Core thật, chạy headless; hiện 167 test: 165 chạy, 2 test ảnh chụp [Explicit] cần GPU nên được bỏ qua)
+tools/unity-batch.sh test EditMode    # chạy unit test (hiện 968 test)
+tools/unity-batch.sh test PlayMode    # chạy PlayMode test (vào scene Core thật, chạy headless; hiện 169 test: 167 chạy, 2 test ảnh chụp [Explicit] cần GPU nên được bỏ qua)
 tools/unity-batch.sh setup            # Aura/Setup Project (layer vật lý, collision matrix, scene, build settings)
 tools/unity-batch.sh exec Ns.Class.Method   # generator prefab/scene, build APK (xem docs/code-standards.md §7)
 ```
@@ -88,6 +88,10 @@ Windows: thay bằng (thường là) `C:\Program Files\Unity\Hub\Editor\6000.6.0
 - Mỗi scene chỉ có **một** người sở hữu được sửa (GDD §13.1). Người khác làm việc trong prefab riêng.
 - Code: mỗi file dưới 200 lines, mỗi class một trách nhiệm, namespace theo thư mục (`AuraKnight.Player`, `AuraKnight.Core`...).
 - Không commit keystore, APK, thư mục `Library/`.
+
+## Giấy phép
+
+Mã nguồn và tooling theo [MIT](LICENSE). Art, âm thanh, phông và `docs/reference/` không thuộc giấy phép này: xem `Assets/_Project/Art/LICENSES.md`, `Assets/_Project/Art/Fonts/LICENSES.md`, `Assets/_Project/Audio/LICENSES.md`.
 
 ## Máy test
 

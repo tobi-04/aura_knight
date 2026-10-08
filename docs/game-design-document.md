@@ -212,7 +212,7 @@ AI viết bằng state machine đơn giản `Patrol → Detect → Attack → Co
 
 Boss HP bar hiện ở cạnh dưới màn hình, theo style UI ở mục 9.
 
-*Đối chiếu code (`Data/Bosses/*.asset`, `BossAttackSetup`):* HP 30 / 40 / 50 / 70 khớp bảng. Phase 2 ở 50% HP (nhanh x1.25, mọi đòn báo trước tối thiểu 0.5 s). Malakor vào phase 3 ở **25% HP** (bóng tối + `AuraColorStrikeAttack`). Điểm yếu nhân x2 sát thương hiện áp cho **mọi** loại sát thương, không riêng Cầu Lửa (BUG-004, mở). Số đòn là first-pass, chưa cân bằng bằng người chơi thật.
+*Đối chiếu code (`Data/Bosses/*.asset`, `BossAttackSetup`):* HP 30 / 40 / 50 / 70 khớp bảng. Phase 2 ở 50% HP (nhanh x1.25, mọi đòn báo trước tối thiểu 0.5 s). Malakor vào phase 3 ở **25% HP** (bóng tối + `AuraColorStrikeAttack`). Điểm yếu x2: lò hơi Cỗ Máy chỉ nhân đôi sát thương Cầu Lửa (đòn khác x1), đúng GDD (BUG-004, đã sửa 2026-10-08). Lõi Cây Mục vẫn nhân đôi mọi đòn vì GDD chỉ ghi "đánh vào lõi"; chờ nhóm thiết kế xác nhận. Số đòn là first-pass, chưa cân bằng bằng người chơi thật.
 
 ---
 

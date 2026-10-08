@@ -20,6 +20,7 @@ weeks: "3 (Gốc Cây), 5 (Nhện), 6 (Cỗ Máy), 7 (Malakor)"
 - **BossBase + chuỗi `BossAttack` (SO hoặc component)** chọn theo pattern có trọng số. Mỗi boss chỉ khác ở bộ attack và chỉ số.
 - Mỗi đòn đều có **telegraph** (báo trước ≥ 0.5 s) vì trên mobile phản xạ chậm hơn PC.
 - Dmg ×2 khi trúng điểm yếu (Cỗ Máy) làm bằng Hurtbox phụ có `damageMultiplier`.
+- **2026-10-08:** BUG-004 fixed — Cỗ Máy boiler doubles Fireball only via DamageKind on DamageInfo. Root Tree core still doubles any hit → needs design confirmation.
 
 ## Requirements
 - Gốc Cây (30 HP): rễ đâm (telegraph 0.6 s), ném 3 hạt cung, quét cành; lõi mở sau đòn 3.

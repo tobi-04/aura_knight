@@ -27,6 +27,7 @@ weeks: "2-7"
 - HUD: tim, thanh NL (màu Aura hiện tại), xu (mono gold), nút MAP/Pause, vòng Aura 3 nút (khóa xám), boss HP bar.
 - Màn hình: Splash, Main Menu (layout slide 1), Intro (4 khung slide 3, có Bỏ qua), Pause, Settings (âm lượng, rung, size/độ mờ nút, ngôn ngữ, chế độ tiết kiệm), Aura info (slide 8–10), Popup nhận Aura, Boss intro, Game Over, Ending + Credits (nền paper).
 - Motion: fade + slide 16 px trong 200 ms; nút khi nhấn scale 0.95; mọi chữ chạy qua bảng `Localization` (vi mặc định, en là P2).
+- **2026-10-08:** New Game shows confirmation dialog when save exists.
 
 ## Architecture
 ```

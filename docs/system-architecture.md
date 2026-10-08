@@ -87,7 +87,7 @@ Hướng phụ thuộc:
 
 - Nền: `UITheme` (SO token màu/cỡ), `ThemedText/Image/AccentBar`, `UIScreen` (fade + trượt 16 px, bắt đầu inactive, `Show/Hide`), `ScreenStack` (logic thuần) + `UIRouter`, `Localization` (`Strings_vi.json`), `GameSettings` (PlayerPrefs, khóa trong `SettingsKeys`), `PauseController`.
 - HUD: `HudController` chỉ hiện khi `GameMode.Playing`; các view (tim, năng lượng, xu, Aura, boss bar) nghe event. `VirtualControls` dựng bởi `VirtualControlsBuilder`.
-- Luồng menu → Core: `MainMenuScreen` → (intro) → `GameLauncher.Begin(newGame)` lưu yêu cầu rồi load `Core` (single). `CoreLauncher` (trong `UI_Root` của Core) đọc yêu cầu, gọi `WorldEntry.StartNewGame()`/`Continue()`; lỗi thì quay về menu. Pause → "Về menu" lưu rồi load `MainMenu` (`GameLauncher.ReturnToMenu`).
+- Luồng menu → Core: `MainMenuScreen` → (nếu bấm Game mới khi đã có save: `ConfirmDialog` "Bắt đầu lại?", Hủy/Back chỉ đóng hộp; BẮT ĐẦU) → (intro) → `GameLauncher.Begin(newGame)` lưu yêu cầu rồi load `Core` (single). `CoreLauncher` (trong `UI_Root` của Core) đọc yêu cầu, gọi `WorldEntry.StartNewGame()`/`Continue()`; lỗi thì quay về menu. Pause → "Về menu" lưu rồi load `MainMenu` (`GameLauncher.ReturnToMenu`).
 - Prefab/scene sinh bởi `AuraKnight.Editor.UI` (asmdef riêng, `Scripts/Editor/UI`): `UiGenerator.GenerateAll` (menu `Aura/UI/Generate All`) dựng font, sprite, theme, `Hud`, `GameScreens`, `MenuScreens`, `UI_Root` trong Core, màn trong `MainMenu`.
 
 ## 6. Enemies (`Scripts/Enemies`)
@@ -154,7 +154,7 @@ Mỗi step lỗi sẽ log tên step rồi ném lại (batch thoát mã 1). Chạ
 
 ## 13. Boss (`Scripts/Bosses`, `Scripts/Editor/Bosses`, GDD §7.4)
 
-- **Khung:** `BossBase` (partial: Attacks/Combat/Visuals/Spawns), `BossStats` (SO trong `Data/Bosses`: id, HP, thưởng Aura, `finalBoss`, nhịp), `BossPhase` + `WeightedPicker` (chọn đòn theo trọng số, tránh lặp đòn vừa dùng), `BossAttack` trừu tượng chạy trên `BossAttackTimeline` (Telegraph/Execute/Recover; `BossTiming` giữ báo trước tối thiểu 0.5 s), `BossHazard` + `BossHazardPool` (§12), `WeakPointHurtbox` (nhân x2 mọi sát thương, BUG-004), `PlayerSlowStatus`.
+- **Khung:** `BossBase` (partial: Attacks/Combat/Visuals/Spawns), `BossStats` (SO trong `Data/Bosses`: id, HP, thưởng Aura, `finalBoss`, nhịp), `BossPhase` + `WeightedPicker` (chọn đòn theo trọng số, tránh lặp đòn vừa dùng), `BossAttack` trừu tượng chạy trên `BossAttackTimeline` (Telegraph/Execute/Recover; `BossTiming` giữ báo trước tối thiểu 0.5 s), `BossHazard` + `BossHazardPool` (§12), `WeakPointHurtbox` (nhân x2; `fireOnly` cho lò hơi Cỗ Máy chỉ nhân sát thương `DamageKind.Fire` của Cầu Lửa, lõi Cây Mục nhân mọi đòn; `DamageInfo.Kind` mặc định General), `PlayerSlowStatus`.
 - **4 boss:** `RootTree/`, `StoneSpider/`, `RogueMachine/`, `Malakor/` (mỗi thư mục: lớp boss + 3 đòn; Malakor thêm `DarkPhaseController` và `AuraColorStrikeAttack` ở phase 3, 25% HP). Số đòn và hồ đòn từng phase nằm trong `BossAttackSetup` (Editor); đổi số thì chạy lại generator, không sửa prefab.
 - **`BossArena`:** trigger vào phòng đóng cửa, publish `BossEncounterStarted`/`BossHealthChanged`/`BossEncounterEnded`, đổi nhạc; `ResetEncounter()` khi `PlayerDied`. `Refresh()` đọc `GameState.defeatedBosses` khi bật và khi `GameStateLoaded`: boss đã thắng không xuất hiện lại.
 - **Thứ tự chiến thắng (`BossVictorySequence`):** `UnlockReward()` (qua `IBossVictorySteps`, trả `false` nếu không cấp được Aura, khi đó dừng, boss chưa bị đánh dấu thắng) → `MarkDefeated` → `BossDefeated` (autosave) → `EndEncounter` → nhạc. Boss cuối: `PlayEnding` rồi `GameCompleted`.

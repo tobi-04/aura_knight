@@ -1,41 +1,29 @@
 {
-  "task": "Implement Aura Knight plan phases 2, 7-13 (art pipeline, enemy AI, bosses, four-region level content, UI/HUD, audio, progression/shop/map, QA/release) on Unity 6000.6.0f1 for Android",
+  "task": "Post-delivery small fixes: BUG-004 boiler weak point x2 only from Fireball, New Game confirmation when a save exists, root LICENSE for code",
   "mode": "interactive",
   "acceptanceCriteria": [
-    "project compiles with no C# errors; EditMode and PlayMode suites green; dev IL2CPP ARM64 APK under 150 MB; release build refused without keystore",
-    "4 bosses with 2 phases (Malakor 3), telegraph >= 0.5 s, Aura unlocked and saved before BossDefeated",
-    "Hub + 4 regions (34 rooms) with altars, chests, shortcuts; Cave/City/Castle gating not bypassable without the required Aura",
-    "HUD/screens per NEN TANG Mobile style: hearts, energy colour, aura ring, boss bar only during encounters, 16:9 to 21:9",
-    "shop/wallet/chests/map persist; save survives background/kill; New Game does not destroy Continue before first altar",
-    "only CC0 / project-owned / OFL assets in the public repo, no secrets"
+    "Rogue Machine boiler doubles only Fire (Fireball) damage; other hits count x1; Root Tree core unchanged; the real Fireball is tagged Fire",
+    "New Game asks for confirmation only when a save exists; Cancel and Back keep the menu and launch nothing; Confirm plays the intro then launches",
+    "root LICENSE covers code only and points art, audio, fonts and docs/reference to their own terms",
+    "project compiles; EditMode and PlayMode suites green"
   ],
   "touchpoints": [
-    "Assets/_Project/Scripts/Bosses",
-    "Assets/_Project/Scripts/Enemies",
-    "Assets/_Project/Scripts/World",
-    "Assets/_Project/Scripts/UI",
-    "Assets/_Project/Scripts/Audio",
-    "Assets/_Project/Scripts/Progression",
-    "Assets/_Project/Scripts/Core",
-    "Assets/_Project/Scripts/Editor",
-    "Assets/_Project/Data/Levels",
+    "Assets/_Project/Scripts/Combat",
+    "Assets/_Project/Scripts/Bosses/WeakPointHurtbox.cs",
+    "Assets/_Project/Scripts/Aura/Skills/FireballProjectile.cs",
+    "Assets/_Project/Scripts/UI/Screens",
+    "Assets/_Project/Scripts/Editor/UI",
+    "Assets/_Project/Scripts/Editor/Bosses/BossAttackSetup.cs",
     "Assets/_Project/Tests",
-    "tools/unity-batch.sh",
-    "tools/art",
-    "tools/audio",
-    "docs/qa"
+    "LICENSE"
   ],
   "blastRadius": [
-    "save file (GameState v1) and continue slot",
-    "room graph / region loading across 5 additive scenes",
-    "player motor (SmoothWall grip change)",
-    "Android build and quality settings (vsync, frame rate, version)"
+    "DamageInfo struct used by every Hitbox/Health",
+    "main menu New Game flow",
+    "generated MenuScreens and boss prefabs"
   ],
   "contracts": [
-    "EventBus events in Core/GameEvents.cs and UI/UiEvents.cs",
-    "IBossVictorySteps / BossVictorySequence order",
-    "Data/Levels/*.room.txt format",
-    "GameState JSON schema",
-    "tools/unity-batch.sh compile|setup|test|exec|shot (real exit codes)"
+    "DamageInfo constructor (new optional kind parameter, default General)",
+    "MainMenuScreen.Bind signature (new ConfirmDialog parameter, generator-only caller)"
   ]
 }
