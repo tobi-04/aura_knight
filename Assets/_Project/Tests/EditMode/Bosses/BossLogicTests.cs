@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using AuraKnight.Bosses;
+using AuraKnight.Combat;
 using AuraKnight.Enemies;
 using NUnit.Framework;
 using UnityEngine;
@@ -167,6 +168,13 @@ namespace AuraKnight.Tests.Bosses
         [TestCase(0, 2f, 0)]
         public void WeakPointScalesDamageWithAFloorOfOne(int amount, float multiplier, int expected) =>
             Assert.AreEqual(expected, WeakPointMath.Scale(amount, multiplier));
+
+        [TestCase(DamageKind.Fire, false, 4)]
+        [TestCase(DamageKind.General, false, 4)]
+        [TestCase(DamageKind.Fire, true, 4)]
+        [TestCase(DamageKind.General, true, 2)]
+        public void AFireOnlyWeakPointDoublesOnlyFireDamage(DamageKind kind, bool fireOnly, int expected) =>
+            Assert.AreEqual(expected, WeakPointMath.Scale(2, 2f, kind, fireOnly));
 
         [Test]
         public void SlowLayersOnTopOfAnotherWritersSpeedAndRestoresIt()

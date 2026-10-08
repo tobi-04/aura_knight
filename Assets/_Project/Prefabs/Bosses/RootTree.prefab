@@ -124,6 +124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: AuraKnight::AuraKnight.Bosses.WeakPointHurtbox
   target: {fileID: 5035178912833467374}
   multiplier: 2
+  fireOnly: 0
 --- !u!1 &1197649752231815825
 GameObject:
   m_ObjectHideFlags: 0

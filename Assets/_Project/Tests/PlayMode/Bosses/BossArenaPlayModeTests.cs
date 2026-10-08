@@ -217,11 +217,11 @@ namespace AuraKnight.Tests.PlayMode.Bosses
             yield return Fight();
             var machine = (RogueMachineBoss)_boss;
             var box = machine.Boiler.GetComponent<BoxCollider2D>();
-            Assert.AreEqual(HitOutcome.Damaged, BossTestKit.Strike(machine.Boiler.transform.TransformPoint(box.offset), 2, Vector2.one * 0.3f));
+            var boilerPoint = (Vector2)machine.Boiler.transform.TransformPoint(box.offset);
+            Assert.AreEqual(HitOutcome.Damaged, BossTestKit.Strike(boilerPoint, 2, Vector2.one * 0.3f, DamageKind.Fire));
             Assert.AreEqual(50 - 4, machine.Health.Current, "fireball 2 x2");
-            var body = machine.Hurtbox.GetComponent<BoxCollider2D>();
-            BossTestKit.Strike(machine.Hurtbox.transform.TransformPoint(body.offset), 2, Vector2.one * 0.3f);
-            Assert.AreEqual(50 - 6, machine.Health.Current, "body takes 2");
+            Assert.AreEqual(HitOutcome.Damaged, BossTestKit.Strike(boilerPoint, 1, Vector2.one * 0.3f));
+            Assert.AreEqual(50 - 5, machine.Health.Current, "a sword hit on the boiler is not doubled (GDD 7.4)");
         }
 
         [UnityTest]

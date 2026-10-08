@@ -38,6 +38,7 @@ namespace AuraKnight.Aura.Skills
             if (hitbox == null) return;
             hitbox.Team = Team.Player;
             hitbox.Source = owner;
+            hitbox.Kind = DamageKind.Fire;
             hitbox.AutoPoll = false;
             hitbox.Activate(Damage, _direction);
         }

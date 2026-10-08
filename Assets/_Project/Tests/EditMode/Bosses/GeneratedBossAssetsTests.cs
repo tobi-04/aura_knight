@@ -116,6 +116,8 @@ namespace AuraKnight.Tests.Bosses
                 Assert.IsFalse(Overlaps(body, point), $"{name}: one swing would hit body and weak point together");
             }
             Assert.IsFalse(Prefab("RootTree").GetComponent<RootTreeBoss>().CoreWeakPoint.activeSelf, "the core is closed until the sweep ends");
+            Assert.IsFalse(Prefab("RootTree").GetComponentInChildren<WeakPointHurtbox>(true).FireOnly, "any hit on the open core counts double");
+            Assert.IsTrue(Prefab("RogueMachine").GetComponent<RogueMachineBoss>().Boiler.FireOnly, "only the Fireball doubles on the boiler");
         }
 
         static bool Overlaps(Collider2D a, Collider2D b)

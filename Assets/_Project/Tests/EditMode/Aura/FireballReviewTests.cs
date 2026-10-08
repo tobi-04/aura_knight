@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace AuraKnight.Tests.Aura
 {
-    /// <summary>Fireball details from the review: damage source is the owner, one-way platforms are passed through, walls still stop it.</summary>
+    /// <summary>Fireball details from the review: damage source is the owner and the kind is Fire, one-way platforms are passed through, walls still stop it.</summary>
     public sealed class FireballReviewTests : AuraTestBase
     {
         FireballProjectile NewProjectile()
@@ -24,7 +24,7 @@ namespace AuraKnight.Tests.Aura
         }
 
         [Test]
-        public void DamageSourceIsTheOwnerNotTheProjectile()
+        public void DamageSourceIsTheOwnerAndTheKindIsFire()
         {
             var owner = Make("Leo", new Vector2(-20f, 3f));
             var projectile = NewProjectile();
@@ -35,13 +35,15 @@ namespace AuraKnight.Tests.Aura
             hurtbox.Team = Team.Enemy;
             hurtbox.Health = health;
             GameObject source = null;
-            health.Damaged += (info, _) => source = info.Source;
+            var kind = DamageKind.General;
+            health.Damaged += (info, _) => { source = info.Source; kind = info.Kind; };
 
             projectile.Launch(new Vector2(0f, 3f), 1, owner.transform);
             Fly(projectile);
 
             Assert.AreEqual(3, health.Current);
             Assert.AreSame(owner, source);
+            Assert.AreEqual(DamageKind.Fire, kind, "the Rogue Machine boiler doubles only Fire hits");
         }
 
         [Test]

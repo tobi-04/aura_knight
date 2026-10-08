@@ -14,15 +14,17 @@ namespace AuraKnight.Combat
         public readonly Vector2 Direction;
         /// <summary>Knockback distance in tiles (1 tile = 1 unit).</summary>
         public readonly float KnockbackTiles;
+        public readonly DamageKind Kind;
 
         public DamageInfo(int amount, Team team, GameObject source = null, Vector2 direction = default,
-            float knockbackTiles = Knockback.DefaultTiles)
+            float knockbackTiles = Knockback.DefaultTiles, DamageKind kind = DamageKind.General)
         {
             Amount = amount;
             Team = team;
             Source = source;
             Direction = direction;
             KnockbackTiles = knockbackTiles;
+            Kind = kind;
         }
     }
 }

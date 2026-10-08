@@ -89,7 +89,7 @@ namespace AuraKnight.Tests.PlayMode.Bosses
         }
 
         /// <summary>One-shot player-team strike at a world point; polls synchronously.</summary>
-        public static HitOutcome Strike(Vector2 at, int damage, Vector2 size)
+        public static HitOutcome Strike(Vector2 at, int damage, Vector2 size, DamageKind kind = DamageKind.General)
         {
             var go = new GameObject("Strike");
             go.transform.position = at;
@@ -99,6 +99,7 @@ namespace AuraKnight.Tests.PlayMode.Bosses
             var hitbox = go.AddComponent<Hitbox>();
             hitbox.Team = Team.Player;
             hitbox.AutoPoll = false;
+            hitbox.Kind = kind;
             var outcome = HitOutcome.Ignored;
             hitbox.Hit += report => outcome = report.Outcome;
             hitbox.Activate(damage, Vector2.right);

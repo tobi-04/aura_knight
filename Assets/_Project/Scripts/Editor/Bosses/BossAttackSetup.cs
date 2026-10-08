@@ -68,6 +68,7 @@ namespace AuraKnight.Editor
         {
             var machine = (RogueMachineBoss)boss;
             var boiler = BossPrefabBuilder.AddWeakPoint(boss.transform, "BoilerWeakPoint", new Vector2(1f, 1.9f), new Vector2(1.6f, 1.6f), 2f, health);
+            PlayerGeneratorUtil.SetBool(boiler, "fireOnly", true); // GDD 7.4: the Fireball into the boiler deals x2
             PlayerGeneratorUtil.SetReference(machine, "boiler", boiler);
             var pistons = Add<PistonAttack>(at, "Pistons", 0.8f, 0.5f, 1.0f, 1, 2);
             var wide = Add<PistonAttack>(at, "Pistons5", 0.8f, 0.5f, 1.0f, 1, 2);

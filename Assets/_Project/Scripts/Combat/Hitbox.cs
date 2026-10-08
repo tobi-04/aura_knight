@@ -64,6 +64,8 @@ namespace AuraKnight.Combat
         /// <summary>Attacker root reported as DamageInfo.Source (e.g. the player for a fireball); null = this transform's root.</summary>
         public Transform Source { get => source; set => source = value; }
         public int Damage { get => damage; set => damage = Mathf.Max(0, value); }
+        /// <summary>Reported as DamageInfo.Kind (the Fireball sets Fire).</summary>
+        public DamageKind Kind { get; set; } = DamageKind.General;
         public float RearmInterval { get => rearmInterval; set => rearmInterval = Mathf.Max(0f, value); }
 
         void Awake() => ApplyLayer();
@@ -161,7 +163,7 @@ namespace AuraKnight.Combat
             if (direction == Vector2.zero)
                 direction = ((Vector2)target.transform.position - (Vector2)transform.position).normalized;
             var owner = source != null ? source : transform.root;
-            return new DamageInfo(_amount, team, owner.gameObject, direction, knockbackTiles);
+            return new DamageInfo(_amount, team, owner.gameObject, direction, knockbackTiles, Kind);
         }
     }
 }
