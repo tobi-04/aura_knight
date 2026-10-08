@@ -5,7 +5,7 @@ HÌNH ẢNH
 ART LICENCES
 
 This repository is public, so only CC0 or project-owned art is allowed. Every file under Characters/, Enemies/, Bosses/,
-Tilesets/, Backgrounds/ is listed here (UI, Fonts and KeyArt are tracked by the UI work).
+Tilesets/, Backgrounds/, UI/ and KeyArt/ is listed here (fonts: see Fonts/LICENSES.md).
 
 THIRD-PARTY (CC0)
 
@@ -30,8 +30,15 @@ Bosses/RootTree, GiantStoneSpider, RogueMachine, Malakor  -  Drawn from scratch 
 Tilesets/<Region> (Hub, Forest, Cave, City, Castle)  -  3x3 ground and wall, platform, spikes  -  gen_tilesets.py  -  generated, project-owned
 Backgrounds/<Region>  -  4 parallax layers each (Bg, Mid, Back, Fg), 640x360, tile horizontally  -  gen_backgrounds.py  -  generated, project-owned
 Presets/Sprite_Pixel32_Template.png  -  4x4 white square used to author the import preset  -  Pixel32Importer.cs  -  generated, project-owned
+UI/ui-heart.png, ui-sun.png, ui-white.png, ui-gradient-left.png, ui-disc.png, ui-ring.png  -  HUD heart, sun coin, white pixel, left fade, disc and ring, drawn pixel by pixel in code  -  Scripts/Editor/UI/UiSpriteGenerator.cs (Aura/UI/Generate All)  -  generated, project-owned
 
-Key art (docs/reference/NỀN TẢNG Mobile.pdf) is project-owned concept art; it is not used in gameplay sprites.
+KEY ART (TEAM-PROVIDED, CONFIRMED 2026-10-08)
+
+Files  -  Source  -  Licence
+KeyArt/key-art-hero-moon.jpg, key-art-aura-wind.jpg, key-art-aura-fire.jpg, key-art-aura-water.jpg  -  Images extracted with pdfimages from the team's design deck docs/reference/NỀN TẢNG Mobile.pdf (phase 10 report)  -  Project team material: the project owner confirmed on 2026-10-08 that the team owns or is permitted to use this art in the project and the public repository. Not CC0: do not reuse outside Aura Knight
+
+Key art is used for the Main Menu and Aura popups only, never in gameplay sprites (UiAssetPaths.HeroArt / AuraArt and
+UiSpriteGenerator.ConfigureKeyArt are the only code references).
 
 NOT ART-LICENSED FILES
 
@@ -51,7 +58,12 @@ IBMPlexMono-Bold.ttf, IBMPlexMono-Regular.ttf  -  IBM Plex Mono, labels and numb
 BeVietnamPro-Regular.ttf  -  Be Vietnam Pro, body  -  Copyright 2021 The Be Vietnam Pro Project Authors
 BarlowCondensed-Bold.ttf  -  Barlow Condensed Bold, HUD numbers  -  Copyright 2017 The Barlow Project Authors
 
-Key art in Art/KeyArt is extracted from the team's own design deck (docs/reference/NỀN TẢNG Mobile.pdf) and is placeholder concept art.
+UNITY TEXTMESHPRO DEFAULT FONT
+
+File  -  Role  -  Licence
+Assets/TextMesh Pro/Fonts/LiberationSans.ttf (+ LiberationSans SDF assets in TextMesh Pro/Resources)  -  Default TMP font and fallback, imported by Unity's TMP Essential Resources  -  SIL OFL 1.1. Copyright (c) 2010 Google Corporation (digitized data, Arimo/Tinos/Cousine) and (c) 2012 Red Hat, Inc., Reserved Font Name "Liberation". Licence text shipped next to the font: Assets/TextMesh Pro/Fonts/LiberationSans - OFL.txt
+
+Key art provenance is tracked in Art/LICENSES.md (section "Key art", team-provided, confirmed 2026-10-08).
 
 OFL 1.1 TEXT
 
