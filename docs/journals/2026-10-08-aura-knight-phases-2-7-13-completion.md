@@ -39,3 +39,12 @@ Kết quả: EditMode 964/964, PlayMode 166 pass + 2 skip (test chụp ảnh c�
 - Playtest M1–M3 với người mới (độ khó, 60–90 phút).
 - Keystore nhóm, APK release, video demo.
 - BUG-004: điểm yếu boss nhân đôi mọi sát thương. Chưa có hộp xác nhận New Game. Chưa có `LICENSE` gốc; quyền đăng PDF spec của giảng viên chưa xác nhận.
+
+## Bổ sung: sửa lỗi nhỏ (f815f59..ca76c43)
+
+- BUG-004: thêm `DamageKind` vào `DamageInfo`; lò hơi Cỗ Máy chỉ x2 với Cầu Lửa (`WeakPointHurtbox.fireOnly`). Lõi Gốc Cây Mục vẫn x2 mọi đòn, chờ nhóm quyết.
+- New Game có hộp xác nhận khi đã có save (`ConfirmDialog`). Ảnh chụp đầu tiên cho thấy nút (to ra do `MinTouchTarget` theo dpi) che dòng giải thích; nới khung 620 → 780 rồi chụp lại mới ổn. Bài học cũ lặp lại: test pass không nói gì về bố cục, phải nhìn ảnh.
+- Reviewer bắt được: không test nào chứng minh Cầu Lửa thật mang `Kind = Fire`, xóa dòng đó test vẫn xanh. Đã thêm assert vào `FireballReviewTests`.
+- Chạy generator làm xáo fileID ở ~60 prefab/scene và atlas font động; chỉ giữ file có thay đổi thật, prefab menu tách commit riêng.
+- `LICENSE` MIT chỉ cho code; art, audio, font, `docs/reference/` theo file LICENSES riêng.
+- Kết quả: EditMode 968/968, PlayMode 167 + 2 skip, review 9/10, evidence gate SEALED.
