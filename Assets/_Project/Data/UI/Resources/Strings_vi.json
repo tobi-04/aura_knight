@@ -85,6 +85,26 @@
    "value": "GIỚI THIỆU"
   },
   {
+   "key": "confirm.label",
+   "value": "XÁC NHẬN"
+  },
+  {
+   "key": "confirm.new_game.title",
+   "value": "Bắt đầu lại?"
+  },
+  {
+   "key": "confirm.new_game.body",
+   "value": "Trò chơi mới sẽ thay thế tiến trình đã lưu khi Leo chạm bàn thờ đầu tiên."
+  },
+  {
+   "key": "confirm.yes",
+   "value": "BẮT ĐẦU"
+  },
+  {
+   "key": "confirm.no",
+   "value": "HỦY"
+  },
+  {
    "key": "intro.label",
    "value": "CỐT TRUYỆN"
   },

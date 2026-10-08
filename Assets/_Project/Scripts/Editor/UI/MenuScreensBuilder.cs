@@ -31,7 +31,7 @@ namespace AuraKnight.Editor
         }
 
         public static MainMenuScreen MainMenu(Transform canvas, UIRouter router, UIScreen settings, CreditsScreen credits,
-            IntroCutscene intro)
+            IntroCutscene intro, ConfirmDialog confirm)
         {
             var screen = NewScreen<MainMenuScreen>(canvas, "MainMenu", UIColorToken.Night, 1f, true, out var safe);
             var root = (RectTransform)screen.transform;
@@ -49,7 +49,7 @@ namespace AuraKnight.Editor
             var settingsButton = Button(safe, "Settings", "menu.settings", TL, new Vector2(150f, -864f), size);
             var about = Button(safe, "About", "menu.about", TL, new Vector2(660f, -864f), size);
             Footer(safe, "footer.p01");
-            screen.Bind(router, cont, fresh, settingsButton, about, settings, credits, intro);
+            screen.Bind(router, cont, fresh, settingsButton, about, settings, credits, intro, confirm);
             Finish(screen);
             return screen;
         }

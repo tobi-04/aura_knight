@@ -6,7 +6,7 @@ using static AuraKnight.Editor.ScreenParts;
 
 namespace AuraKnight.Editor
 {
-    /// <summary>Boss intro banner, Game Over, Loading cover and the Credits/Ending screen.</summary>
+    /// <summary>Boss intro banner, Game Over, Loading cover, the New Game confirmation and the Credits/Ending screen.</summary>
     static class OverlayScreensBuilder
     {
         public static BossIntroBanner BossBanner(Transform canvas)
@@ -32,6 +32,26 @@ namespace AuraKnight.Editor
             Bar(safe, "Line", UIColorToken.Gold, C, new Vector2(0f, -70f), new Vector2(360f, 6f), true);
             Text(safe, "Respawn", "gameover.respawn", UIFontRole.Mono, UIColorToken.Gold, 44f, C, new Vector2(0f, -150f), new Vector2(1200f, 70f),
                 TextAlignmentOptions.Center);
+            Finish(screen);
+            return screen;
+        }
+
+        /// <summary>Centred Yes/No plate over a dimmed screen ("Bắt đầu lại?" before New Game overwrites a save).</summary>
+        public static ConfirmDialog ConfirmNewGame(Transform canvas, UIRouter router)
+        {
+            var screen = NewScreen<ConfirmDialog>(canvas, "ConfirmNewGame", UIColorToken.Night, 0.85f, true, out var safe);
+            var plate = UiFactory.Panel(safe, "Plate", UIColorToken.Panel);
+            UiFactory.Place(plate.rectTransform, C, Vector2.zero, new Vector2(1240f, 780f));
+            Bar(plate.transform, "Accent", UIColorToken.Gold, TL, new Vector2(56f, -56f), new Vector2(6f, 276f));
+            Text(plate.transform, "Label", "confirm.label", UIFontRole.Mono, UIColorToken.Gold, 34f, TL, new Vector2(96f, -56f), new Vector2(1000f, 46f));
+            Text(plate.transform, "Title", "confirm.new_game.title", UIFontRole.Display, UIColorToken.TextPrimary, 92f, TL, new Vector2(96f, -100f),
+                new Vector2(1080f, 110f)).GetComponent<ThemedText>().SetUppercase(false);
+            Text(plate.transform, "Body", "confirm.new_game.body", UIFontRole.Body, UIColorToken.TextMuted, 40f, TL, new Vector2(96f, -222f),
+                new Vector2(1060f, 110f)); // buttons may grow to 64 dp (MinTouchTarget): keep ~440 units clear below
+            var size = new Vector2(500f, ButtonHeight);
+            var cancel = Button(plate.transform, "Cancel", "confirm.no", BL, new Vector2(96f, 56f), size, true);
+            var yes = Button(plate.transform, "Confirm", "confirm.yes", BR, new Vector2(-96f, 56f), size);
+            screen.Bind(router, yes, cancel);
             Finish(screen);
             return screen;
         }

@@ -52,7 +52,9 @@ namespace AuraKnight.Editor
                 var settings = PauseSettingsBuilder.Settings(canvas, router);
                 var credits = OverlayScreensBuilder.Credits(canvas, router, false);
                 var intro = MenuScreensBuilder.Intro(canvas);
-                var menu = MenuScreensBuilder.MainMenu(canvas, router, settings, credits, intro);
+                var confirm = OverlayScreensBuilder.ConfirmNewGame(canvas, router);
+                var menu = MenuScreensBuilder.MainMenu(canvas, router, settings, credits, intro, confirm);
+                confirm.transform.SetAsLastSibling(); // drawn above the menu it covers
                 var splash = MenuScreensBuilder.Splash(canvas, out _);
                 flow.Bind(router, splash, menu);
                 PrefabUtility.SaveAsPrefabAsset(root, UiAssetPaths.MenuScreensPrefab);

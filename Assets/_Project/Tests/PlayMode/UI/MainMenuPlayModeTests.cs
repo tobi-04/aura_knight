@@ -121,7 +121,7 @@ namespace AuraKnight.Tests.PlayMode.UI
             yield return ShowMenu();
             var menu = Find<MainMenuScreen>();
             bool? launched = null;
-            menu.UseHooks(() => true, newGame => launched = newGame);
+            menu.UseHooks(() => false, newGame => launched = newGame); // no save: nothing to confirm
             ButtonOf(menu, "NewGame").onClick.Invoke();
             var intro = Find<IntroCutscene>();
             Assert.IsTrue(intro.IsVisible);
@@ -133,11 +133,43 @@ namespace AuraKnight.Tests.PlayMode.UI
         }
 
         [UnityTest]
+        public IEnumerator NewGameOverASaveAsksFirstAndCancelKeepsTheMenu()
+        {
+            yield return ShowMenu();
+            var router = UIRouter.Instance;
+            var menu = Find<MainMenuScreen>();
+            bool? launched = null;
+            menu.UseHooks(() => true, newGame => launched = newGame);
+            ButtonOf(menu, "NewGame").onClick.Invoke();
+            var confirm = Find<ConfirmDialog>();
+            Assert.IsTrue(router.Top is ConfirmDialog, "a save exists: ask before starting over");
+            Assert.IsFalse(Find<IntroCutscene>().IsVisible);
+            ButtonOf(confirm, "Cancel").onClick.Invoke();
+            Assert.IsTrue(router.Top is MainMenuScreen);
+            Assert.AreEqual(1, router.Depth);
+            Assert.IsNull(launched);
+
+            ButtonOf(menu, "NewGame").onClick.Invoke();
+            router.Back(); // Android Back is a cancel too
+            Assert.IsTrue(router.Top is MainMenuScreen);
+            Assert.IsNull(launched);
+
+            ButtonOf(menu, "NewGame").onClick.Invoke();
+            ButtonOf(confirm, "Confirm").onClick.Invoke();
+            var intro = Find<IntroCutscene>();
+            Assert.IsTrue(router.Top is IntroCutscene, "confirmed: the intro plays");
+            Assert.IsFalse(router.Contains(confirm));
+            yield return null;
+            ButtonOf(intro, "Skip").onClick.Invoke();
+            Assert.AreEqual(true, launched);
+        }
+
+        [UnityTest]
         public IEnumerator IntroTypesAllFourCardsWhenTapped()
         {
             yield return ShowMenu();
             var menu = Find<MainMenuScreen>();
-            menu.UseHooks(() => true, _ => { });
+            menu.UseHooks(() => false, _ => { });
             ButtonOf(menu, "NewGame").onClick.Invoke();
             var intro = Find<IntroCutscene>();
             yield return null;

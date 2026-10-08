@@ -7,7 +7,7 @@ namespace AuraKnight.UI
 {
     /// <summary>
     /// Slide-1 main menu: TIẾP TỤC (disabled without a loadable save) / TRÒ CHƠI MỚI (intro cutscene, then the world) /
-    /// CÀI ĐẶT / GIỚI THIỆU. Back on the root menu quits (Android convention).
+    /// CÀI ĐẶT / GIỚI THIỆU. With a save present, New Game asks for confirmation first. Back on the root menu quits (Android convention).
     /// </summary>
     public sealed class MainMenuScreen : UIScreen
     {
@@ -16,6 +16,7 @@ namespace AuraKnight.UI
         [SerializeField] UIScreen settings;
         [SerializeField] CreditsScreen credits;
         [SerializeField] IntroCutscene intro;
+        [SerializeField] ConfirmDialog confirm;
 
         Func<bool> saveProbe = () => new SaveSystem().HasSave;
         Action<bool> launch = newGame => GameLauncher.Begin(newGame);
@@ -23,7 +24,7 @@ namespace AuraKnight.UI
         public bool ContinueEnabled => continueButton != null && continueButton.interactable;
 
         public void Bind(UIRouter uiRouter, UIButton cont, UIButton newGame, UIButton settingsBtn, UIButton about,
-            UIScreen settingsScreen, CreditsScreen creditsScreen, IntroCutscene introCutscene)
+            UIScreen settingsScreen, CreditsScreen creditsScreen, IntroCutscene introCutscene, ConfirmDialog confirmDialog)
         {
             router = uiRouter;
             continueButton = cont;
@@ -33,6 +34,7 @@ namespace AuraKnight.UI
             settings = settingsScreen;
             credits = creditsScreen;
             intro = introCutscene;
+            confirm = confirmDialog;
         }
 
         /// <summary>Test seam: replaces the save check and the scene launch.</summary>
@@ -61,11 +63,22 @@ namespace AuraKnight.UI
 
         void StartNewGame()
         {
+            if (confirm != null && saveProbe())
+            {
+                confirm.Ask(yes => { if (yes) PlayIntroThenLaunch(); });
+                return;
+            }
+            PlayIntroThenLaunch();
+        }
+
+        void PlayIntroThenLaunch()
+        {
             if (intro == null)
             {
                 launch(true);
                 return;
             }
+            intro.Completed -= OnIntroCompleted; // two taps in one frame must not launch twice
             intro.Completed += OnIntroCompleted;
             router.Push(intro, true);
         }
@@ -79,6 +92,7 @@ namespace AuraKnight.UI
         public override bool HandleBack()
         {
             if (router != null && router.Depth > 1) return false;
+            if (confirm != null && confirm.IsTransitioning) return true; // the dialog is still closing: a quick second Back must not quit
             Application.Quit();
             return true;
         }
